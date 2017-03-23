@@ -19,10 +19,11 @@
 		71D05F321E82713D004CBE04 /* UIViewController+Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F311E82713D004CBE04 /* UIViewController+Transition.m */; };
 		71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F361E827B6D004CBE04 /* JYDateFormatter.m */; };
 		71F432091E8358AB009AA864 /* JYFatherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432081E8358AB009AA864 /* JYFatherController.m */; };
-		71F4320C1E835940009AA864 /* JYFinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4320B1E835940009AA864 /* JYFinanceViewController.m */; };
-		71F4320F1E83597A009AA864 /* JYLoanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4320E1E83597A009AA864 /* JYLoanViewController.m */; };
-		71F432121E8359A2009AA864 /* JYPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432111E8359A2009AA864 /* JYPersonViewController.m */; };
 		71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432181E83710F009AA864 /* UIImage+Addition.m */; };
+		71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432231E8392AF009AA864 /* JYFinanceViewController.m */; };
+		71F432271E8392AF009AA864 /* JYMessageVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432251E8392AF009AA864 /* JYMessageVController.m */; };
+		71F4322D1E83932E009AA864 /* JYLoanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4322A1E83932E009AA864 /* JYLoanViewController.m */; };
+		71F432331E839337009AA864 /* JYPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432301E839337009AA864 /* JYPersonViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,17 +68,19 @@
 		71D05F361E827B6D004CBE04 /* JYDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYDateFormatter.m; sourceTree = "<group>"; };
 		71F432071E8358AB009AA864 /* JYFatherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFatherController.h; sourceTree = "<group>"; };
 		71F432081E8358AB009AA864 /* JYFatherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFatherController.m; sourceTree = "<group>"; };
-		71F4320A1E835940009AA864 /* JYFinanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFinanceViewController.h; sourceTree = "<group>"; };
-		71F4320B1E835940009AA864 /* JYFinanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFinanceViewController.m; sourceTree = "<group>"; };
-		71F4320D1E83597A009AA864 /* JYLoanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYLoanViewController.h; sourceTree = "<group>"; };
-		71F4320E1E83597A009AA864 /* JYLoanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYLoanViewController.m; sourceTree = "<group>"; };
-		71F432101E8359A2009AA864 /* JYPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPersonViewController.h; sourceTree = "<group>"; };
-		71F432111E8359A2009AA864 /* JYPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPersonViewController.m; sourceTree = "<group>"; };
 		71F432151E8368C9009AA864 /* PreHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreHeader.pch; sourceTree = "<group>"; };
 		71F432161E836914009AA864 /* JYDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYDefine.h; sourceTree = "<group>"; };
 		71F432171E83710F009AA864 /* UIImage+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Addition.h"; sourceTree = "<group>"; };
 		71F432181E83710F009AA864 /* UIImage+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
 		71F4321A1E83715D009AA864 /* JYCategoryHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYCategoryHeader.h; sourceTree = "<group>"; };
+		71F432221E8392AF009AA864 /* JYFinanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFinanceViewController.h; sourceTree = "<group>"; };
+		71F432231E8392AF009AA864 /* JYFinanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFinanceViewController.m; sourceTree = "<group>"; };
+		71F432241E8392AF009AA864 /* JYMessageVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYMessageVController.h; sourceTree = "<group>"; };
+		71F432251E8392AF009AA864 /* JYMessageVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYMessageVController.m; sourceTree = "<group>"; };
+		71F432291E83932E009AA864 /* JYLoanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYLoanViewController.h; sourceTree = "<group>"; };
+		71F4322A1E83932E009AA864 /* JYLoanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYLoanViewController.m; sourceTree = "<group>"; };
+		71F4322F1E839337009AA864 /* JYPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPersonViewController.h; sourceTree = "<group>"; };
+		71F432301E839337009AA864 /* JYPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPersonViewController.m; sourceTree = "<group>"; };
 		A02F385D21AC94E829F9D34B /* Pods-JiaYinDai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.release.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.release.xcconfig"; sourceTree = "<group>"; };
 		EE06AE40D6B1E2F7A362719E /* Pods-JiaYinDai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -230,8 +233,9 @@
 		71F432041E835833009AA864 /* Finance(理财) */ = {
 			isa = PBXGroup;
 			children = (
-				71F4320A1E835940009AA864 /* JYFinanceViewController.h */,
-				71F4320B1E835940009AA864 /* JYFinanceViewController.m */,
+				71F4321F1E8392AF009AA864 /* View */,
+				71F432201E8392AF009AA864 /* Model */,
+				71F432211E8392AF009AA864 /* Controller */,
 			);
 			path = "Finance(理财)";
 			sourceTree = "<group>";
@@ -239,8 +243,9 @@
 		71F432051E835833009AA864 /* Loan(借贷) */ = {
 			isa = PBXGroup;
 			children = (
-				71F4320D1E83597A009AA864 /* JYLoanViewController.h */,
-				71F4320E1E83597A009AA864 /* JYLoanViewController.m */,
+				71F432281E83932E009AA864 /* Controller */,
+				71F4322B1E83932E009AA864 /* View */,
+				71F4322C1E83932E009AA864 /* Model */,
 			);
 			path = "Loan(借贷)";
 			sourceTree = "<group>";
@@ -248,8 +253,9 @@
 		71F432061E835833009AA864 /* Person(我的) */ = {
 			isa = PBXGroup;
 			children = (
-				71F432101E8359A2009AA864 /* JYPersonViewController.h */,
-				71F432111E8359A2009AA864 /* JYPersonViewController.m */,
+				71F4322E1E839337009AA864 /* Controller */,
+				71F432311E839337009AA864 /* View */,
+				71F432321E839337009AA864 /* Model */,
 			);
 			path = "Person(我的)";
 			sourceTree = "<group>";
@@ -261,6 +267,77 @@
 				71F432161E836914009AA864 /* JYDefine.h */,
 			);
 			path = JYConfiguration;
+			sourceTree = "<group>";
+		};
+		71F4321F1E8392AF009AA864 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		71F432201E8392AF009AA864 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		71F432211E8392AF009AA864 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				71F432221E8392AF009AA864 /* JYFinanceViewController.h */,
+				71F432231E8392AF009AA864 /* JYFinanceViewController.m */,
+				71F432241E8392AF009AA864 /* JYMessageVController.h */,
+				71F432251E8392AF009AA864 /* JYMessageVController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		71F432281E83932E009AA864 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				71F432291E83932E009AA864 /* JYLoanViewController.h */,
+				71F4322A1E83932E009AA864 /* JYLoanViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		71F4322B1E83932E009AA864 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		71F4322C1E83932E009AA864 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		71F4322E1E839337009AA864 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				71F4322F1E839337009AA864 /* JYPersonViewController.h */,
+				71F432301E839337009AA864 /* JYPersonViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		71F432311E839337009AA864 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		71F432321E839337009AA864 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -446,17 +523,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71F432331E839337009AA864 /* JYPersonViewController.m in Sources */,
 				71D05F2F1E826EAD004CBE04 /* UINavigationController+swizzle.m in Sources */,
 				71F432091E8358AB009AA864 /* JYFatherController.m in Sources */,
-				71F4320C1E835940009AA864 /* JYFinanceViewController.m in Sources */,
 				71D05F321E82713D004CBE04 /* UIViewController+Transition.m in Sources */,
 				71D05EEF1E826134004CBE04 /* AppDelegate.m in Sources */,
 				71D05EEC1E826134004CBE04 /* main.m in Sources */,
 				71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */,
+				71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */,
 				71D05F291E82667A004CBE04 /* JYTabBarController.m in Sources */,
+				71F4322D1E83932E009AA864 /* JYLoanViewController.m in Sources */,
 				71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */,
-				71F432121E8359A2009AA864 /* JYPersonViewController.m in Sources */,
-				71F4320F1E83597A009AA864 /* JYLoanViewController.m in Sources */,
+				71F432271E8392AF009AA864 /* JYMessageVController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

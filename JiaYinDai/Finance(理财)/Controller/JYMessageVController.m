@@ -1,26 +1,23 @@
 //
-//  JYLoanViewController.m
+//  JYMessageVController.m
 //  JiaYinDai
 //
 //  Created by 吴孔亮 on 2017/3/23.
 //  Copyright © 2017年 嘉远控股. All rights reserved.
 //
 
-#import "JYLoanViewController.h"
+#import "JYMessageVController.h"
 
-@interface JYLoanViewController ()
+@interface JYMessageVController ()
 
 @end
 
-@implementation JYLoanViewController
+@implementation JYMessageVController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.navigationItem.leftBarButtonItems = nil ;
-
-    
- 
+    self.title = @"我的消息" ;
 }
 
 - (void)didReceiveMemoryWarning {

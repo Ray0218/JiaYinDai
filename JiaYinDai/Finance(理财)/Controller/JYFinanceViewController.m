@@ -7,7 +7,7 @@
 //
 
 #import "JYFinanceViewController.h"
-#import "JYLoanViewController.h"
+#import "JYMessageVController.h"
 
 @interface JYFinanceViewController ()
 
@@ -33,7 +33,7 @@
 #pragma mark - action
 
 -(void)pvt_clickButtonNavRight {
-    JYLoanViewController *cv = [[JYLoanViewController alloc]init];
+    JYMessageVController *cv = [[JYMessageVController alloc]init];
     [self.navigationController pushViewController:cv animated:YES];
     
 }
