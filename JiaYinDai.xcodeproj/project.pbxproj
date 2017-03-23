@@ -7,14 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AA86B09433753128AE13DB7 /* libPods-JiaYinDai.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C0827444CFB57F4327A4C1 /* libPods-JiaYinDai.a */; };
 		71D05EEC1E826134004CBE04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05EEB1E826134004CBE04 /* main.m */; };
 		71D05EEF1E826134004CBE04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05EEE1E826134004CBE04 /* AppDelegate.m */; };
-		71D05EF21E826134004CBE04 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05EF11E826134004CBE04 /* ViewController.m */; };
-		71D05EF51E826134004CBE04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71D05EF31E826134004CBE04 /* Main.storyboard */; };
 		71D05EF71E826134004CBE04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D05EF61E826134004CBE04 /* Assets.xcassets */; };
 		71D05EFA1E826134004CBE04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71D05EF81E826134004CBE04 /* LaunchScreen.storyboard */; };
 		71D05F051E826134004CBE04 /* JiaYinDaiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F041E826134004CBE04 /* JiaYinDaiTests.m */; };
 		71D05F101E826134004CBE04 /* JiaYinDaiUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F0F1E826134004CBE04 /* JiaYinDaiUITests.m */; };
+		71D05F291E82667A004CBE04 /* JYTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F281E82667A004CBE04 /* JYTabBarController.m */; };
+		71D05F2F1E826EAD004CBE04 /* UINavigationController+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F2E1E826EAD004CBE04 /* UINavigationController+swizzle.m */; };
+		71D05F321E82713D004CBE04 /* UIViewController+Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F311E82713D004CBE04 /* UIViewController+Transition.m */; };
+		71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F361E827B6D004CBE04 /* JYDateFormatter.m */; };
+		71F432091E8358AB009AA864 /* JYFatherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432081E8358AB009AA864 /* JYFatherController.m */; };
+		71F4320C1E835940009AA864 /* JYFinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4320B1E835940009AA864 /* JYFinanceViewController.m */; };
+		71F4320F1E83597A009AA864 /* JYLoanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4320E1E83597A009AA864 /* JYLoanViewController.m */; };
+		71F432121E8359A2009AA864 /* JYPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432111E8359A2009AA864 /* JYPersonViewController.m */; };
+		71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432181E83710F009AA864 /* UIImage+Addition.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,13 +43,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08C0827444CFB57F4327A4C1 /* libPods-JiaYinDai.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JiaYinDai.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D05EE71E826134004CBE04 /* JiaYinDai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JiaYinDai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D05EEB1E826134004CBE04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		71D05EED1E826134004CBE04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		71D05EEE1E826134004CBE04 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		71D05EF01E826134004CBE04 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		71D05EF11E826134004CBE04 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		71D05EF41E826134004CBE04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		71D05EF61E826134004CBE04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		71D05EF91E826134004CBE04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		71D05EFB1E826134004CBE04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +57,29 @@
 		71D05F0B1E826134004CBE04 /* JiaYinDaiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JiaYinDaiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D05F0F1E826134004CBE04 /* JiaYinDaiUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JiaYinDaiUITests.m; sourceTree = "<group>"; };
 		71D05F111E826134004CBE04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71D05F271E82667A004CBE04 /* JYTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYTabBarController.h; sourceTree = "<group>"; };
+		71D05F281E82667A004CBE04 /* JYTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYTabBarController.m; sourceTree = "<group>"; };
+		71D05F2D1E826EAD004CBE04 /* UINavigationController+swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+swizzle.h"; sourceTree = "<group>"; };
+		71D05F2E1E826EAD004CBE04 /* UINavigationController+swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+swizzle.m"; sourceTree = "<group>"; };
+		71D05F301E82713D004CBE04 /* UIViewController+Transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Transition.h"; sourceTree = "<group>"; };
+		71D05F311E82713D004CBE04 /* UIViewController+Transition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Transition.m"; sourceTree = "<group>"; };
+		71D05F351E827B6D004CBE04 /* JYDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYDateFormatter.h; sourceTree = "<group>"; };
+		71D05F361E827B6D004CBE04 /* JYDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYDateFormatter.m; sourceTree = "<group>"; };
+		71F432071E8358AB009AA864 /* JYFatherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFatherController.h; sourceTree = "<group>"; };
+		71F432081E8358AB009AA864 /* JYFatherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFatherController.m; sourceTree = "<group>"; };
+		71F4320A1E835940009AA864 /* JYFinanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFinanceViewController.h; sourceTree = "<group>"; };
+		71F4320B1E835940009AA864 /* JYFinanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFinanceViewController.m; sourceTree = "<group>"; };
+		71F4320D1E83597A009AA864 /* JYLoanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYLoanViewController.h; sourceTree = "<group>"; };
+		71F4320E1E83597A009AA864 /* JYLoanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYLoanViewController.m; sourceTree = "<group>"; };
+		71F432101E8359A2009AA864 /* JYPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPersonViewController.h; sourceTree = "<group>"; };
+		71F432111E8359A2009AA864 /* JYPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPersonViewController.m; sourceTree = "<group>"; };
+		71F432151E8368C9009AA864 /* PreHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreHeader.pch; sourceTree = "<group>"; };
+		71F432161E836914009AA864 /* JYDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYDefine.h; sourceTree = "<group>"; };
+		71F432171E83710F009AA864 /* UIImage+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Addition.h"; sourceTree = "<group>"; };
+		71F432181E83710F009AA864 /* UIImage+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
+		71F4321A1E83715D009AA864 /* JYCategoryHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYCategoryHeader.h; sourceTree = "<group>"; };
+		A02F385D21AC94E829F9D34B /* Pods-JiaYinDai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.release.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.release.xcconfig"; sourceTree = "<group>"; };
+		EE06AE40D6B1E2F7A362719E /* Pods-JiaYinDai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AA86B09433753128AE13DB7 /* libPods-JiaYinDai.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +108,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		353CBE192D2BD6E78A6176FF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				08C0827444CFB57F4327A4C1 /* libPods-JiaYinDai.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		508338DE4FB26C22BEC6578B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EE06AE40D6B1E2F7A362719E /* Pods-JiaYinDai.debug.xcconfig */,
+				A02F385D21AC94E829F9D34B /* Pods-JiaYinDai.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		71D05EDE1E826134004CBE04 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +132,8 @@
 				71D05F031E826134004CBE04 /* JiaYinDaiTests */,
 				71D05F0E1E826134004CBE04 /* JiaYinDaiUITests */,
 				71D05EE81E826134004CBE04 /* Products */,
+				508338DE4FB26C22BEC6578B /* Pods */,
+				353CBE192D2BD6E78A6176FF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,11 +150,15 @@
 		71D05EE91E826134004CBE04 /* JiaYinDai */ = {
 			isa = PBXGroup;
 			children = (
+				71F432141E8368AF009AA864 /* JYConfiguration */,
+				71F432041E835833009AA864 /* Finance(理财) */,
+				71F432051E835833009AA864 /* Loan(借贷) */,
+				71F432061E835833009AA864 /* Person(我的) */,
+				71D05F341E827B3B004CBE04 /* Tools(工具类) */,
+				71D05F2C1E826E69004CBE04 /* JYCategory */,
+				71D05F261E82667A004CBE04 /* BaseClass */,
 				71D05EED1E826134004CBE04 /* AppDelegate.h */,
 				71D05EEE1E826134004CBE04 /* AppDelegate.m */,
-				71D05EF01E826134004CBE04 /* ViewController.h */,
-				71D05EF11E826134004CBE04 /* ViewController.m */,
-				71D05EF31E826134004CBE04 /* Main.storyboard */,
 				71D05EF61E826134004CBE04 /* Assets.xcassets */,
 				71D05EF81E826134004CBE04 /* LaunchScreen.storyboard */,
 				71D05EFB1E826134004CBE04 /* Info.plist */,
@@ -140,6 +193,76 @@
 			path = JiaYinDaiUITests;
 			sourceTree = "<group>";
 		};
+		71D05F261E82667A004CBE04 /* BaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				71D05F271E82667A004CBE04 /* JYTabBarController.h */,
+				71D05F281E82667A004CBE04 /* JYTabBarController.m */,
+				71F432071E8358AB009AA864 /* JYFatherController.h */,
+				71F432081E8358AB009AA864 /* JYFatherController.m */,
+			);
+			path = BaseClass;
+			sourceTree = "<group>";
+		};
+		71D05F2C1E826E69004CBE04 /* JYCategory */ = {
+			isa = PBXGroup;
+			children = (
+				71D05F2D1E826EAD004CBE04 /* UINavigationController+swizzle.h */,
+				71D05F2E1E826EAD004CBE04 /* UINavigationController+swizzle.m */,
+				71D05F301E82713D004CBE04 /* UIViewController+Transition.h */,
+				71D05F311E82713D004CBE04 /* UIViewController+Transition.m */,
+				71F432171E83710F009AA864 /* UIImage+Addition.h */,
+				71F432181E83710F009AA864 /* UIImage+Addition.m */,
+				71F4321A1E83715D009AA864 /* JYCategoryHeader.h */,
+			);
+			path = JYCategory;
+			sourceTree = "<group>";
+		};
+		71D05F341E827B3B004CBE04 /* Tools(工具类) */ = {
+			isa = PBXGroup;
+			children = (
+				71D05F351E827B6D004CBE04 /* JYDateFormatter.h */,
+				71D05F361E827B6D004CBE04 /* JYDateFormatter.m */,
+			);
+			path = "Tools(工具类)";
+			sourceTree = "<group>";
+		};
+		71F432041E835833009AA864 /* Finance(理财) */ = {
+			isa = PBXGroup;
+			children = (
+				71F4320A1E835940009AA864 /* JYFinanceViewController.h */,
+				71F4320B1E835940009AA864 /* JYFinanceViewController.m */,
+			);
+			path = "Finance(理财)";
+			sourceTree = "<group>";
+		};
+		71F432051E835833009AA864 /* Loan(借贷) */ = {
+			isa = PBXGroup;
+			children = (
+				71F4320D1E83597A009AA864 /* JYLoanViewController.h */,
+				71F4320E1E83597A009AA864 /* JYLoanViewController.m */,
+			);
+			path = "Loan(借贷)";
+			sourceTree = "<group>";
+		};
+		71F432061E835833009AA864 /* Person(我的) */ = {
+			isa = PBXGroup;
+			children = (
+				71F432101E8359A2009AA864 /* JYPersonViewController.h */,
+				71F432111E8359A2009AA864 /* JYPersonViewController.m */,
+			);
+			path = "Person(我的)";
+			sourceTree = "<group>";
+		};
+		71F432141E8368AF009AA864 /* JYConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				71F432151E8368C9009AA864 /* PreHeader.pch */,
+				71F432161E836914009AA864 /* JYDefine.h */,
+			);
+			path = JYConfiguration;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +270,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71D05F141E826134004CBE04 /* Build configuration list for PBXNativeTarget "JiaYinDai" */;
 			buildPhases = (
+				51257723FDF5EBA3020180F6 /* [CP] Check Pods Manifest.lock */,
 				71D05EE31E826134004CBE04 /* Sources */,
 				71D05EE41E826134004CBE04 /* Frameworks */,
 				71D05EE51E826134004CBE04 /* Resources */,
+				F8028C7FD28295F79AF7F0DC /* [CP] Embed Pods Frameworks */,
+				E53F4EB1009891A36653B10A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -248,7 +374,6 @@
 			files = (
 				71D05EFA1E826134004CBE04 /* LaunchScreen.storyboard in Resources */,
 				71D05EF71E826134004CBE04 /* Assets.xcassets in Resources */,
-				71D05EF51E826134004CBE04 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,14 +393,70 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		51257723FDF5EBA3020180F6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E53F4EB1009891A36653B10A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8028C7FD28295F79AF7F0DC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		71D05EE31E826134004CBE04 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71D05EF21E826134004CBE04 /* ViewController.m in Sources */,
+				71D05F2F1E826EAD004CBE04 /* UINavigationController+swizzle.m in Sources */,
+				71F432091E8358AB009AA864 /* JYFatherController.m in Sources */,
+				71F4320C1E835940009AA864 /* JYFinanceViewController.m in Sources */,
+				71D05F321E82713D004CBE04 /* UIViewController+Transition.m in Sources */,
 				71D05EEF1E826134004CBE04 /* AppDelegate.m in Sources */,
 				71D05EEC1E826134004CBE04 /* main.m in Sources */,
+				71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */,
+				71D05F291E82667A004CBE04 /* JYTabBarController.m in Sources */,
+				71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */,
+				71F432121E8359A2009AA864 /* JYPersonViewController.m in Sources */,
+				71F4320F1E83597A009AA864 /* JYLoanViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,14 +492,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		71D05EF31E826134004CBE04 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				71D05EF41E826134004CBE04 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		71D05EF81E826134004CBE04 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -420,8 +593,11 @@
 		};
 		71D05F151E826134004CBE04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE06AE40D6B1E2F7A362719E /* Pods-JiaYinDai.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/JiaYinDai/JYConfiguration/PreHeader.pch";
 				INFOPLIST_FILE = JiaYinDai/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiayindai.JiaYinDai;
@@ -431,8 +607,11 @@
 		};
 		71D05F161E826134004CBE04 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A02F385D21AC94E829F9D34B /* Pods-JiaYinDai.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/JiaYinDai/JYConfiguration/PreHeader.pch";
 				INFOPLIST_FILE = JiaYinDai/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiayindai.JiaYinDai;
@@ -505,6 +684,7 @@
 				71D05F161E826134004CBE04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		71D05F171E826134004CBE04 /* Build configuration list for PBXNativeTarget "JiaYinDaiTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +693,7 @@
 				71D05F191E826134004CBE04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		71D05F1A1E826134004CBE04 /* Build configuration list for PBXNativeTarget "JiaYinDaiUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +702,7 @@
 				71D05F1C1E826134004CBE04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
