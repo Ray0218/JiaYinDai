@@ -11,5 +11,7 @@
 
 
 #import "UIImage+Addition.h"
+#import "NSString+Extern.h"
+#import "NSDate+Extern.h"
 
 #endif /* JYCategoryHeader_h */

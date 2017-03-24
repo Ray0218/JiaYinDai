@@ -24,6 +24,9 @@
 		71F432271E8392AF009AA864 /* JYMessageVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432251E8392AF009AA864 /* JYMessageVController.m */; };
 		71F4322D1E83932E009AA864 /* JYLoanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4322A1E83932E009AA864 /* JYLoanViewController.m */; };
 		71F432331E839337009AA864 /* JYPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432301E839337009AA864 /* JYPersonViewController.m */; };
+		71F432391E83A4CA009AA864 /* JYNoNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432381E83A4CA009AA864 /* JYNoNetworkManager.m */; };
+		71F4323D1E83B410009AA864 /* NSString+Extern.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4323C1E83B410009AA864 /* NSString+Extern.m */; };
+		71F432401E83CFB8009AA864 /* NSDate+Extern.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4323F1E83CFB8009AA864 /* NSDate+Extern.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,12 @@
 		71F4322A1E83932E009AA864 /* JYLoanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYLoanViewController.m; sourceTree = "<group>"; };
 		71F4322F1E839337009AA864 /* JYPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPersonViewController.h; sourceTree = "<group>"; };
 		71F432301E839337009AA864 /* JYPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPersonViewController.m; sourceTree = "<group>"; };
+		71F432371E83A4CA009AA864 /* JYNoNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYNoNetworkManager.h; sourceTree = "<group>"; };
+		71F432381E83A4CA009AA864 /* JYNoNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYNoNetworkManager.m; sourceTree = "<group>"; };
+		71F4323B1E83B410009AA864 /* NSString+Extern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extern.h"; sourceTree = "<group>"; };
+		71F4323C1E83B410009AA864 /* NSString+Extern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extern.m"; sourceTree = "<group>"; };
+		71F4323E1E83CFB8009AA864 /* NSDate+Extern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extern.h"; sourceTree = "<group>"; };
+		71F4323F1E83CFB8009AA864 /* NSDate+Extern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extern.m"; sourceTree = "<group>"; };
 		A02F385D21AC94E829F9D34B /* Pods-JiaYinDai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.release.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.release.xcconfig"; sourceTree = "<group>"; };
 		EE06AE40D6B1E2F7A362719E /* Pods-JiaYinDai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -217,6 +226,10 @@
 				71F432171E83710F009AA864 /* UIImage+Addition.h */,
 				71F432181E83710F009AA864 /* UIImage+Addition.m */,
 				71F4321A1E83715D009AA864 /* JYCategoryHeader.h */,
+				71F4323B1E83B410009AA864 /* NSString+Extern.h */,
+				71F4323C1E83B410009AA864 /* NSString+Extern.m */,
+				71F4323E1E83CFB8009AA864 /* NSDate+Extern.h */,
+				71F4323F1E83CFB8009AA864 /* NSDate+Extern.m */,
 			);
 			path = JYCategory;
 			sourceTree = "<group>";
@@ -226,6 +239,8 @@
 			children = (
 				71D05F351E827B6D004CBE04 /* JYDateFormatter.h */,
 				71D05F361E827B6D004CBE04 /* JYDateFormatter.m */,
+				71F432371E83A4CA009AA864 /* JYNoNetworkManager.h */,
+				71F432381E83A4CA009AA864 /* JYNoNetworkManager.m */,
 			);
 			path = "Tools(工具类)";
 			sourceTree = "<group>";
@@ -525,12 +540,15 @@
 			files = (
 				71F432331E839337009AA864 /* JYPersonViewController.m in Sources */,
 				71D05F2F1E826EAD004CBE04 /* UINavigationController+swizzle.m in Sources */,
+				71F432391E83A4CA009AA864 /* JYNoNetworkManager.m in Sources */,
 				71F432091E8358AB009AA864 /* JYFatherController.m in Sources */,
 				71D05F321E82713D004CBE04 /* UIViewController+Transition.m in Sources */,
 				71D05EEF1E826134004CBE04 /* AppDelegate.m in Sources */,
 				71D05EEC1E826134004CBE04 /* main.m in Sources */,
 				71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */,
+				71F432401E83CFB8009AA864 /* NSDate+Extern.m in Sources */,
 				71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */,
+				71F4323D1E83B410009AA864 /* NSString+Extern.m in Sources */,
 				71D05F291E82667A004CBE04 /* JYTabBarController.m in Sources */,
 				71F4322D1E83932E009AA864 /* JYLoanViewController.m in Sources */,
 				71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */,
@@ -677,6 +695,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JiaYinDai/JYConfiguration/PreHeader.pch";
 				INFOPLIST_FILE = JiaYinDai/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiayindai.JiaYinDai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -691,6 +710,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JiaYinDai/JYConfiguration/PreHeader.pch";
 				INFOPLIST_FILE = JiaYinDai/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiayindai.JiaYinDai;
 				PRODUCT_NAME = "$(TARGET_NAME)";

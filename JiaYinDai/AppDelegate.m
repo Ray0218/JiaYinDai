@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "JYTabBarController.h"
+#import <AFNetworkReachabilityManager.h>
+#import "JYNoNetworkManager.h"
 
 @interface AppDelegate ()
 
@@ -25,11 +27,64 @@
     
     JYTabBarController *rootVC = [[JYTabBarController alloc]init];
     
-     self.window.rootViewController = rootVC ;
+    self.window.rootViewController = rootVC ;
     
+    
+    [self initNetWork];
     
     return YES;
 }
+
+//网络检测
+- (void)initNetWork {
+    AFNetworkReachabilityManager *afNetworkReachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    
+    [afNetworkReachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi:{
+                NSLog(@"网络已连接") ;
+                UILabel *label = [JYNoNetworkManager shareManager].rNoNetLabel ;
+                if (label.superview) {
+                    
+                    [UIView animateWithDuration:1.0 animations:^{
+                        label.alpha=0.0;
+                        label.frame=CGRectMake(0,20,SCREEN_WIDTH, 30);
+                    } completion:^(BOOL finished) {
+                        [label removeFromSuperview];
+                    }];
+                }
+                
+            }
+                break;
+            case AFNetworkReachabilityStatusNotReachable:{
+                NSLog(@"当前网络不可用") ;
+                
+                UILabel *label = [JYNoNetworkManager shareManager].rNoNetLabel ;
+                
+                if (label.superview) {
+                    break ;
+                }
+                label.frame = CGRectMake(0,20,SCREEN_WIDTH, 30);
+                label.alpha=0.f;
+                [self.window addSubview:label];
+                [UIView animateWithDuration:1.0 animations:^{
+                    label.alpha=1.0;
+                    label.frame=CGRectMake(0,64,SCREEN_WIDTH, 30);
+                }];
+                
+            }
+                break;
+            default:
+                break;
+        }
+    }] ;
+    
+    [afNetworkReachabilityManager startMonitoring];  //开启网络监视器；
+    
+}
+
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
