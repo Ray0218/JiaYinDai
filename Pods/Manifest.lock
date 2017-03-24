@@ -14,8 +14,17 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - JSONModel (1.7.0)
   - Masonry (0.6.4)
   - MJRefresh (1.4.7)
+  - OAStackView (0.1.0)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
@@ -23,18 +32,24 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - JSONModel (~> 1.7.0)
   - Masonry (~> 0.6.3)
   - MJRefresh (~> 1.4.4)
+  - OAStackView (~> 0.1.0)
+  - ReactiveCocoa (~> 2.5)
   - SDWebImage (~> 3.7.2)
   - SSKeychain (~> 1.2.3)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  JSONModel: 840bc0fcffb24b8454d2c026bf26fea454b8e98d
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MJRefresh: 6b140993028fa30f1fcb88e82925a7c7911415cf
+  OAStackView: 76e64242351e2746374b9161a03021cbc19341ff
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
 
-PODFILE CHECKSUM: 227cd7e42325972cd36af3c4cd943325aa14fd41
+PODFILE CHECKSUM: 7c27bb44d39ee3b2eff2aa6208bc70d70d83857b
 
 COCOAPODS: 1.2.0

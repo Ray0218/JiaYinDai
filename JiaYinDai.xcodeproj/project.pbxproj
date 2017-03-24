@@ -18,6 +18,8 @@
 		71D05F2F1E826EAD004CBE04 /* UINavigationController+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F2E1E826EAD004CBE04 /* UINavigationController+swizzle.m */; };
 		71D05F321E82713D004CBE04 /* UIViewController+Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F311E82713D004CBE04 /* UIViewController+Transition.m */; };
 		71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F361E827B6D004CBE04 /* JYDateFormatter.m */; };
+		71DA76491E84F613001C3995 /* JYTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DA76481E84F613001C3995 /* JYTabBar.m */; };
+		71DA764C1E850EF5001C3995 /* JYMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DA764B1E850EF5001C3995 /* JYMessageModel.m */; };
 		71F432091E8358AB009AA864 /* JYFatherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432081E8358AB009AA864 /* JYFatherController.m */; };
 		71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432181E83710F009AA864 /* UIImage+Addition.m */; };
 		71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432231E8392AF009AA864 /* JYFinanceViewController.m */; };
@@ -69,6 +71,10 @@
 		71D05F311E82713D004CBE04 /* UIViewController+Transition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Transition.m"; sourceTree = "<group>"; };
 		71D05F351E827B6D004CBE04 /* JYDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYDateFormatter.h; sourceTree = "<group>"; };
 		71D05F361E827B6D004CBE04 /* JYDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYDateFormatter.m; sourceTree = "<group>"; };
+		71DA76471E84F613001C3995 /* JYTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYTabBar.h; sourceTree = "<group>"; };
+		71DA76481E84F613001C3995 /* JYTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYTabBar.m; sourceTree = "<group>"; };
+		71DA764A1E850EF5001C3995 /* JYMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYMessageModel.h; sourceTree = "<group>"; };
+		71DA764B1E850EF5001C3995 /* JYMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYMessageModel.m; sourceTree = "<group>"; };
 		71F432071E8358AB009AA864 /* JYFatherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFatherController.h; sourceTree = "<group>"; };
 		71F432081E8358AB009AA864 /* JYFatherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFatherController.m; sourceTree = "<group>"; };
 		71F432151E8368C9009AA864 /* PreHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreHeader.pch; sourceTree = "<group>"; };
@@ -287,6 +293,8 @@
 		71F4321F1E8392AF009AA864 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				71DA76471E84F613001C3995 /* JYTabBar.h */,
+				71DA76481E84F613001C3995 /* JYTabBar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -294,6 +302,8 @@
 		71F432201E8392AF009AA864 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				71DA764A1E850EF5001C3995 /* JYMessageModel.h */,
+				71DA764B1E850EF5001C3995 /* JYMessageModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -542,6 +552,7 @@
 				71D05F2F1E826EAD004CBE04 /* UINavigationController+swizzle.m in Sources */,
 				71F432391E83A4CA009AA864 /* JYNoNetworkManager.m in Sources */,
 				71F432091E8358AB009AA864 /* JYFatherController.m in Sources */,
+				71DA76491E84F613001C3995 /* JYTabBar.m in Sources */,
 				71D05F321E82713D004CBE04 /* UIViewController+Transition.m in Sources */,
 				71D05EEF1E826134004CBE04 /* AppDelegate.m in Sources */,
 				71D05EEC1E826134004CBE04 /* main.m in Sources */,
@@ -552,6 +563,7 @@
 				71D05F291E82667A004CBE04 /* JYTabBarController.m in Sources */,
 				71F4322D1E83932E009AA864 /* JYLoanViewController.m in Sources */,
 				71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */,
+				71DA764C1E850EF5001C3995 /* JYMessageModel.m in Sources */,
 				71F432271E8392AF009AA864 /* JYMessageVController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

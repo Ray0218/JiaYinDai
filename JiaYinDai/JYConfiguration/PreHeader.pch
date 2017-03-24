@@ -14,6 +14,9 @@
 
 #import <Masonry.h>
 #import <MJRefresh.h>
+#import <ReactiveCocoa.h>
+#import <JSONModel.h>
+
 
 #import "JYDefine.h"
 #import "JYCategoryHeader.h"

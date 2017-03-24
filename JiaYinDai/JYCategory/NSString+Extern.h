@@ -11,12 +11,12 @@
 @interface NSString (Extern)
 
 //邮箱校验(标准邮箱格式)
-- (BOOL)stringCheckEmail;
+- (BOOL)jy_stringCheckEmail;
 
 //手机格式校验(11位,数字)
-- (BOOL)stringCheckMobile;
+- (BOOL)jy_stringCheckMobile;
 
 //身份证校验(只包含数字和字母)
-- (BOOL)stringCheckIDCard;
+- (BOOL)jy_stringCheckIDCard;
 
 @end

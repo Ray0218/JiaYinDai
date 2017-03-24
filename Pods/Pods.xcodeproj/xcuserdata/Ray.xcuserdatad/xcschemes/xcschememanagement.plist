@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JSONModel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -19,7 +24,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>OAStackView-OAStackView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>OAStackView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-JiaYinDai.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReactiveCocoa.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,12 +57,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>109C20C7182F960D01EEC9062093F8F8</key>
+		<key>55E3CFFEDC2629EE0C17B343EC00595B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E41639617443C75F498F56300AFF910</key>
+		<key>884BDAC802EA716478BC1D93A2AF53DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +82,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F341E607D87CCC6221CDDFC9E22335F8</key>
+		<key>B1EF63901C7170224A2CE9D101DAA696</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BB63B9226B0E1EEAD448B93FD5C92E16</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB79ADCCBC96250E0DEF0DABD0A0171D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CEE9B83E128F5E2C1AB05349D130B54E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D8C8449185017E0FC2C4D03B91B9D21D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
