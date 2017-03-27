@@ -23,5 +23,5 @@
 @property (nonatomic, copy) NSArray *items;
 @property (nonatomic, weak) JYTabBarItem *selectedItem;
 
-- (void)setSelectedItem:(JYTabBarItem *)selectedItem animation:(BOOL)animation  ;
+- (void)setSelectedItem:(JYTabBarItem *)selectedItem animation:(BOOL)animation execute:(BOOL)execute  ;
 @end

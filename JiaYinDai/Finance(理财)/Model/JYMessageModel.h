@@ -24,16 +24,16 @@ typedef NS_ENUM(NSInteger, JYMessageType) {
 @property (nonatomic, assign) JYMessageType gameLiveType;
 
 
-/**
- *  获取指定位置上cell的重用标识
- *
- *  @param indexPath [in]行索引
- *  @param tab       [in]标签
- *
- *  @return 重用字符串标识
- */
-- (NSString *)cellIdentifierAtIndexPath:(NSIndexPath *)indexPath forTab:(JYMessageType)tab;
-
-
+///**
+// *  获取指定位置上cell的重用标识
+// *
+// *  @param indexPath [in]行索引
+// *  @param tab       [in]标签
+// *
+// *  @return 重用字符串标识
+// */
+//- (NSString *)cellIdentifierAtIndexPath:(NSIndexPath *)indexPath forTab:(JYMessageType)tab;
+//
+//
 
 @end

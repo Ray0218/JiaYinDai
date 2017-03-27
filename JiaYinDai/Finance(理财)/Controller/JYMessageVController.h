@@ -11,3 +11,8 @@
 @interface JYMessageVController : JYFatherController
 
 @end
+
+
+@interface JYMessageDetailController : JYFatherController
+
+@end

@@ -119,7 +119,7 @@
     for (int i = 0; i < self.tabBarItemViews.count; i++) {
         JYTabBarItemView *view = self.tabBarItemViews[i];
         if (CGRectContainsPoint(view.frame, point)) {
-            [self setSelectedItem:view.item animation:YES ];
+            [self setSelectedItem:view.item animation:YES execute:YES];
             break;
         }
     }
@@ -143,7 +143,7 @@
     return _rac_signalForSelectedItem;
 }
 
-- (void)setSelectedItem:(JYTabBarItem * )selectedItem animation:(BOOL)animation   {
+- (void)setSelectedItem:(JYTabBarItem * )selectedItem animation:(BOOL)animation execute:(BOOL)execute   {
     if ([self.items containsObject:selectedItem]) {
         NSInteger selectedIndex = [self.items indexOfObject:selectedItem];
         [self willChangeValueForKey:@"selectedIndex"];
@@ -171,11 +171,16 @@
                              completion:nil];
         }
         
-            }
+        // 执行命令
+        if (execute && _rac_signalForSelectedItem) {
+            [_rac_signalForSelectedItem sendNext:selectedItem];
+        }
+        
+    }
 }
 
 - (void)setSelectedItem:(JYTabBarItem *)selectedItem {
-    [self setSelectedItem:selectedItem animation:YES];
+    [self setSelectedItem:selectedItem animation:YES execute:NO];
 }
 
 - (JYTabBarItem *)selectedItem {
@@ -221,13 +226,18 @@
     _tabBarItemViews = tabBarItemViews;
     
     // 选中第一个
-//    _selectedItem = [items firstObject];
     _selectedItem = [items firstObject];
-
+    
     [self willChangeValueForKey:@"selectedIndex"];
     _selectedIndex = 0;
     [self didChangeValueForKey:@"selectedIndex"];
     
+    
+    [_tabBarItemViews enumerateObjectsUsingBlock:^(JYTabBarItemView *itemView, NSUInteger idx, BOOL *stop) {
+        itemView.titleLabel.highlighted = idx == _selectedIndex;
+    }];
+    
+
     [self makeLineContraintWithView:[tabBarItemViews firstObject]];
     [self setNeedsLayout];
 }

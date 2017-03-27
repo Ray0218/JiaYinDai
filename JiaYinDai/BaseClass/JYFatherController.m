@@ -46,7 +46,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18], NSFontAttributeName,nil]];
     //    //导航栏背景颜色设置
     [self.navigationController.navigationBar setBackgroundImage:[UIImage jy_imageWithColor:UIColorFromRGB(0x005dad)] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage jy_imageWithColor:UIColorFromRGB(0xdddddd)];
+    self.navigationController.navigationBar.shadowImage = [UIImage jy_imageWithColor:[UIColor clearColor]];
     
     
     [self setNavLeftButtonWithImage:NAV_LEFTBUTTON_ICON title:@""];
