@@ -39,6 +39,34 @@ static inline NSMutableAttributedString * TTFormatePercentString( NSString*text,
     
 } ;
 
+static inline NSMutableAttributedString * TTFormateBeginString( NSString*text,UIColor*percentColor ){
+    
+    NSMutableAttributedString *att = [[NSMutableAttributedString  alloc]initWithString:text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:percentColor}] ;
+    
+    
+    
+    NSRange rangD = [text rangeOfString:@"d"] ;
+    NSRange rangH = [text rangeOfString:@"h"] ;
+    NSRange rangM = [text rangeOfString:@"m"] ;
+
+    [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:rangD] ;
+    [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:rangH] ;
+     [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:rangM] ;
+    [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(text.length-5,5)] ;
+
+
+    
+    [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x333333) range:rangD] ;
+    [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x333333) range:rangH] ;
+    [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x333333) range:rangM] ;
+
+     [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x333333) range:NSMakeRange(text.length-5,5)] ;
+    
+    return att ;
+    
+} ;
+
+
 
 @implementation JYFinanceCell
 
@@ -93,16 +121,16 @@ static inline NSMutableAttributedString * TTFormatePercentString( NSString*text,
             self.rRightLabel.layer.borderWidth = 0 ;
             self.rBackgroundView.backgroundColor = UIColorFromRGB(0xfff6e5) ;
             
+            self.rBegainLabel.attributedText = TTFormateBeginString(@"5d5h30m60s开始抢购", UIColorFromRGB(0xd58f13))   ;
+
             
-        }break ;
+         }break ;
         case JYFinanceCellTypeOver:{
             self.rRightLabel.text = @"售罄" ;
             textColor = UIColorFromRGB(0x464646) ;
             self.rRightLabel.layer.borderWidth = 0 ;
             self.rBackgroundView.backgroundColor = UIColorFromRGB(0xf1f1f1) ;
             self.rBegainLabel.attributedText = TTFormatePercentString(@"已售 100.0%", textColor)  ;
-            
-            
             
         }break ;
             
@@ -137,8 +165,6 @@ static inline NSMutableAttributedString * TTFormatePercentString( NSString*text,
     [self.contentView addSubview:self.rBegainLabel];
     
     
-    
-    
     [self.rBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.insets(UIEdgeInsetsMake(10, -1, 0, -1)) ;
     }] ;
@@ -162,14 +188,12 @@ static inline NSMutableAttributedString * TTFormatePercentString( NSString*text,
         make.centerY.equalTo(self.rLeftImgView) ;
     }];
     
-    
     [midLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(15) ;
         make.right.equalTo(self.contentView).offset(-15) ;
         make.height.mas_equalTo(1) ;
         make.top.equalTo(self.contentView).offset(45) ;
     }];
-    
     
     
     [self.rBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -206,8 +230,6 @@ static inline NSMutableAttributedString * TTFormatePercentString( NSString*text,
     
 }
 
-
-
 #pragma mark- getter
 
 -(UILabel*)rTitleLabel {
@@ -239,7 +261,6 @@ static inline NSMutableAttributedString * TTFormatePercentString( NSString*text,
         _rRightLabel = [self createLabelWithFont:16 textColor:UIColorFromRGB(0x979797) anlgn:NSTextAlignmentCenter] ;
         _rRightLabel.backgroundColor = [UIColor clearColor] ;
     }
-    
     return _rRightLabel ;
 }
 
@@ -247,7 +268,6 @@ static inline NSMutableAttributedString * TTFormatePercentString( NSString*text,
     if (_rBegainLabel == nil) {
         _rBegainLabel = [self createLabelWithFont:16 textColor:UIColorFromRGB(0x979797) anlgn:NSTextAlignmentRight] ;
     }
-    
     return _rBegainLabel ;
 }
 
@@ -297,12 +317,6 @@ static inline NSMutableAttributedString * TTFormatePercentString( NSString*text,
     
     return label ;
 }
-
-
-
-
-
-
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
