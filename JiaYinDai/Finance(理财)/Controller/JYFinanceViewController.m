@@ -112,7 +112,7 @@
     UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
     if (headerView == nil) {
         headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
-        headerView.backgroundColor = headerView.contentView.backgroundColor = UIColorFromRGB(0xd8981d) ;
+         headerView.contentView.backgroundColor = UIColorFromRGB(0xd8981d) ;
     }
     
     return headerView ;

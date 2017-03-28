@@ -126,7 +126,7 @@
 - (UIView *)dimBackgroundView {
     if (!_dimBackgroundView) {
         _dimBackgroundView = [[UIView alloc] init];
-        _dimBackgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+        _dimBackgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
     }
     return _dimBackgroundView;
 }

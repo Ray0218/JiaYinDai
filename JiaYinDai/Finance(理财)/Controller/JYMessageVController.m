@@ -142,7 +142,7 @@
         _scrollView.alwaysBounceVertical = NO;
         _scrollView.alwaysBounceHorizontal = YES;
         _scrollView.delegate = self;
-        _scrollView.backgroundColor = [UIColor orangeColor] ;
+        _scrollView.backgroundColor = [UIColor clearColor] ;
     }
     return _scrollView;
 }
@@ -153,7 +153,7 @@
         _stackView.alignment =   OAStackViewAlignmentFill;
         _stackView.distribution =   OAStackViewDistributionFillEqually;
         _stackView.axis = UILayoutConstraintAxisHorizontal;
-        _stackView.backgroundColor = [UIColor greenColor] ;
+        _stackView.backgroundColor = [UIColor clearColor] ;
     }
     return _stackView;
 }

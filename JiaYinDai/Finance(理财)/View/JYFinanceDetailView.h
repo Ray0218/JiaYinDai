@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JYFinanceDetailView : UIView
+
+@protocol JYFinanceDelegate <NSObject>
+
+-(void)detailShowAlterView ;
+
+@end
+
+@interface JYFinanceDetailView : UIView 
+
+@property (nonatomic,weak) id<JYFinanceDelegate>delegate ;
 
 @end
 

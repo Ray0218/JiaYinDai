@@ -8,9 +8,13 @@
 
 #import "JYFinanceDetailController.h"
 #import "JYFinanceDetailView.h"
+#import "JYAlterViewController.h"
+#import "UIViewController+Transition.h"
+#import "JYRecordController.h"
+#import "JYDebtController.h"
 
 
-@interface JYFinanceDetailController ()<UITableViewDelegate,UITableViewDataSource>
+@interface JYFinanceDetailController ()<UITableViewDelegate,UITableViewDataSource,JYFinanceDelegate>
 
 @property (nonatomic,strong) UITableView *rTableView ;
 @property(nonatomic ,strong) JYFinanceDetailView *rTableHeaderView ;
@@ -44,7 +48,6 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
         make.bottom.and.right.equalTo(self.view).offset(1) ;
     }];
     
-    
 }
 
 
@@ -59,25 +62,25 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
     
     
     
-        static NSString *identifier = @"identifier" ;
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator ;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone ;
-        }
+    static NSString *identifier = @"identifier" ;
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator ;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone ;
+    }
     
     cell.textLabel.text = rCellName[indexPath.row] ;
     
     if (indexPath.row == 0) {
         cell.detailTextLabel.text =  @"58人" ;
-
+        
     }
     
-        return cell ;
-        
-   
+    return cell ;
+    
+    
     
 }
 
@@ -87,8 +90,16 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    JYFinanceDetailController *detailVC = [[JYFinanceDetailController alloc]init];
-    [self.navigationController pushViewController:detailVC animated:YES];
+    if (indexPath.row == 0) {
+        JYRecordController *detailVC = [[JYRecordController alloc]init];
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }else if (indexPath.row == 2){
+    
+        JYDebtController *detailVC = [[JYDebtController alloc]init];
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
+    
+    
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -99,13 +110,20 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
     UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
     if (headerView == nil) {
         headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
-        headerView.backgroundColor = headerView.contentView.backgroundColor = UIColorFromRGB(0xd8981d) ;
+       headerView.contentView.backgroundColor = UIColorFromRGB(0xd8981d) ;
     }
     
     return headerView ;
 }
 
+#pragma mark- JYFinanceDelegate
 
+-(void)detailShowAlterView {
+    
+    
+    JYAlterViewController *alterVC = [[JYAlterViewController alloc]init];
+    [self jy_showViewController:alterVC completion:nil];
+}
 
 #pragma  mark- getter
 
@@ -115,7 +133,7 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
         _rTableView = [[UITableView alloc]init];
         _rTableView.backgroundColor = [UIColor clearColor] ;
         _rTableView.separatorColor = kLineColor ;
-         _rTableView.rowHeight = 45;
+        _rTableView.rowHeight = 45;
         _rTableView.tableFooterView = [[UIView alloc]init];
         _rTableView.tableHeaderView = self.rTableHeaderView ;
         _rTableView.delegate = self ;
@@ -130,6 +148,7 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
     
     if (_rTableHeaderView == nil) {
         _rTableHeaderView = [[JYFinanceDetailView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 340)];
+        _rTableHeaderView.delegate = self ;
         _rTableHeaderView.backgroundColor = [UIColor whiteColor] ;
     }
     
@@ -138,7 +157,7 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
 
 
 -(JYDetailBottomView*)rBottomView {
-
+    
     if (_rBottomView == nil) {
         _rBottomView = [[JYDetailBottomView alloc]init];
     }
@@ -151,13 +170,13 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

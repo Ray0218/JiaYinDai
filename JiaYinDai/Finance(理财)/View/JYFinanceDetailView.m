@@ -51,8 +51,9 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
     
 } ;
 
-
-- (void)buildSubViewsUI {
+ - (void)buildSubViewsUI {
+    
+    
     
     
     self.rPercentLabel.attributedText = TTPercentString(@"12", @"12%+2%") ;
@@ -255,7 +256,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
 
 -(UILabel*)rRestMoneyLab {
     if (_rRestMoneyLab == nil) {
-        _rRestMoneyLab = [self createLabelWithTitle:@"剩余可投金额 200，000元" font:14 color:kTextBlackColor align:NSTextAlignmentRight] ;
+        _rRestMoneyLab = [self createLabelWithTitle:@"剩余可投金额 200,000元" font:14 color:kTextBlackColor align:NSTextAlignmentRight] ;
     }
     
     return _rRestMoneyLab ;
@@ -278,6 +279,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
     btn.layer.cornerRadius = 4 ;
     btn.layer.borderWidth = 1 ;
     btn.layer.borderColor = [UIColor whiteColor].CGColor ;
+    [btn addTarget:self action:@selector(pvt_btnClick) forControlEvents:UIControlEventTouchUpInside];
     
     return btn ;
 }
@@ -292,6 +294,16 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
     label.backgroundColor = [UIColor clearColor] ;
     
     return label ;
+}
+
+#pragma mark -
+
+-(void)pvt_btnClick{
+    
+    if (self.delegate) {
+        [self.delegate detailShowAlterView];
+    }
+
 }
 
 /*
