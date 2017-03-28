@@ -31,6 +31,12 @@
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0x00FF0000) >> 16)) / 255.0     green:((float)((rgbValue & 0x0000FF00) >>  8)) / 255.0 blue:((float)((rgbValue & 0x000000FF) >>  0)) / 255.0 alpha:1.0]
 
 
+#define kLineColor UIColorFromRGB(0xcccccc) 
+#define kBlueColor UIColorFromRGB(0x005dad)
+#define kBackGroundColor UIColorFromRGB(0xf2f2f2)
+#define kTextBlackColor UIColorFromRGB(0x333333)
+
+
 /************************ 数字格式化 ************************/
 
 static inline NSMutableAttributedString * TTFormateNumString( NSString*text,CGFloat bigFont ,CGFloat smallFont,NSInteger smallLength){

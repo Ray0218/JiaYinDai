@@ -9,6 +9,7 @@
 #import "JYFinanceViewController.h"
 #import "JYMessageVController.h"
 #import "JYFinanceCell.h"
+#import "JYFinanceDetailController.h"
 
 @interface JYFinanceViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -49,7 +50,7 @@
 }
 
 
-#pragma mark- UITableViewDataSource
+#pragma mark- UITableViewDataSource/UITableViewDelegate
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -117,7 +118,13 @@
     return headerView ;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    JYFinanceDetailController *detailVC = [[JYFinanceDetailController alloc]init];
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
 
 
 #pragma mark - action
@@ -134,7 +141,7 @@
 
     if (_rTableView == nil) {
         _rTableView = [[UITableView alloc]init];
-        _rTableView.backgroundColor = UIColorFromRGB(0xf2f2f2) ;
+        _rTableView.backgroundColor = kBackGroundColor ;
         _rTableView.separatorStyle = UITableViewCellSeparatorStyleNone ;
         _rTableView.estimatedRowHeight = 144 ;
         _rTableView.rowHeight = UITableViewAutomaticDimension;
@@ -152,7 +159,7 @@
 
     if (_rTableHeaderView == nil) {
         _rTableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
-        _rTableHeaderView.backgroundColor = UIColorFromRGB(0x005dad) ;
+        _rTableHeaderView.backgroundColor = kBlueColor ;
     }
     
     return _rTableHeaderView ;

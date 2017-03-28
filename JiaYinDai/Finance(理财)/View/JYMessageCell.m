@@ -96,7 +96,7 @@
 
 -(UILabel*)rTitleLabel {
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self createLabelWithFont:16 textColor:UIColorFromRGB(0x333333) anlgn:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self createLabelWithFont:16 textColor:kTextBlackColor anlgn:NSTextAlignmentLeft] ;
     }
     
     return _rTitleLabel ;

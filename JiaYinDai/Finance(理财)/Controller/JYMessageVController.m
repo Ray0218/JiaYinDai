@@ -186,7 +186,7 @@
     UITableView *tableView = [[UITableView alloc] init ];
     tableView.delegate = self;
     tableView.dataSource = self;
-    tableView.backgroundColor = UIColorFromRGB(0xf2f2f2);
+    tableView.backgroundColor = kBackGroundColor;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone ;
     tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0) ;
     tableView.alwaysBounceVertical = NO;

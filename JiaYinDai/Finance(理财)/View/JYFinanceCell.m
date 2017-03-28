@@ -31,7 +31,7 @@ static inline NSMutableAttributedString * TTFormatePercentString( NSString*text,
     
     NSMutableAttributedString *att = [[NSMutableAttributedString  alloc]initWithString:text attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],NSForegroundColorAttributeName:percentColor}] ;
     [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0,2)] ;
-    [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x333333) range:NSMakeRange(0,2)] ;
+    [att addAttribute:NSForegroundColorAttributeName value:kTextBlackColor range:NSMakeRange(0,2)] ;
     
     [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(text.length-1,1)] ;
     
@@ -56,11 +56,11 @@ static inline NSMutableAttributedString * TTFormateBeginString( NSString*text,UI
 
 
     
-    [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x333333) range:rangD] ;
-    [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x333333) range:rangH] ;
-    [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x333333) range:rangM] ;
+    [att addAttribute:NSForegroundColorAttributeName value:kTextBlackColor range:rangD] ;
+    [att addAttribute:NSForegroundColorAttributeName value:kTextBlackColor range:rangH] ;
+    [att addAttribute:NSForegroundColorAttributeName value:kTextBlackColor range:rangM] ;
 
-     [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x333333) range:NSMakeRange(text.length-5,5)] ;
+     [att addAttribute:NSForegroundColorAttributeName value:kTextBlackColor range:NSMakeRange(text.length-5,5)] ;
     
     return att ;
     
@@ -81,7 +81,7 @@ static inline NSMutableAttributedString * TTFormateBeginString( NSString*text,UI
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone ;
-        self.backgroundColor = self.contentView.backgroundColor = UIColorFromRGB(0xf2f2f2) ;
+        self.backgroundColor = self.contentView.backgroundColor = kBackGroundColor;
         [self initsubViewUIWithType:type];
         
     }
@@ -147,17 +147,17 @@ static inline NSMutableAttributedString * TTFormateBeginString( NSString*text,UI
     [self.contentView addSubview:self.rRightLabel];
     [self.contentView addSubview:self.rBackgroundView];
     
-    UILabel *interestLab = [self createLabelWithFont:14 textColor:UIColorFromRGB(0x333333) anlgn:NSTextAlignmentLeft] ;
+    UILabel *interestLab = [self createLabelWithFont:14 textColor:kTextBlackColor anlgn:NSTextAlignmentLeft] ;
     interestLab.text = @"利息" ;
     [self.contentView addSubview:interestLab];
     
     
-    UILabel *dateLab = [self createLabelWithFont:14 textColor:UIColorFromRGB(0x333333) anlgn:NSTextAlignmentLeft] ;
+    UILabel *dateLab = [self createLabelWithFont:14 textColor:kTextBlackColor anlgn:NSTextAlignmentLeft] ;
     dateLab.text = @"期限" ;
     [self.contentView addSubview:dateLab];
     
     UIView *midLine = [[UIView alloc]init];
-    midLine.backgroundColor = UIColorFromRGB(0xcccccc) ;
+    midLine.backgroundColor = kLineColor ;
     [self.contentView addSubview:midLine];
     
     [self.contentView addSubview:self.rPercentLabel];
@@ -234,7 +234,7 @@ static inline NSMutableAttributedString * TTFormateBeginString( NSString*text,UI
 
 -(UILabel*)rTitleLabel {
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self createLabelWithFont:18 textColor:UIColorFromRGB(0x333333) anlgn:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self createLabelWithFont:18 textColor:kTextBlackColor anlgn:NSTextAlignmentLeft] ;
     }
     
     return _rTitleLabel ;
@@ -289,7 +289,7 @@ static inline NSMutableAttributedString * TTFormateBeginString( NSString*text,UI
     if (_rBgView == nil) {
         _rBgView = [[UIView alloc]init];
         _rBgView.backgroundColor = [UIColor whiteColor] ;
-        _rBgView.layer.borderColor = UIColorFromRGB(0xcccccc).CGColor ;
+        _rBgView.layer.borderColor = kLineColor.CGColor ;
         _rBgView.layer.borderWidth = 1 ;
     }
     return _rBgView ;
