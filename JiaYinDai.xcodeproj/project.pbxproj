@@ -38,6 +38,7 @@
 		71F432391E83A4CA009AA864 /* JYNoNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432381E83A4CA009AA864 /* JYNoNetworkManager.m */; };
 		71F4323D1E83B410009AA864 /* NSString+Extern.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4323C1E83B410009AA864 /* NSString+Extern.m */; };
 		71F432401E83CFB8009AA864 /* NSDate+Extern.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4323F1E83CFB8009AA864 /* NSDate+Extern.m */; };
+		71F8C6031E8B425800609DB5 /* JYBetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F8C6021E8B425800609DB5 /* JYBetTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,8 @@
 		71F4323C1E83B410009AA864 /* NSString+Extern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extern.m"; sourceTree = "<group>"; };
 		71F4323E1E83CFB8009AA864 /* NSDate+Extern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extern.h"; sourceTree = "<group>"; };
 		71F4323F1E83CFB8009AA864 /* NSDate+Extern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extern.m"; sourceTree = "<group>"; };
+		71F8C6011E8B425800609DB5 /* JYBetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBetTableViewCell.h; sourceTree = "<group>"; };
+		71F8C6021E8B425800609DB5 /* JYBetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBetTableViewCell.m; sourceTree = "<group>"; };
 		A02F385D21AC94E829F9D34B /* Pods-JiaYinDai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.release.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.release.xcconfig"; sourceTree = "<group>"; };
 		EE06AE40D6B1E2F7A362719E /* Pods-JiaYinDai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -332,6 +335,8 @@
 				7123DDB91E88D852007C094A /* JYFinanceCell.m */,
 				713DBA331E89FA31001C65D2 /* JYFinanceDetailView.h */,
 				713DBA341E89FA31001C65D2 /* JYFinanceDetailView.m */,
+				71F8C6011E8B425800609DB5 /* JYBetTableViewCell.h */,
+				71F8C6021E8B425800609DB5 /* JYBetTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -619,6 +624,7 @@
 				71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */,
 				71DA764C1E850EF5001C3995 /* JYMessageModel.m in Sources */,
 				71F432271E8392AF009AA864 /* JYMessageVController.m in Sources */,
+				71F8C6031E8B425800609DB5 /* JYBetTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

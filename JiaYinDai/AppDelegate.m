@@ -25,6 +25,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+ 
+    
     JYTabBarController *rootVC = [[JYTabBarController alloc]init];
     
     self.window.rootViewController = rootVC ;

@@ -7,12 +7,15 @@
 //
 
 #import "JYDebtController.h"
+#import "JYBetTableViewCell.h"
 
 @interface JYDebtController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView *rTableView ;
 
 @end
+
+
 
 @implementation JYDebtController
 
@@ -21,10 +24,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"投资记录" ;
+    self.title = @"债权列表" ;
     [self.view addSubview:self.rTableView];
     [self.rTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.insets(UIEdgeInsetsZero) ;
+        make.edges.insets(UIEdgeInsetsMake(0, 0, 10, 0)) ;
     }];
 }
 
@@ -36,49 +39,52 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 20 ;
+    return 6 ;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *indentifier = @"indentifier" ;
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier] ;
+    JYBetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier] ;
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indentifier];
+        cell = [[JYBetTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indentifier];
         
     }
-    
-    cell.textLabel.text = @"dddd" ;
-    
+      
     return cell ;
 }
 
-//-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//    
-//    
-//    static NSString *headerIdentifier = @"headerIdentifier" ;
-//    
-//    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
-//    if (headerView == nil) {
-//        headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
-//        headerView.contentView.backgroundColor = [UIColor clearColor] ;
-//        headerView.layer.borderColor = kLineColor.CGColor ;
-//        headerView.layer.borderWidth = 0.5 ;
-//    }
-//    
-//    return headerView ;
-//}
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section  {
+    
+    
+    static NSString *headerIdentifier = @"headerIdentifier" ;
+    
+    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
+    if (headerView == nil) {
+        headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
+        headerView.contentView.backgroundColor = [UIColor clearColor] ;
+        headerView.backgroundView = ({
+            UIView *view = [[UIView alloc]init];
+            view.backgroundColor = [UIColor clearColor] ;
+            view ;
+        
+        }) ;
+     }
+    
+    return headerView ;
+}
 #pragma mark -getter
 
 -(UITableView*)rTableView{
     if (_rTableView == nil) {
-        _rTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _rTableView = [[UITableView alloc]init];
         _rTableView.backgroundColor = [UIColor clearColor] ;
         _rTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _rTableView.tableFooterView = [[UIView alloc]init];
-        _rTableView.rowHeight = 60 ;
-//        _rTableView.sectionFooterHeight = 5 ;
+        _rTableView.estimatedRowHeight = 220 ;
+        _rTableView.rowHeight = UITableViewAutomaticDimension ;
+        _rTableView.sectionHeaderHeight = 15 ;
         _rTableView.delegate = self ;
         _rTableView.dataSource = self ;
     }

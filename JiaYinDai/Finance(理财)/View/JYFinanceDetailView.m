@@ -25,9 +25,16 @@
 @property (nonatomic,strong)UILabel *rRestMoneyLab ; // 剩余金额
 
 
-
-
 @end
+
+static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSString *text ){
+    
+    NSMutableAttributedString *att = [[NSMutableAttributedString  alloc]initWithString:text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:26]}] ;
+    [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:50] range:NSMakeRange(0,baseText.length)] ;
+    
+    return att ;
+    
+} ;
 
 @implementation JYFinanceDetailView
 
@@ -42,21 +49,11 @@
 }
 
 
-static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSString *text ){
-    
-    NSMutableAttributedString *att = [[NSMutableAttributedString  alloc]initWithString:text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:26]}] ;
-    [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:50] range:NSMakeRange(0,baseText.length)] ;
-    
-    return att ;
-    
-} ;
+
 
  - (void)buildSubViewsUI {
-    
-    
-    
-    
-    self.rPercentLabel.attributedText = TTPercentString(@"12", @"12%+2%") ;
+     
+     self.rPercentLabel.attributedText = TTPercentString(@"12", @"12%+2%") ;
     
     
     

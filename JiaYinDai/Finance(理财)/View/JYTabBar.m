@@ -71,7 +71,7 @@
 @end
 
 @interface JYTabBarItem ()
- @end
+@end
 
 @implementation JYTabBarItem
 
@@ -237,7 +237,7 @@
         itemView.titleLabel.highlighted = idx == _selectedIndex;
     }];
     
-
+    
     [self makeLineContraintWithView:[tabBarItemViews firstObject]];
     [self setNeedsLayout];
 }
