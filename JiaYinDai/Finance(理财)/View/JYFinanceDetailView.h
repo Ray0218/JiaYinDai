@@ -24,4 +24,7 @@
 
 @interface JYDetailBottomView : UIView
 
+@property (nonatomic ,strong,readonly) UIButton *rBuyButton ; //立即投资
+@property (nonatomic ,strong,readonly) UIButton *rBugdetButton ; //收益预估
+
 @end

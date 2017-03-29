@@ -39,6 +39,8 @@
 		71F4323D1E83B410009AA864 /* NSString+Extern.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4323C1E83B410009AA864 /* NSString+Extern.m */; };
 		71F432401E83CFB8009AA864 /* NSDate+Extern.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4323F1E83CFB8009AA864 /* NSDate+Extern.m */; };
 		71F8C6031E8B425800609DB5 /* JYBetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F8C6021E8B425800609DB5 /* JYBetTableViewCell.m */; };
+		71F8C6061E8B655200609DB5 /* JYEstimateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F8C6051E8B655200609DB5 /* JYEstimateController.m */; };
+		71F8C6091E8BA66000609DB5 /* JYEstimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F8C6081E8BA66000609DB5 /* JYEstimateView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +128,10 @@
 		71F4323F1E83CFB8009AA864 /* NSDate+Extern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extern.m"; sourceTree = "<group>"; };
 		71F8C6011E8B425800609DB5 /* JYBetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBetTableViewCell.h; sourceTree = "<group>"; };
 		71F8C6021E8B425800609DB5 /* JYBetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBetTableViewCell.m; sourceTree = "<group>"; };
+		71F8C6041E8B655200609DB5 /* JYEstimateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYEstimateController.h; sourceTree = "<group>"; };
+		71F8C6051E8B655200609DB5 /* JYEstimateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYEstimateController.m; sourceTree = "<group>"; };
+		71F8C6071E8BA66000609DB5 /* JYEstimateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYEstimateView.h; sourceTree = "<group>"; };
+		71F8C6081E8BA66000609DB5 /* JYEstimateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYEstimateView.m; sourceTree = "<group>"; };
 		A02F385D21AC94E829F9D34B /* Pods-JiaYinDai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.release.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.release.xcconfig"; sourceTree = "<group>"; };
 		EE06AE40D6B1E2F7A362719E /* Pods-JiaYinDai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaYinDai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JiaYinDai/Pods-JiaYinDai.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -337,6 +343,8 @@
 				713DBA341E89FA31001C65D2 /* JYFinanceDetailView.m */,
 				71F8C6011E8B425800609DB5 /* JYBetTableViewCell.h */,
 				71F8C6021E8B425800609DB5 /* JYBetTableViewCell.m */,
+				71F8C6071E8BA66000609DB5 /* JYEstimateView.h */,
+				71F8C6081E8BA66000609DB5 /* JYEstimateView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -365,6 +373,8 @@
 				713DBA3D1E8A5801001C65D2 /* JYRecordController.m */,
 				713DBA3F1E8A6370001C65D2 /* JYDebtController.h */,
 				713DBA401E8A6370001C65D2 /* JYDebtController.m */,
+				71F8C6041E8B655200609DB5 /* JYEstimateController.h */,
+				71F8C6051E8B655200609DB5 /* JYEstimateController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -607,6 +617,7 @@
 				71DA76491E84F613001C3995 /* JYTabBar.m in Sources */,
 				7123DDBA1E88D852007C094A /* JYFinanceCell.m in Sources */,
 				71D05F321E82713D004CBE04 /* UIViewController+Transition.m in Sources */,
+				71F8C6091E8BA66000609DB5 /* JYEstimateView.m in Sources */,
 				71D05EEF1E826134004CBE04 /* AppDelegate.m in Sources */,
 				713DBA321E89F26C001C65D2 /* UITableView+swizzle.m in Sources */,
 				713DBA351E89FA31001C65D2 /* JYFinanceDetailView.m in Sources */,
@@ -618,6 +629,7 @@
 				71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */,
 				71F432401E83CFB8009AA864 /* NSDate+Extern.m in Sources */,
 				71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */,
+				71F8C6061E8B655200609DB5 /* JYEstimateController.m in Sources */,
 				71F4323D1E83B410009AA864 /* NSString+Extern.m in Sources */,
 				71D05F291E82667A004CBE04 /* JYTabBarController.m in Sources */,
 				71F4322D1E83932E009AA864 /* JYLoanViewController.m in Sources */,

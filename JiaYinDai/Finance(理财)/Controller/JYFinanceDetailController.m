@@ -12,6 +12,8 @@
 #import "UIViewController+Transition.h"
 #import "JYRecordController.h"
 #import "JYDebtController.h"
+#import "JYEstimateController.h"
+
 
 
 @interface JYFinanceDetailController ()<UITableViewDelegate,UITableViewDataSource,JYFinanceDelegate>
@@ -94,7 +96,7 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
         JYRecordController *detailVC = [[JYRecordController alloc]init];
         [self.navigationController pushViewController:detailVC animated:YES];
     }else if (indexPath.row == 2){
-    
+        
         JYDebtController *detailVC = [[JYDebtController alloc]init];
         [self.navigationController pushViewController:detailVC animated:YES];
     }
@@ -110,7 +112,7 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
     UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
     if (headerView == nil) {
         headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
-       headerView.contentView.backgroundColor = UIColorFromRGB(0xd8981d) ;
+        headerView.contentView.backgroundColor = UIColorFromRGB(0xd8981d) ;
     }
     
     return headerView ;
@@ -160,6 +162,14 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
     
     if (_rBottomView == nil) {
         _rBottomView = [[JYDetailBottomView alloc]init];
+        
+        @weakify(self) ;
+        [[_rBottomView.rBugdetButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(UIButton* x) {
+            @strongify(self) ;
+            JYEstimateController *estVC = [[JYEstimateController alloc]init];
+            [self.navigationController pushViewController:estVC animated:YES];
+            
+        }] ;
     }
     return _rBottomView ;
 }

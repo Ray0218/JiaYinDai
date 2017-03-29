@@ -38,5 +38,20 @@
     return [identityCardPredicate evaluateWithObject:self];
 }
 
+- (BOOL)jy_stringCheckNumber {
+
+    if (self.length <= 0) {
+        return NO;
+    }
+    
+    NSString *regex = @"[0-9]*";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    if ([pred evaluateWithObject:self]) {
+        return YES;
+    }
+    return NO ;
+}
+
+
 
 @end

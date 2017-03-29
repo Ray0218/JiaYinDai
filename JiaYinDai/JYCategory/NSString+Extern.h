@@ -19,4 +19,7 @@
 //身份证校验(只包含数字和字母)
 - (BOOL)jy_stringCheckIDCard;
 
+//数字校验(只包含数字和小数点)
+- (BOOL)jy_stringCheckNumber;
+
 @end
