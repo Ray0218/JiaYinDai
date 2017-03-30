@@ -13,6 +13,7 @@
 #import "JYRecordController.h"
 #import "JYDebtController.h"
 #import "JYEstimateController.h"
+#import "JYBuyViewController.h"
 
 
 
@@ -169,6 +170,13 @@ static NSString *rCellName[] = {@"投资记录",@"项目描述",@"债券列表"}
             JYEstimateController *estVC = [[JYEstimateController alloc]init];
             [self.navigationController pushViewController:estVC animated:YES];
             
+        }] ;
+        
+        [[_rBottomView.rBuyButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self) ;
+
+            JYBuyViewController *buyVC = [[JYBuyViewController alloc]init];
+            [self.navigationController pushViewController:buyVC animated:YES];
         }] ;
     }
     return _rBottomView ;

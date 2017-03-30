@@ -40,7 +40,7 @@
 
 -(void)buildSubViewsUI {
 
-    _titleLab = [self createLabelWithTitle:@"投标金额" font:14 color:kTextBlackColor align:NSTextAlignmentLeft];
+    _titleLab = [self jyCreateLabelWithTitle:@"投标金额" font:14 color:kTextBlackColor align:NSTextAlignmentLeft];
     [self addSubview:_titleLab];
     
     [self addSubview:self.rTextField];
@@ -138,23 +138,12 @@
 
 -(UILabel*)rResultLab {
     if (_rResultLab == nil) {
-        _rResultLab = [self createLabelWithTitle:@"投标预估收益632.30元" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rResultLab = [self jyCreateLabelWithTitle:@"投标预估收益632.30元" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
     return _rResultLab ;
 }
 
 
-- (UILabel*)createLabelWithTitle:(NSString*)title font:(CGFloat)font color:(UIColor*)color align:(NSTextAlignment) align{
-    
-    UILabel *label = [[UILabel alloc]init];
-    label.text = title ;
-    label.textColor = color ;
-    label.font = [UIFont systemFontOfSize:font] ;
-    label.textAlignment = align ;
-    label.backgroundColor = [UIColor clearColor] ;
-    
-    return label ;
-}
 
 
 #pragma mark- action

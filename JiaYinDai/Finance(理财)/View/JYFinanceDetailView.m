@@ -57,7 +57,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
     
     
     
-    UILabel *rPreLabel = [self createLabelWithTitle:@"预期年化" font:18 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
+    UILabel *rPreLabel = [self jyCreateLabelWithTitle:@"预期年化" font:18 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
     UIView *rBgView = [[UIView alloc]init];
     rBgView.backgroundColor = kBlueColor ;
     [self addSubview:rBgView];
@@ -80,7 +80,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
         
     }) ;
     
-    UILabel *descLabel = [self createLabelWithTitle:@"起息日：募集成功次日开始计算收益\n到期日期：根据相应的还款方式，于计划还款日还款\n还款方式：每月等额本息，支持提前还款。" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+    UILabel *descLabel = [self jyCreateLabelWithTitle:@"起息日：募集成功次日开始计算收益\n到期日期：根据相应的还款方式，于计划还款日还款\n还款方式：每月等额本息，支持提前还款。" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     descLabel.numberOfLines = 0 ;
     [UILabel changeLineSpaceForLabel:descLabel WithSpace:5.0] ;
     
@@ -219,7 +219,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
 
 -(UILabel*)rPercentLabel {
     if (_rPercentLabel == nil) {
-        _rPercentLabel = [self createLabelWithTitle:@"" font:18 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
+        _rPercentLabel = [self jyCreateLabelWithTitle:@"" font:18 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
     }
     
     return _rPercentLabel ;
@@ -227,7 +227,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
 
 -(UILabel*)rTimeLabel {
     if (_rTimeLabel == nil) {
-        _rTimeLabel = [self createLabelWithTitle:@"期限\n12个月" font:18 color:[UIColor whiteColor] align:NSTextAlignmentRight] ;
+        _rTimeLabel = [self jyCreateLabelWithTitle:@"期限\n12个月" font:18 color:[UIColor whiteColor] align:NSTextAlignmentRight] ;
         _rTimeLabel.numberOfLines = 2 ;
     }
     
@@ -237,7 +237,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
 
 -(UILabel*)rBeginMoneyLab {
     if (_rBeginMoneyLab == nil) {
-        _rBeginMoneyLab = [self createLabelWithTitle:@"起购金额 1,000元" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rBeginMoneyLab = [self jyCreateLabelWithTitle:@"起购金额 1,000元" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
     
     return _rBeginMoneyLab ;
@@ -245,7 +245,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
 
 -(UILabel*)rTotalMoneyLab {
     if (_rTotalMoneyLab == nil) {
-        _rTotalMoneyLab = [self createLabelWithTitle:@"募集金额 400,000元" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rTotalMoneyLab = [self jyCreateLabelWithTitle:@"募集金额 400,000元" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
     
     return _rTotalMoneyLab ;
@@ -253,7 +253,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
 
 -(UILabel*)rRestMoneyLab {
     if (_rRestMoneyLab == nil) {
-        _rRestMoneyLab = [self createLabelWithTitle:@"剩余可投金额 200,000元" font:14 color:kTextBlackColor align:NSTextAlignmentRight] ;
+        _rRestMoneyLab = [self jyCreateLabelWithTitle:@"剩余可投金额 200,000元" font:14 color:kTextBlackColor align:NSTextAlignmentRight] ;
     }
     
     return _rRestMoneyLab ;
@@ -261,7 +261,7 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
 
 -(UILabel*)rSalePercentLab {
     if (_rSalePercentLab == nil) {
-        _rSalePercentLab = [self createLabelWithTitle:@"已售 50.0%" font:14 color:kTextBlackColor align:NSTextAlignmentRight] ;
+        _rSalePercentLab = [self jyCreateLabelWithTitle:@"已售 50.0%" font:14 color:kTextBlackColor align:NSTextAlignmentRight] ;
     }
     
     return _rSalePercentLab ;
@@ -281,17 +281,6 @@ static inline NSMutableAttributedString * TTPercentString( NSString*baseText,NSS
     return btn ;
 }
 
-- (UILabel*)createLabelWithTitle:(NSString*)title font:(CGFloat)font color:(UIColor*)color align:(NSTextAlignment) align{
-    
-    UILabel *label = [[UILabel alloc]init];
-    label.text = title ;
-    label.textColor = color ;
-    label.font = [UIFont systemFontOfSize:font] ;
-    label.textAlignment = align ;
-    label.backgroundColor = [UIColor clearColor] ;
-    
-    return label ;
-}
 
 #pragma mark -
 

@@ -110,13 +110,11 @@
 }
 
 -(UILabel*)createLabelWithText:(NSString*)text color:(UIColor*)color font:(CGFloat)font align:(NSTextAlignment)align hasLayer:(BOOL)hasOrnot {
+    
+    
 
-    UILabel *label = [[UILabel alloc]init];
-    label.text = text ;
-    label.textColor = color ;
-    label.font = [UIFont systemFontOfSize:font] ;
-    label.textAlignment = align ;
-    label.numberOfLines = 0 ;
+    UILabel *label =  [self jyCreateLabelWithTitle:text font:font color:color align:align] ;
+     label.numberOfLines = 0 ;
     if (hasOrnot) {
         label.layer.borderColor = kBlueColor.CGColor ;
         label.layer.borderWidth = 1 ;
