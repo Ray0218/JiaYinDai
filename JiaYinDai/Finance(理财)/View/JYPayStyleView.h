@@ -14,13 +14,26 @@ typedef NS_ENUM(NSUInteger, JYPayType) {
     JYPayTypeAcount, //账户余额
 };
 
+@class JYBuyRowView ;
 @interface JYPayStyleView : UIView
+
+@property (nonatomic,strong,readonly)JYBuyRowView *rRedView ; //红包
+@property (nonatomic,strong,readonly)JYBuyRowView *rPayStyleView ; //支付方式
+
+- (instancetype)initWithType:(JYPayType)type ;
+
 
 @end
 
 
+typedef NS_ENUM(NSUInteger, JYRowType) {
+    JYRowTypeNormal,
+    JYRowTypeTextField, //有输入框
+    JYRowTypeBankIcon,//有图标
+};
+
 @interface JYBuyRowView : UIView
 
-- (instancetype)initWithLeftTitle:(NSString*)leftStr rightStr:(NSString*)rightStr ;
+- (instancetype)initWithLeftTitle:(NSString*)leftStr rowType:(JYRowType)rowType ;
 
 @end

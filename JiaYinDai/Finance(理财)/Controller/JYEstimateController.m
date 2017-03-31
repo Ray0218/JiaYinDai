@@ -114,9 +114,8 @@ static inline NSMutableAttributedString * TTTotalString( NSString*baseText,NSStr
     
     [self.rContentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_rScrollView);
-        make.height.equalTo(_rScrollView);
+        make.height.mas_greaterThanOrEqualTo(SCREEN_HEIGHT);
         make.width.mas_equalTo(SCREEN_WIDTH) ;
-        make.bottom.equalTo(_rScrollView).offset(-10) ;
         
     }];
     
@@ -144,6 +143,7 @@ static inline NSMutableAttributedString * TTTotalString( NSString*baseText,NSStr
         make.top.equalTo(self.rMoneyView.mas_bottom).offset(15) ;
         make.left.equalTo(self.rContentView).offset(15) ;
         make.right.equalTo(self.rContentView).offset(-15) ;
+        make.height.mas_equalTo(60) ;
     }];
     
     
@@ -205,6 +205,7 @@ static inline NSMutableAttributedString * TTTotalString( NSString*baseText,NSStr
         make.right.equalTo(self.rContentView).offset(1) ;
         make.top.equalTo(self.rTimesLabel.mas_bottom) ;
         make.height.mas_equalTo(35) ;
+        make.bottom.mas_equalTo(self.rContentView).offset(-20).priorityLow() ;
     }] ;
     
     

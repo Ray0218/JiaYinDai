@@ -42,6 +42,31 @@
     self.title = @"嘉银贷588期" ;
     [self buildSubViewUI];
 }
+
+#pragma mark- action
+
+-(void)pvt_clickContent:(UIGestureRecognizer*)gesture{
+    
+    
+    CGPoint point = [gesture locationInView:self.rContentView];
+    
+    
+    CGRect payRect = [_rPayStyleView convertRect:_rPayStyleView.rPayStyleView.frame toView:self.rContentView] ;
+    
+    CGRect redRect = [_rPayStyleView convertRect:_rPayStyleView.rRedView.frame toView:self.rContentView] ;
+    
+    if (CGRectContainsPoint(payRect , point) ) {
+        NSLog(@"点击支付方式") ;
+    }else if (CGRectContainsPoint(redRect, point) ) {
+        NSLog(@"点击红包") ;
+    }
+
+
+
+}
+
+
+#pragma mark - builUI
 -(void)buildSubViewUI {
     
     _rScrollView = [[UIScrollView alloc]init];
@@ -62,8 +87,8 @@
 
     
     
-    _rbuyTextView = [[JYBuyRowView alloc]initWithLeftTitle:@"投资金额" rightStr:@""];
-    _rPayStyleView = [[JYPayStyleView alloc]init ];
+    _rbuyTextView = [[JYBuyRowView alloc]initWithLeftTitle:@"投资金额" rowType:JYRowTypeTextField];
+    _rPayStyleView = [[JYPayStyleView alloc]initWithType:JYPayTypeAddBank ];
  
     
     [self.rContentView addSubview:_rbuyTextView];
@@ -84,13 +109,12 @@
     
     [self.rContentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_rScrollView);
-        make.height.greaterThanOrEqualTo(_rScrollView);
-        make.width.mas_equalTo(SCREEN_WIDTH) ;
-        make.bottom.equalTo(_rScrollView).offset(-10) ;
+         make.width.mas_equalTo(SCREEN_WIDTH) ;
+        make.height.greaterThanOrEqualTo(@0);
         
     }];
     
-    [self.rHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
+     [self.rHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.top.and.right.equalTo(self.rContentView) ;
          make.height.equalTo(@(120));
         
@@ -133,13 +157,14 @@
         make.left.equalTo(self.rContentView).offset(-1) ;
         make.right.equalTo(self.rContentView).offset(1) ;
         make.top.equalTo(_rbuyTextView.mas_bottom).offset(15) ;
-    }];
+     }];
     
     
     
     [self.rAgreeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.rContentView).offset(15) ;
         make.top.equalTo(_rPayStyleView.mas_bottom).offset(15) ;
+        make.height.mas_equalTo(30) ;
      }];
 
     [self.rCommitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -147,6 +172,8 @@
         make.right.equalTo(self.rContentView).offset(-15) ;
         make.top.equalTo(self.rAgreeBtn.mas_bottom).offset(25) ;
         make.height.mas_equalTo(45);
+        make.bottom.equalTo(self.rContentView).offset(-25) ;
+
     }];
     
     [super updateViewConstraints];
@@ -159,6 +186,7 @@
     if (_rContentView == nil) {
         _rContentView = [[UIView alloc]init];
         _rContentView.backgroundColor = kBackGroundColor ;
+        [_rContentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pvt_clickContent:)]] ;
     }
     
     return _rContentView ;
@@ -207,6 +235,15 @@
 
     if (_rCommitBtn == nil) {
         _rCommitBtn =  [self jyCreateButtonWithTitle:@"下一步"] ;
+        
+        @weakify(self)
+        [[_rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            
+            @strongify(self)
+            NSLog(@"%@",x) ;
+        }] ;
+        
+        
         
     }
     return _rCommitBtn ;
