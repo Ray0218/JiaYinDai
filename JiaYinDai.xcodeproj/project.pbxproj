@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1AA86B09433753128AE13DB7 /* libPods-JiaYinDai.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C0827444CFB57F4327A4C1 /* libPods-JiaYinDai.a */; };
+		710AC9191E8E51EC00428AE8 /* JYPayCommtController.m in Sources */ = {isa = PBXBuildFile; fileRef = 710AC9181E8E51EC00428AE8 /* JYPayCommtController.m */; };
+		710AC91C1E8E5D3100428AE8 /* JYSuccessAlterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 710AC91B1E8E5D3100428AE8 /* JYSuccessAlterController.m */; };
 		7123DDB71E88A172007C094A /* JYMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7123DDB61E88A172007C094A /* JYMessageCell.m */; };
 		7123DDBA1E88D852007C094A /* JYFinanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7123DDB91E88D852007C094A /* JYFinanceCell.m */; };
 		7123DDBD1E891948007C094A /* JYFinanceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7123DDBC1E891948007C094A /* JYFinanceDetailController.m */; };
@@ -66,6 +68,10 @@
 
 /* Begin PBXFileReference section */
 		08C0827444CFB57F4327A4C1 /* libPods-JiaYinDai.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JiaYinDai.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		710AC9171E8E51EC00428AE8 /* JYPayCommtController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPayCommtController.h; sourceTree = "<group>"; };
+		710AC9181E8E51EC00428AE8 /* JYPayCommtController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPayCommtController.m; sourceTree = "<group>"; };
+		710AC91A1E8E5D3100428AE8 /* JYSuccessAlterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSuccessAlterController.h; sourceTree = "<group>"; };
+		710AC91B1E8E5D3100428AE8 /* JYSuccessAlterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSuccessAlterController.m; sourceTree = "<group>"; };
 		7123DDB51E88A172007C094A /* JYMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYMessageCell.h; sourceTree = "<group>"; };
 		7123DDB61E88A172007C094A /* JYMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYMessageCell.m; sourceTree = "<group>"; };
 		7123DDB81E88D852007C094A /* JYFinanceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFinanceCell.h; sourceTree = "<group>"; };
@@ -395,6 +401,10 @@
 				71F8C6051E8B655200609DB5 /* JYEstimateController.m */,
 				71FEE9B51E8CE0EA00AA3E80 /* JYBuyViewController.h */,
 				71FEE9B61E8CE0EA00AA3E80 /* JYBuyViewController.m */,
+				710AC9171E8E51EC00428AE8 /* JYPayCommtController.h */,
+				710AC9181E8E51EC00428AE8 /* JYPayCommtController.m */,
+				710AC91A1E8E5D3100428AE8 /* JYSuccessAlterController.h */,
+				710AC91B1E8E5D3100428AE8 /* JYSuccessAlterController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -640,6 +650,7 @@
 				71F8C6091E8BA66000609DB5 /* JYEstimateView.m in Sources */,
 				71D05EEF1E826134004CBE04 /* AppDelegate.m in Sources */,
 				713DBA321E89F26C001C65D2 /* UITableView+swizzle.m in Sources */,
+				710AC9191E8E51EC00428AE8 /* JYPayCommtController.m in Sources */,
 				713C65AB1E8DE6C100B80664 /* NSObject+Factory.m in Sources */,
 				713DBA351E89FA31001C65D2 /* JYFinanceDetailView.m in Sources */,
 				7123DDBD1E891948007C094A /* JYFinanceDetailController.m in Sources */,
@@ -652,6 +663,7 @@
 				71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */,
 				71F432401E83CFB8009AA864 /* NSDate+Extern.m in Sources */,
 				71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */,
+				710AC91C1E8E5D3100428AE8 /* JYSuccessAlterController.m in Sources */,
 				71F8C6061E8B655200609DB5 /* JYEstimateController.m in Sources */,
 				71F4323D1E83B410009AA864 /* NSString+Extern.m in Sources */,
 				71D05F291E82667A004CBE04 /* JYTabBarController.m in Sources */,

@@ -9,13 +9,15 @@
 #import "JYBuyViewController.h"
 #import "JYEstimateHeaderView.h"
 #import "JYPayStyleView.h"
+#import "JYPayCommtController.h"
+
 
 
 @interface JYBuyViewController (){
+    
     UIScrollView *_rScrollView ;
     UILabel *_rTotalTitleLab ;//剩余可投金额
     UILabel *_rBeginTitleLab; //起购金额
-
     
     JYBuyRowView *_rbuyTextView ;//投资金额
     JYPayStyleView *_rPayStyleView ; //支付方式
@@ -60,9 +62,7 @@
     }else if (CGRectContainsPoint(redRect, point) ) {
         NSLog(@"点击红包") ;
     }
-
-
-
+    
 }
 
 
@@ -77,19 +77,17 @@
     [_rScrollView addSubview:self.rContentView];
     [self.rContentView addSubview:self.rHeaderView];
     
-    
     _rTotalTitleLab = [self jyCreateLabelWithTitle:@"剩余可投金额:" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     _rBeginTitleLab = [self jyCreateLabelWithTitle:@"起投金额:" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     [self.rContentView addSubview:_rTotalTitleLab];
     [self.rContentView addSubview:_rBeginTitleLab];
     [self.rContentView addSubview:self.rTotalMoneyLab];
     [self.rContentView addSubview:self.rBuyCountLab];
-
     
     
     _rbuyTextView = [[JYBuyRowView alloc]initWithLeftTitle:@"投资金额" rowType:JYRowTypeTextField];
     _rPayStyleView = [[JYPayStyleView alloc]initWithType:JYPayTypeAddBank ];
- 
+    
     
     [self.rContentView addSubview:_rbuyTextView];
     [self.rContentView addSubview:_rPayStyleView];
@@ -109,23 +107,23 @@
     
     [self.rContentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_rScrollView);
-         make.width.mas_equalTo(SCREEN_WIDTH) ;
+        make.width.mas_equalTo(SCREEN_WIDTH) ;
         make.height.greaterThanOrEqualTo(@0);
         
     }];
     
-     [self.rHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.rHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.top.and.right.equalTo(self.rContentView) ;
-         make.height.equalTo(@(120));
+        make.height.equalTo(@(120));
         
     }];
     
     
-     [_rTotalTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_rTotalTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.rContentView).offset(15) ;
         make.top.equalTo(self.rHeaderView.mas_bottom).offset(15) ;
         make.width.mas_lessThanOrEqualTo(130) ;
-
+        
     }];
     
     [_rBeginTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -137,14 +135,14 @@
         make.top.equalTo(self.rHeaderView.mas_bottom).offset(15) ;
         make.left.equalTo(_rTotalTitleLab.mas_right);
         make.right.equalTo(self.rContentView).offset(-15) ;
-     }];
+    }];
     
     [self.rBuyCountLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_rBeginTitleLab) ;
         make.left.equalTo(self.rTotalMoneyLab) ;
         make.right.equalTo(self.rContentView).offset(-15) ;
     }];
-
+    
     
     [_rbuyTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.rContentView).offset(-1) ;
@@ -157,7 +155,7 @@
         make.left.equalTo(self.rContentView).offset(-1) ;
         make.right.equalTo(self.rContentView).offset(1) ;
         make.top.equalTo(_rbuyTextView.mas_bottom).offset(15) ;
-     }];
+    }];
     
     
     
@@ -165,15 +163,15 @@
         make.left.equalTo(self.rContentView).offset(15) ;
         make.top.equalTo(_rPayStyleView.mas_bottom).offset(15) ;
         make.height.mas_equalTo(30) ;
-     }];
-
+    }];
+    
     [self.rCommitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.rContentView).offset(15) ;
         make.right.equalTo(self.rContentView).offset(-15) ;
         make.top.equalTo(self.rAgreeBtn.mas_bottom).offset(25) ;
         make.height.mas_equalTo(45);
         make.bottom.equalTo(self.rContentView).offset(-25) ;
-
+        
     }];
     
     [super updateViewConstraints];
@@ -209,7 +207,7 @@
 }
 
 -(UILabel*)rTotalMoneyLab {
-
+    
     if (_rTotalMoneyLab == nil) {
         _rTotalMoneyLab = [self jyCreateLabelWithTitle:@"200,000元" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
@@ -218,12 +216,12 @@
 }
 
 -(UIButton*)rAgreeBtn {
-
+    
     if (_rAgreeBtn == nil) {
         _rAgreeBtn = [UIButton buttonWithType:UIButtonTypeCustom] ;
         _rAgreeBtn.backgroundColor = [UIColor clearColor] ;
         [_rAgreeBtn setTitle:@"阅读并同意《嘉银贷借款协议》" forState:UIControlStateNormal];
-         _rAgreeBtn.titleLabel.font = [UIFont systemFontOfSize:18] ;
+        _rAgreeBtn.titleLabel.font = [UIFont systemFontOfSize:18] ;
         [_rAgreeBtn setTitleColor:kTextBlackColor forState:UIControlStateNormal];
         
         _rAgreeBtn.imageView.image = [UIImage imageNamed:@""] ;
@@ -232,15 +230,17 @@
 }
 
 -(UIButton*)rCommitBtn {
-
+    
     if (_rCommitBtn == nil) {
         _rCommitBtn =  [self jyCreateButtonWithTitle:@"下一步"] ;
         
         @weakify(self)
         [[_rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
-            
             @strongify(self)
-            NSLog(@"%@",x) ;
+            
+            JYPayCommtController *payVC = [[JYPayCommtController alloc]init];
+            [self.navigationController pushViewController:payVC animated:YES];
+            
         }] ;
         
         

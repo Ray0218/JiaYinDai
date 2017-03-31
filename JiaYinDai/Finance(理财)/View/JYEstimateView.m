@@ -90,7 +90,7 @@
         _rTextField.leftViewMode = UITextFieldViewModeAlways ;
 
         _rTextField.placeholder = @"请输入金额" ;
-        _rTextField.keyboardType = UIKeyboardTypePhonePad ;
+        _rTextField.keyboardType = UIKeyboardTypeNumberPad ;
         _rTextField.font = [UIFont systemFontOfSize:14] ;
         _rTextField.rightView = ({
              UILabel* lab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];

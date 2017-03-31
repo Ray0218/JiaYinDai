@@ -66,8 +66,7 @@
     [self.view addSubview:rReurnOrder];
     [self.view addSubview:rReurnDesc];
     
-    CGSize ss = [rReurnOrder  intrinsicContentSize] ;
-    
+     
     
     [rFirstOrder mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.and.left.equalTo(_backgroundView).offset(30) ;
