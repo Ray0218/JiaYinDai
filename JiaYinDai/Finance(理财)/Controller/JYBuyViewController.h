@@ -13,8 +13,3 @@
 @end
 
 
-@interface JYBuyRowView : UIView
-
-- (instancetype)initWithLeftTitle:(NSString*)leftStr rightStr:(NSString*)rightStr ;
-
-@end

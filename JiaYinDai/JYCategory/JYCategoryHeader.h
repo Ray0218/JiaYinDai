@@ -14,7 +14,7 @@
 #import "NSString+Extern.h"
 #import "NSDate+Extern.h"
 #import "UILabel+swizzle.h"
-#import "NSObject+JYLabel.h"
+#import "NSObject+Factory.h"
 
 
 #endif /* JYCategoryHeader_h */
