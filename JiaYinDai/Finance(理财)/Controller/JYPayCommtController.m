@@ -10,8 +10,13 @@
 
 #import "JYSuccessAlterController.h"
 #import "UIViewController+Transition.h"
+#import "JYPasswordView.h"
 
-@interface JYPayCommtController ()
+
+@interface JYPayCommtController (){
+
+    JYPasswordView *_rPassWordView ;
+}
 
 @property (nonatomic,strong) UIButton *rCommitBtn ;
 @property (nonatomic,strong) UIButton *rForgetBtn ;
@@ -32,12 +37,18 @@
 
 -(void)buildSubViewsUI {
     
+    
+    _rPassWordView = [[JYPasswordView alloc]initWithFrame:CGRectMake(15, 30, SCREEN_WIDTH-30, 45)];
+    [self.view addSubview:_rPassWordView] ;
+    
+    
+    
     [self.view addSubview:self.rForgetBtn];
     [self.view addSubview:self.rCommitBtn];
     
     [self.rForgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(-15) ;
-        make.top.equalTo(self.view).offset(120) ;
+        make.top.equalTo(_rPassWordView.mas_bottom).offset(10) ;
     }] ;
     
     [self.rCommitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
