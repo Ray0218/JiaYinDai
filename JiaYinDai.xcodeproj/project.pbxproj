@@ -23,6 +23,8 @@
 		713DBA411E8A6370001C65D2 /* JYDebtController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713DBA401E8A6370001C65D2 /* JYDebtController.m */; };
 		714A39151E8F40FE00A19BBE /* JYCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 714A39141E8F40FE00A19BBE /* JYCircleView.m */; };
 		71A2461C1E8F7CB000049B79 /* JYPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2461B1E8F7CB000049B79 /* JYPasswordView.m */; };
+		71A2461F1E8F8AE000049B79 /* JYLoanTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2461E1E8F8AE000049B79 /* JYLoanTableViewCell.m */; };
+		71A246221E8F9F6100049B79 /* JYFatherTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A246211E8F9F6100049B79 /* JYFatherTableController.m */; };
 		71D05EEC1E826134004CBE04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05EEB1E826134004CBE04 /* main.m */; };
 		71D05EEF1E826134004CBE04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05EEE1E826134004CBE04 /* AppDelegate.m */; };
 		71D05EF71E826134004CBE04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D05EF61E826134004CBE04 /* Assets.xcassets */; };
@@ -100,6 +102,10 @@
 		714A39141E8F40FE00A19BBE /* JYCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYCircleView.m; sourceTree = "<group>"; };
 		71A2461A1E8F7CB000049B79 /* JYPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPasswordView.h; sourceTree = "<group>"; };
 		71A2461B1E8F7CB000049B79 /* JYPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPasswordView.m; sourceTree = "<group>"; };
+		71A2461D1E8F8AE000049B79 /* JYLoanTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYLoanTableViewCell.h; path = "JiaYinDai/Finance(理财)/View/JYLoanTableViewCell.h"; sourceTree = SOURCE_ROOT; };
+		71A2461E1E8F8AE000049B79 /* JYLoanTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYLoanTableViewCell.m; path = "JiaYinDai/Finance(理财)/View/JYLoanTableViewCell.m"; sourceTree = SOURCE_ROOT; };
+		71A246201E8F9F6100049B79 /* JYFatherTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFatherTableController.h; sourceTree = "<group>"; };
+		71A246211E8F9F6100049B79 /* JYFatherTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFatherTableController.m; sourceTree = "<group>"; };
 		71D05EE71E826134004CBE04 /* JiaYinDai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JiaYinDai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D05EEB1E826134004CBE04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		71D05EED1E826134004CBE04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -278,6 +284,8 @@
 				71D05F281E82667A004CBE04 /* JYTabBarController.m */,
 				71F432071E8358AB009AA864 /* JYFatherController.h */,
 				71F432081E8358AB009AA864 /* JYFatherController.m */,
+				71A246201E8F9F6100049B79 /* JYFatherTableController.h */,
+				71A246211E8F9F6100049B79 /* JYFatherTableController.m */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -431,6 +439,8 @@
 		71F4322B1E83932E009AA864 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				71A2461D1E8F8AE000049B79 /* JYLoanTableViewCell.h */,
+				71A2461E1E8F8AE000049B79 /* JYLoanTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -674,6 +684,7 @@
 				71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */,
 				71F432401E83CFB8009AA864 /* NSDate+Extern.m in Sources */,
 				71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */,
+				71A2461F1E8F8AE000049B79 /* JYLoanTableViewCell.m in Sources */,
 				710AC91C1E8E5D3100428AE8 /* JYSuccessAlterController.m in Sources */,
 				71F8C6061E8B655200609DB5 /* JYEstimateController.m in Sources */,
 				71F4323D1E83B410009AA864 /* NSString+Extern.m in Sources */,
@@ -683,6 +694,7 @@
 				71A2461C1E8F7CB000049B79 /* JYPasswordView.m in Sources */,
 				71DA764C1E850EF5001C3995 /* JYMessageModel.m in Sources */,
 				71F432271E8392AF009AA864 /* JYMessageVController.m in Sources */,
+				71A246221E8F9F6100049B79 /* JYFatherTableController.m in Sources */,
 				71F8C6031E8B425800609DB5 /* JYBetTableViewCell.m in Sources */,
 				71FEE9B71E8CE0EA00AA3E80 /* JYBuyViewController.m in Sources */,
 			);
