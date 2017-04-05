@@ -11,6 +11,9 @@
 #import "JYLoanViewController.h"
 #import "JYPersonViewController.h"
 
+#import "JYLogInViewController.h"
+
+
 
 #define kClassVCKey   @"rootVCClass"
 #define kTitleKey     @"title"
@@ -40,8 +43,10 @@
                                    kImageKey    : @"tab-homePageGray",
                                    kSelImageKey : @"tab-homePage"},
                                  
-                                 @{kClassVCKey  : @"JYPersonViewController",
-                                   kTitleKey    : @"我的",
+//                                 @{kClassVCKey  : @"JYPersonViewController",
+                                                                  @{kClassVCKey  : @"JYLogInViewController",
+
+                                    kTitleKey    : @"我的",
                                    kImageKey    : @"tab-myGray",
                                    kSelImageKey : @"tab-my"}];
     

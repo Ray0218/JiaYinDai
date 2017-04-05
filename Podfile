@@ -10,5 +10,6 @@ pod 'Masonry', '~> 0.6.3'
 pod 'OAStackView', '~> 0.1.0'
 pod 'ReactiveCocoa' ,'~> 2.5'
  pod 'JSONModel', '~> 1.7.0'
+pod 'IQKeyboardManager', '~> 4.0.9'
 
 end

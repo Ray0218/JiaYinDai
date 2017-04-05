@@ -141,6 +141,7 @@
         make.top.equalTo(rImgView.mas_bottom).offset(20) ;
         make.left.equalTo(self.contentView).offset(70) ;
         make.right.equalTo(self.contentView).offset(-70) ;
+        make.height.mas_equalTo(60) ;
         
     }];
     
@@ -149,14 +150,14 @@
         make.top.equalTo(self.rTextField.mas_bottom).offset(20) ;
         make.left.equalTo(self.contentView).offset(15) ;
         make.bottom.equalTo(self.contentView).offset(-20);
-        make.height.mas_equalTo(20) ;
+//        make.height.mas_greaterThanOrEqualTo(20) ;
     }] ;
     
     [self.rMaxLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.rTextField.mas_bottom).offset(20) ;
         make.right.equalTo(self.contentView).offset(-15) ;
         make.bottom.equalTo(self.contentView).offset(-20);
-        make.height.mas_equalTo(20) ;
+//        make.height.mas_equalTo(20) ;
         
     }] ;
 }
@@ -177,6 +178,7 @@
         _rTextField.keyboardType = UIKeyboardTypeNumberPad ;
         _rTextField.font = [UIFont systemFontOfSize:50] ;
         _rTextField.textColor = kBlueColor ;
+        
     }
     
     return _rTextField ;
@@ -208,3 +210,124 @@
 }
 
 @end
+
+
+@interface JYLoanTimeCell (){
+
+    NSMutableArray *rButtonArray ;
+}
+
+
+@property (nonatomic ,strong) UILabel *rTitle ;
+
+@end
+
+@implementation JYLoanTimeCell
+
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+
+    self = [super initWithStyle: style reuseIdentifier:reuseIdentifier] ;
+    if (self) {
+        
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone ;
+        self.backgroundColor=
+        self.contentView.backgroundColor = [UIColor clearColor] ;
+        [self buildSubViewsUI];
+
+    }
+    
+    return self ;
+}
+
+
+-(void)buildSubViewsUI {
+
+    [self.contentView addSubview:self.rTitle];
+    [self.rTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.top.equalTo(self.contentView).offset(15) ;
+    }] ;
+    
+    rButtonArray = [NSMutableArray arrayWithCapacity:5] ;
+    
+    
+    
+    static NSString *title[] = {@"1个月",@"3个月",@"6个月",@"9个月",@"12个月"} ;
+    for (int i= 0; i< 5; i++) {
+        UIButton *btn = [self creatButtonWithButtonTitle:title[i]] ;
+        [self.contentView addSubview:btn];
+        [rButtonArray addObject:btn];
+    }
+    
+    
+    [rButtonArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:5 leadSpacing:15 tailSpacing:15];
+    
+    [rButtonArray mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.rTitle.mas_bottom).offset(15) ;
+         make.height.mas_equalTo(30) ;
+        make.bottom.equalTo(self.contentView).offset(-15) ;
+    }] ;
+    
+    
+}
+
+
+-(UILabel*)rTitle {
+
+    if (_rTitle == nil) {
+        _rTitle = [self jyCreateLabelWithTitle:@"申请期限" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+    }
+    
+    return _rTitle ;
+}
+
+
+-(UIButton*)creatButtonWithButtonTitle:(NSString*)title {
+
+    UIButton *btn  = [ self jyCreateButtonWithTitle:title] ;
+    
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal];
+    
+    [btn setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forState:UIControlStateSelected];
+    [btn setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forState:UIControlStateHighlighted];
+
+     [btn setBackgroundImage:[UIImage jy_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+ 
+    
+    btn.layer.borderWidth = 1 ;
+    btn.layer.borderColor = kLineColor.CGColor ;
+    btn.layer.cornerRadius = 4 ;
+
+    btn.titleLabel.font = [UIFont systemFontOfSize:16] ;
+    btn.backgroundColor = [UIColor clearColor] ;
+
+    
+    [[[btn rac_signalForControlEvents:UIControlEventTouchUpInside]filter:^BOOL(UIButton* value) {
+        
+         
+        return !value.selected ;
+        
+     } ] subscribeNext:^(UIButton* button) {
+        
+         
+         [rButtonArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+             
+             UIButton *btn = (UIButton*)obj ;
+             btn.selected = NO ;
+             
+         }] ;
+        
+        button.selected = YES ;
+        
+    }] ;
+    
+    return btn ;
+    
+}
+
+@end
+
+
+
+

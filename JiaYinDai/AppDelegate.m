@@ -10,6 +10,7 @@
 #import "JYTabBarController.h"
 #import <AFNetworkReachabilityManager.h>
 #import "JYNoNetworkManager.h"
+#import "IQKeyboardManager.h"
 
 @interface AppDelegate ()
 
@@ -34,6 +35,15 @@
     
     
     [self initNetWork];
+    
+    
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES;
+    manager.shouldResignOnTouchOutside = YES;
+    manager.shouldToolbarUsesTextFieldTintColor = YES;
+    manager.enableAutoToolbar = NO;
+    
+    
     
     return YES;
 }

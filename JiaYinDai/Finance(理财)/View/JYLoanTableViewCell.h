@@ -11,3 +11,8 @@
 @interface JYLoanTableViewCell : UITableViewCell
 
 @end
+
+
+@interface JYLoanTimeCell : UITableViewCell
+
+@end
