@@ -49,7 +49,38 @@
     [self.contentView addSubview:self.rLeftImgView];
     
     
-    if (rType == JYLogCellTypePassword) {
+    switch (rType) {
+        case JYLogCellTypePassword:{
+            self.rLeftImgView.image = [UIImage imageNamed:@"password_icon"] ;
+            self.rTextField.placeholder = @"请输入登录密码" ;
+             
+            [self.rRightBtn setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateNormal];
+
+
+        }
+            break;
+        case JYLogCellTypeMakesurePassword:{
+            self.rLeftImgView.image = [UIImage imageNamed:@"makesure_icon"] ;
+            self.rTextField.placeholder = @"确认登录密码" ;
+            [self.rRightBtn setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateNormal];
+
+
+        }break ;
+        case JYLogCellTypeCode:{
+            self.rLeftImgView.image = [UIImage imageNamed:@"code_icon"] ;
+            self.rTextField.placeholder = @"请输入验证码" ;
+
+        }break ;
+        default:{
+            self.rLeftImgView.image = [UIImage imageNamed:@"person_icon"] ;
+            self.rTextField.placeholder = @"请输入手机号码" ;
+        }
+
+            break;
+    }
+
+    
+    if (rType == JYLogCellTypePassword || rType == JYLogCellTypeMakesurePassword) {
         self.rTextField.keyboardType = UIKeyboardTypeDefault ;
     }else{
     
@@ -226,7 +257,6 @@
     if (_rTextField == nil) {
         _rTextField = [[UITextField alloc]init];
         _rTextField.backgroundColor =[ UIColor clearColor] ;
-        _rTextField.placeholder = @"请输入手机号码" ;
         _rTextField.font = [UIFont systemFontOfSize:14] ;
     }
     return _rTextField ;
@@ -235,7 +265,8 @@
 -(UIImageView*)rLeftImgView {
     if (_rLeftImgView == nil) {
         _rLeftImgView = [[UIImageView alloc]init];
-        _rLeftImgView.backgroundColor  = [UIColor orangeColor] ;
+        _rLeftImgView.backgroundColor  = [UIColor clearColor] ;
+        _rLeftImgView.contentMode = UIViewContentModeCenter ;
     }
     
     return _rLeftImgView ;
@@ -244,10 +275,10 @@
 -(UIButton*)rRightBtn {
     if (_rRightBtn == nil) {
         _rRightBtn = [UIButton buttonWithType:UIButtonTypeCustom] ;
-        _rRightBtn.backgroundColor =  kBlueColor;
+//        _rRightBtn.backgroundColor =  kBlueColor;
         _rRightBtn.layer.cornerRadius = 4;
         _rRightBtn.clipsToBounds = YES ;
-        _rRightBtn.titleLabel.font = [UIFont systemFontOfSize:14] ;
+         _rRightBtn.titleLabel.font = [UIFont systemFontOfSize:14] ;
         
     }
     return _rRightBtn ;

@@ -11,8 +11,7 @@
 #import "JYLoanViewController.h"
 #import "JYPersonViewController.h"
 
-#import "JYLogInViewController.h"
-
+ 
 
 
 #define kClassVCKey   @"rootVCClass"
@@ -35,20 +34,18 @@
                                  
                                  @{kClassVCKey  : @"JYFinanceViewController",
                                    kTitleKey    : @"理财",
-                                   kImageKey    : @"tab-financialGray",
-                                   kSelImageKey : @"tab-financial"},
+                                   kImageKey    : @"tab_financialGray",
+                                   kSelImageKey : @"tab_finance"},
                                  
                                  @{kClassVCKey  : @"JYLoanViewController",
                                    kTitleKey    : @"借贷",
-                                   kImageKey    : @"tab-homePageGray",
-                                   kSelImageKey : @"tab-homePage"},
+                                   kImageKey    : @"tab_LoanGray",
+                                   kSelImageKey : @"tab_loan"},
                                  
-//                                 @{kClassVCKey  : @"JYPersonViewController",
-                                                                  @{kClassVCKey  : @"JYLogInViewController",
-
-                                    kTitleKey    : @"我的",
-                                   kImageKey    : @"tab-myGray",
-                                   kSelImageKey : @"tab-my"}];
+                                 @{kClassVCKey  : @"JYPersonViewController",
+                                     kTitleKey    : @"我的",
+                                   kImageKey    : @"tab_myGray",
+                                   kSelImageKey : @"tab_my"}];
     
     
     NSMutableArray *controlls = [[NSMutableArray alloc]initWithCapacity:childItemsArray.count] ;
@@ -59,12 +56,12 @@
         
         UITabBarItem *item = nav.tabBarItem;
         
-        item.title = @"" ;// dict[kTitleKey];
-        [item setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)] ;
+        item.title =  dict[kTitleKey];
+//        [item setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)] ;
         
         item.image = [UIImage imageNamed:dict[kImageKey]];
         item.selectedImage = [[UIImage imageNamed:dict[kSelImageKey]] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)];
-        [item setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} forState:(UIControlStateSelected)];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlueColor} forState:(UIControlStateSelected)];
         
         
         [controlls addObject:nav];

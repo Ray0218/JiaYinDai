@@ -8,6 +8,8 @@
 
 #import "JYLoanViewController.h"
 #import "JYLoanTableViewCell.h"
+#import "JYLoanAlterVC.h"
+#import "UIViewController+Transition.h"
 
 
 
@@ -197,14 +199,11 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row %2 == 0) {
-        self.rTableView.sectionHeaderHeight = 0 ;
-        
-    }else{
-        self.rTableView.sectionHeaderHeight = 20 ;
+    if (indexPath.row  == 4) {
+        JYLoanAlterVC *vc = [[JYLoanAlterVC alloc]init];
+        [self.navigationController jy_showViewController:vc completion:nil];
         
     }
-    [self.rTableView reloadData];
 }
 
 #pragma  mark- getter

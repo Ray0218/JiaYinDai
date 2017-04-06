@@ -109,8 +109,12 @@
         
         if (indexPath.row == 0) {
             cell.rTextField.placeholder = @"请设置6-16位英文或数字及组合密码" ;
+            cell.rLeftImgView.image = [UIImage imageNamed:@"password_icon"] ;
+
         }else{
             cell.rTextField.placeholder = @"确认登录密码" ;
+            cell.rLeftImgView.image = [UIImage imageNamed:@"makesure_icon"] ;
+
             
         }
         

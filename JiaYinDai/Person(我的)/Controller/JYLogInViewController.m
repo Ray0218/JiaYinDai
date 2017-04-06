@@ -29,7 +29,7 @@
 {
     self = [super init];
     if (self) {
-        rLogFootType = JYLogFootViewTypeLogIn ;
+        NSAssert(0, @"使用initWithLogType")  ;
     }
     return self;
 }
@@ -140,7 +140,8 @@
     if (_rTableHeaderView == nil) {
         _rTableHeaderView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180)];
         _rTableHeaderView.image = [UIImage imageNamed:@"log_img"] ;
-        _rTableHeaderView.contentMode = UIViewContentModeCenter ;
+        _rTableHeaderView.contentMode = UIViewContentModeCenter
+        ;
         _rTableHeaderView.backgroundColor = [UIColor whiteColor] ;
     }
     

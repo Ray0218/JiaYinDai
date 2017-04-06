@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSUInteger, JYLogCellType) {
     JYLogCellTypeNormal,
     JYLogCellTypePassword, //密码
-    JYLogCellTypeCode, //验证码
+    JYLogCellTypeMakesurePassword, //确认密码
+     JYLogCellTypeCode, //验证码
 };
 
 
@@ -20,6 +21,8 @@ typedef NS_ENUM(NSUInteger, JYLogCellType) {
 @interface JYLogInCell : UITableViewCell
 
 @property (nonatomic,strong,readonly) UITextField *rTextField ;
+@property (nonatomic,strong,readonly) UIImageView *rLeftImgView ;
+
 
 
 -(instancetype)initWithCellType:(JYLogCellType)type reuseIdentifier:(NSString *)reuseIdentifier ;
