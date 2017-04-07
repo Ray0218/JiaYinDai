@@ -9,7 +9,7 @@
 #import "JYLogInCell.h"
 
 @interface JYLogInCell (){
-
+    
     JYLogCellType rType ;
 }
 
@@ -31,7 +31,7 @@
 
 
 -(instancetype)initWithCellType:(JYLogCellType)type reuseIdentifier:(NSString *)reuseIdentifier{
-
+    
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] ;
     if (self) {
         
@@ -44,7 +44,7 @@
 }
 
 -(void)buildSubViewsUI {
-
+    
     [self.contentView addSubview:self.rTextField];
     [self.contentView addSubview:self.rLeftImgView];
     
@@ -53,38 +53,38 @@
         case JYLogCellTypePassword:{
             self.rLeftImgView.image = [UIImage imageNamed:@"password_icon"] ;
             self.rTextField.placeholder = @"请输入登录密码" ;
-             
+            
             [self.rRightBtn setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateNormal];
-
-
+            
+            
         }
             break;
         case JYLogCellTypeMakesurePassword:{
             self.rLeftImgView.image = [UIImage imageNamed:@"makesure_icon"] ;
             self.rTextField.placeholder = @"确认登录密码" ;
             [self.rRightBtn setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateNormal];
-
-
+            
+            
         }break ;
         case JYLogCellTypeCode:{
             self.rLeftImgView.image = [UIImage imageNamed:@"code_icon"] ;
             self.rTextField.placeholder = @"请输入验证码" ;
-
+            
         }break ;
         default:{
             self.rLeftImgView.image = [UIImage imageNamed:@"person_icon"] ;
             self.rTextField.placeholder = @"请输入手机号码" ;
         }
-
+            
             break;
     }
-
+    
     
     if (rType == JYLogCellTypePassword || rType == JYLogCellTypeMakesurePassword) {
         self.rTextField.keyboardType = UIKeyboardTypeDefault ;
     }else{
-    
-         self.rTextField.keyboardType = UIKeyboardTypeNumberPad ;
+        
+        self.rTextField.keyboardType = UIKeyboardTypeNumberPad ;
     }
     
     if (rType != JYLogCellTypeNormal) {
@@ -99,9 +99,9 @@
             if (rType == JYLogCellTypePassword) {
                 self.rTextField.secureTextEntry = !self.rTextField.secureTextEntry ;
             }else{
-            
+                
                 [self startTimeGCD];
-            
+                
             }
             
         }] ;
@@ -133,11 +133,11 @@
             make.left.equalTo(self.rLeftImgView.mas_right).offset(15) ;
             make.centerY.equalTo(self.contentView) ;
             make.right.equalTo(self.contentView).offset(-15) ;
-
+            
             
         }] ;
     }else{
-    
+        
         [self.rTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.left.equalTo(self.rLeftImgView.mas_right).offset(15) ;
@@ -149,28 +149,28 @@
         if (rType == JYLogCellTypeCode) {
             
             [_rRightBtn setTitle:@"获取验证码" forState:UIControlStateNormal] ;
-
+            
             [self.rRightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.contentView).offset(-15) ;
-                 make.centerY.equalTo(self.contentView) ;
+                make.centerY.equalTo(self.contentView) ;
                 make.height.mas_equalTo(30) ;
                 make.width.mas_equalTo(80) ;
                 
             }];
-          
+            
         }else{
             
             
             [self.rRightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.contentView).offset(-15) ;
-                 make.centerY.equalTo(self.contentView) ;
+                make.centerY.equalTo(self.contentView) ;
                 make.width.and.height.mas_equalTo(30) ;
             }];
-           
+            
         }
         
     }
-
+    
     
 }
 
@@ -205,7 +205,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-        
+                
                 [self.rRightBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
                 self.rRightBtn.enabled = YES ;
                 self.rRightBtn.backgroundColor = kBlueColor ;
@@ -251,7 +251,7 @@
 
 
 
-#pragma mark- getter 
+#pragma mark- getter
 
 -(UITextField*)rTextField {
     if (_rTextField == nil) {
@@ -275,10 +275,10 @@
 -(UIButton*)rRightBtn {
     if (_rRightBtn == nil) {
         _rRightBtn = [UIButton buttonWithType:UIButtonTypeCustom] ;
-//        _rRightBtn.backgroundColor =  kBlueColor;
+        //        _rRightBtn.backgroundColor =  kBlueColor;
         _rRightBtn.layer.cornerRadius = 4;
         _rRightBtn.clipsToBounds = YES ;
-         _rRightBtn.titleLabel.font = [UIFont systemFontOfSize:14] ;
+        _rRightBtn.titleLabel.font = [UIFont systemFontOfSize:14] ;
         
     }
     return _rRightBtn ;
@@ -286,7 +286,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -335,17 +335,17 @@
         
         
         
-    }if (type == JYLogFootViewTypeSetPassword) {
+    }else if (type == JYLogFootViewTypeSetPassword) {
         
         [self addSubview:self.rAgreeBtn] ;
         
         [self.rCommitBtn setTitle:@"完成" forState:UIControlStateNormal];
-
-  
-
+        
+        
+        
     } else{
         [self.rCommitBtn setTitle:@"下一步" forState:UIControlStateNormal];
-
+        
         
         
     }
@@ -384,7 +384,7 @@
         
     }else if (rLogType == JYLogFootViewTypeSetPassword) {
         
-         
+        
         [self.rAgreeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(15) ;
             make.top.equalTo(self).offset(15) ;
@@ -398,7 +398,7 @@
             make.bottom.equalTo(self).offset(-15) ;
             
         }];
-
+        
         
     }else{
         
@@ -460,7 +460,7 @@
 }
 
 -(UIButton*)rAgreeBtn {
-
+    
     if (_rAgreeBtn == nil) {
         _rAgreeBtn =  ({
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;

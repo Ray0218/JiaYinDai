@@ -181,7 +181,7 @@
 
     if (_rHeaderImg == nil) {
         _rHeaderImg = [[UIImageView alloc]init];
-//        _rHeaderImg.clipsToBounds = YES ;
+        _rHeaderImg.clipsToBounds = YES ;
         _rHeaderImg.layer.cornerRadius = 5 ;
         _rHeaderImg.backgroundColor = [UIColor lightGrayColor] ;
     }
@@ -191,7 +191,8 @@
 -(UIImageView*)rUserCodeView {
     if (_rUserCodeView == nil) {
         _rUserCodeView = [[UIImageView alloc]init];
-        _rUserCodeView.backgroundColor = [UIColor lightGrayColor] ;
+        _rUserCodeView.image =  [[UIImage imageNamed:@"per_code"] jy_imageWithTintColor:[UIColor whiteColor]] ;
+         _rUserCodeView.backgroundColor = [UIColor clearColor] ;
      }
     return _rUserCodeView ;
     
@@ -255,8 +256,8 @@
         _rRightArrow = ({
             
             UIButton *view = [UIButton  buttonWithType:UIButtonTypeCustom];
-            [view setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal] ;
-            view.backgroundColor = [UIColor lightGrayColor] ;
+            [view setImage:[[UIImage imageNamed:@"more"] jy_imageWithTintColor:[UIColor whiteColor]] forState:UIControlStateNormal] ;
+            view.backgroundColor = [UIColor clearColor] ;
             view ;
         }) ;
     }

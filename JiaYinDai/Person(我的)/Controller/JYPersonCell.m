@@ -74,6 +74,7 @@
 
 }
 
+ 
 #pragma mark -getter
 
 -(UIImageView*)rLeftImg {

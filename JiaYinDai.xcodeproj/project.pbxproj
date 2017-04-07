@@ -16,6 +16,11 @@
 		7123DDB71E88A172007C094A /* JYMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7123DDB61E88A172007C094A /* JYMessageCell.m */; };
 		7123DDBA1E88D852007C094A /* JYFinanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7123DDB91E88D852007C094A /* JYFinanceCell.m */; };
 		7123DDBD1E891948007C094A /* JYFinanceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7123DDBC1E891948007C094A /* JYFinanceDetailController.m */; };
+		7132F5F51E975C33009B22EA /* JYPersonInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F5F41E975C33009B22EA /* JYPersonInfoCell.m */; };
+		7132F5F81E97779A009B22EA /* JYSecureSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F5F71E97779A009B22EA /* JYSecureSettingVC.m */; };
+		7132F5FB1E977AF2009B22EA /* JYPasswodSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F5FA1E977AF1009B22EA /* JYPasswodSettingVC.m */; };
+		7132F5FE1E97807B009B22EA /* JYPasswordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F5FD1E97807B009B22EA /* JYPasswordCell.m */; };
+		7132F6011E9793FD009B22EA /* JYPasswordSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F6001E9793FD009B22EA /* JYPasswordSetModel.m */; };
 		713C65AB1E8DE6C100B80664 /* NSObject+Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 713C65AA1E8DE6C100B80664 /* NSObject+Factory.m */; };
 		713C65AE1E8DF66600B80664 /* JYPayStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 713C65AD1E8DF66600B80664 /* JYPayStyleView.m */; };
 		713DBA321E89F26C001C65D2 /* UITableView+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 713DBA311E89F26C001C65D2 /* UITableView+swizzle.m */; };
@@ -99,6 +104,16 @@
 		7123DDB91E88D852007C094A /* JYFinanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFinanceCell.m; sourceTree = "<group>"; };
 		7123DDBB1E891948007C094A /* JYFinanceDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFinanceDetailController.h; sourceTree = "<group>"; };
 		7123DDBC1E891948007C094A /* JYFinanceDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFinanceDetailController.m; sourceTree = "<group>"; };
+		7132F5F31E975C33009B22EA /* JYPersonInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYPersonInfoCell.h; path = "JiaYinDai/Person(我的)/Controller/JYPersonInfoCell.h"; sourceTree = SOURCE_ROOT; };
+		7132F5F41E975C33009B22EA /* JYPersonInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYPersonInfoCell.m; path = "JiaYinDai/Person(我的)/Controller/JYPersonInfoCell.m"; sourceTree = SOURCE_ROOT; };
+		7132F5F61E97779A009B22EA /* JYSecureSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSecureSettingVC.h; sourceTree = "<group>"; };
+		7132F5F71E97779A009B22EA /* JYSecureSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSecureSettingVC.m; sourceTree = "<group>"; };
+		7132F5F91E977AF1009B22EA /* JYPasswodSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPasswodSettingVC.h; sourceTree = "<group>"; };
+		7132F5FA1E977AF1009B22EA /* JYPasswodSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPasswodSettingVC.m; sourceTree = "<group>"; };
+		7132F5FC1E97807B009B22EA /* JYPasswordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYPasswordCell.h; path = "JiaYinDai/Person(我的)/Controller/JYPasswordCell.h"; sourceTree = SOURCE_ROOT; };
+		7132F5FD1E97807B009B22EA /* JYPasswordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYPasswordCell.m; path = "JiaYinDai/Person(我的)/Controller/JYPasswordCell.m"; sourceTree = SOURCE_ROOT; };
+		7132F5FF1E9793FD009B22EA /* JYPasswordSetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYPasswordSetModel.h; path = "JiaYinDai/Person(我的)/Controller/JYPasswordSetModel.h"; sourceTree = SOURCE_ROOT; };
+		7132F6001E9793FD009B22EA /* JYPasswordSetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYPasswordSetModel.m; path = "JiaYinDai/Person(我的)/Controller/JYPasswordSetModel.m"; sourceTree = SOURCE_ROOT; };
 		713C65A91E8DE6C100B80664 /* NSObject+Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Factory.h"; sourceTree = "<group>"; };
 		713C65AA1E8DE6C100B80664 /* NSObject+Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Factory.m"; sourceTree = "<group>"; };
 		713C65AC1E8DF66600B80664 /* JYPayStyleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPayStyleView.h; sourceTree = "<group>"; };
@@ -502,6 +517,10 @@
 				714B037D1E96312100574C56 /* JYMyFinanceVC.m */,
 				7149402E1E972340009899D9 /* JYFinanceRecordVC.h */,
 				7149402F1E972340009899D9 /* JYFinanceRecordVC.m */,
+				7132F5F61E97779A009B22EA /* JYSecureSettingVC.h */,
+				7132F5F71E97779A009B22EA /* JYSecureSettingVC.m */,
+				7132F5F91E977AF1009B22EA /* JYPasswodSettingVC.h */,
+				7132F5FA1E977AF1009B22EA /* JYPasswodSettingVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -519,6 +538,10 @@
 				714B03801E9633DB00574C56 /* JYMyFinanceCell.m */,
 				714940311E972E13009899D9 /* JYFinanceRecordCell.h */,
 				714940321E972E13009899D9 /* JYFinanceRecordCell.m */,
+				7132F5F31E975C33009B22EA /* JYPersonInfoCell.h */,
+				7132F5F41E975C33009B22EA /* JYPersonInfoCell.m */,
+				7132F5FC1E97807B009B22EA /* JYPasswordCell.h */,
+				7132F5FD1E97807B009B22EA /* JYPasswordCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -526,6 +549,8 @@
 		71F432321E839337009AA864 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7132F5FF1E9793FD009B22EA /* JYPasswordSetModel.h */,
+				7132F6001E9793FD009B22EA /* JYPasswordSetModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -719,10 +744,12 @@
 				710AD0B71E94EA1900082363 /* JYPasswordSetController.m in Sources */,
 				71F432331E839337009AA864 /* JYPersonViewController.m in Sources */,
 				71D05F2F1E826EAD004CBE04 /* UINavigationController+swizzle.m in Sources */,
+				7132F6011E9793FD009B22EA /* JYPasswordSetModel.m in Sources */,
 				714B03721E95E5CD00574C56 /* JYPersonCell.m in Sources */,
 				714940301E972340009899D9 /* JYFinanceRecordVC.m in Sources */,
 				71F432391E83A4CA009AA864 /* JYNoNetworkManager.m in Sources */,
 				710AD0B11E94BFFB00082363 /* JYLogInViewController.m in Sources */,
+				7132F5FB1E977AF2009B22EA /* JYPasswodSettingVC.m in Sources */,
 				71F432091E8358AB009AA864 /* JYFatherController.m in Sources */,
 				713DBA3B1E8A477A001C65D2 /* JYAlterViewController.m in Sources */,
 				71DA76491E84F613001C3995 /* JYTabBar.m in Sources */,
@@ -748,11 +775,14 @@
 				714940331E972E13009899D9 /* JYFinanceRecordCell.m in Sources */,
 				71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */,
 				71A2461F1E8F8AE000049B79 /* JYLoanTableViewCell.m in Sources */,
+				7132F5F81E97779A009B22EA /* JYSecureSettingVC.m in Sources */,
 				710AC91C1E8E5D3100428AE8 /* JYSuccessAlterController.m in Sources */,
 				71F8C6061E8B655200609DB5 /* JYEstimateController.m in Sources */,
 				714B03751E95F0CE00574C56 /* JYPersonHeaderView.m in Sources */,
+				7132F5F51E975C33009B22EA /* JYPersonInfoCell.m in Sources */,
 				71F4323D1E83B410009AA864 /* NSString+Extern.m in Sources */,
 				71D05F291E82667A004CBE04 /* JYTabBarController.m in Sources */,
+				7132F5FE1E97807B009B22EA /* JYPasswordCell.m in Sources */,
 				71F4322D1E83932E009AA864 /* JYLoanViewController.m in Sources */,
 				71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */,
 				71A2461C1E8F7CB000049B79 /* JYPasswordView.m in Sources */,
@@ -902,6 +932,7 @@
 			baseConfigurationReference = EE06AE40D6B1E2F7A362719E /* Pods-JiaYinDai.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JiaYinDai/JYConfiguration/PreHeader.pch";
 				INFOPLIST_FILE = JiaYinDai/Info.plist;
@@ -917,6 +948,7 @@
 			baseConfigurationReference = A02F385D21AC94E829F9D34B /* Pods-JiaYinDai.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JiaYinDai/JYConfiguration/PreHeader.pch";
 				INFOPLIST_FILE = JiaYinDai/Info.plist;
