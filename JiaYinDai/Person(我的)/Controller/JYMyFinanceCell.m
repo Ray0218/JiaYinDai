@@ -8,7 +8,10 @@
 
 #import "JYMyFinanceCell.h"
 
-@interface JYMyFinanceCell ()
+@interface JYMyFinanceCell (){
+
+    JYMyFinanceType rType ;
+}
 
 @property (nonatomic,strong) UIImageView *rLeftImage ;
 @property (nonatomic,strong) UILabel *rTitleLabel ;
@@ -21,6 +24,11 @@
 
 @end
 
+
+static NSString *kTitles[] = {@"投资本金",@"已收收益",@"起息时间",@"到期时间"} ;
+static NSString *kTitlesBack[] = {@"投资本金",@"已收收益",@"已收本金",@"回款时间"} ;
+
+
 @implementation JYMyFinanceCell
 
 - (void)awakeFromNib {
@@ -28,10 +36,12 @@
     // Initialization code
 }
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+-(instancetype)initWithCellType:(JYMyFinanceType)type reuseIdentifier:(NSString *)reuseIdentifier {
     
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier] ;
+    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] ;
     if (self) {
+        
+        rType = type ;
         
         self.selectionStyle = UITableViewCellSelectionStyleNone ;
         self.backgroundColor =
@@ -70,6 +80,11 @@
     UIView *rBlueView = ({
         
         UIView *view = [[UIView alloc]init];
+        
+        if (rType == JYMyFinanceTypeFinish) {
+            view.backgroundColor =  UIColorFromRGB(0xfff9ea) ;
+
+        }else
         view.backgroundColor =  UIColorFromRGB(0xe8f5ff) ;
         view.layer.cornerRadius = 5 ;
         view ;
@@ -88,7 +103,12 @@
     
     NSMutableArray *rTitleArray = [NSMutableArray arrayWithCapacity:4] ;
     for (int i =0 ; i< 4; i++) {
-        UILabel *label = [self jyCreateLabelWithTitle:@"投资本金" font:12 color:kTextBlackColor align:NSTextAlignmentCenter] ;
+        
+        NSString *title = kTitles[i] ;
+        if (rType == JYMyFinanceTypeNormal) {
+            title = kTitlesBack[i] ;
+        }
+        UILabel *label = [self jyCreateLabelWithTitle:title font:12 color:kTextBlackColor align:NSTextAlignmentCenter] ;
          [self.contentView addSubview:label];
         [rTitleArray addObject:label];
     }

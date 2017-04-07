@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, JYMyFinanceType) {
+    JYMyFinanceTypeNormal, //投资中
+    JYMyFinanceTypeFinish,//已回款
+ };
+
 @interface JYMyFinanceCell : UITableViewCell
+
+-(instancetype)initWithCellType:(JYMyFinanceType)type reuseIdentifier:(NSString *)reuseIdentifier  ;
+
 
 @end
 

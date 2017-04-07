@@ -206,7 +206,13 @@
     
     // 重新生成item, 并布局
     NSMutableArray *tabBarItemViews = [NSMutableArray arrayWithCapacity:items.count];
-    for (JYTabBarItem *item in items) {
+    //    for (JYTabBarItem *item in items) {
+    
+    for (int i = 0; i < items.count; i++) {
+        
+        JYTabBarItem *item = items[i] ;
+        item.tag = 1000 + i ;
+        
         JYTabBarItemView *itemView = [[JYTabBarItemView alloc] initWithItem:item];
         itemView.backgroundColor = [UIColor clearColor];
         [tabBarItemViews addObject:itemView];

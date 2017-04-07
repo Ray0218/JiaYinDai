@@ -9,11 +9,15 @@
 #import "JYMyFinanceVC.h"
 #import "JYMyFinanceCell.h"
 #import "JYTabBar.h"
+#import "JYFinanceRecordVC.h"
+
 
 
 
 @interface JYMyFinanceVC ()<UITableViewDelegate,UITableViewDataSource>{
     
+    
+    BOOL rIsFinish ;
  }
 
 @property(nonatomic ,strong) UITableView *rTableView ;
@@ -32,6 +36,8 @@
     self.title = @"我的理财" ;
     
     [self buildSubViewUI];
+    
+    rIsFinish = NO ;
     
 }
 
@@ -58,14 +64,26 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    
-    static NSString *identifier = @"identifierLogin" ;
+    if (rIsFinish) {
+        
+        static NSString *identifier = @"identifierFinish" ;
+        
+        JYMyFinanceCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
+        
+        if (cell  == nil) {
+            
+            cell = [[JYMyFinanceCell alloc]initWithCellType:JYMyFinanceTypeFinish reuseIdentifier:identifier];
+        }
+        
+         return cell ;
+    }
+    static NSString *identifier = @"identifierNormal" ;
     
     JYMyFinanceCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
     
     if (cell  == nil) {
         
-        cell = [[JYMyFinanceCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[JYMyFinanceCell alloc]initWithCellType:JYMyFinanceTypeNormal reuseIdentifier:identifier];
     }
     
 //    cell.textLabel.text= @"dddddd" ;
@@ -97,6 +115,20 @@
             make.edges.insets(UIEdgeInsetsZero) ;
         }] ;
         
+        
+        @weakify(self)
+        [tabbar.rac_signalForSelectedItem subscribeNext:^(JYTabBarItem *item) {
+           @strongify(self)
+            
+            if (item.tag - 1000 == 1 && !rIsFinish ) {
+                rIsFinish = YES ;
+                [self.rTableView reloadData];
+            }else if(rIsFinish){
+                rIsFinish = NO ;
+                [self.rTableView reloadData];
+            }
+        }] ;
+        
     }
     
     return headerView ;
@@ -106,7 +138,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    JYFinanceRecordVC *vc = [[JYFinanceRecordVC alloc]init];
     
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
@@ -126,6 +160,7 @@
         _rTableView.delegate = self ;
         _rTableView.dataSource = self ;
         _rTableView.sectionHeaderHeight = 45 ;
+        _rTableView.separatorStyle = UITableViewCellSeparatorStyleNone ;
  
         
     }
