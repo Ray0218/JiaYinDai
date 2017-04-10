@@ -9,6 +9,7 @@
 #import "JYLoanTableViewCell.h"
 
 
+
 @interface JYLoanTableViewCell (){
     
     UIImageView *rImgView ;// 图片

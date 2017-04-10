@@ -176,6 +176,11 @@
         [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self)
             
+            if (rVCType == JYPassVCTypeChangeTelNum) {
+                JYPasswodSettingVC *vc = [[JYPasswodSettingVC alloc]initWithVCType:JYPassVCTypeSureChangeTelNum];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            
             NSLog(@"点击") ;
             
         }] ;

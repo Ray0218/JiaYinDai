@@ -64,7 +64,7 @@
     [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(15) ;
         make.centerY.equalTo(self.contentView) ;
-        make.width.mas_lessThanOrEqualTo(80) ;
+        make.width.mas_lessThanOrEqualTo(110) ;
     }] ;
     
     [rLineView mas_makeConstraints:^(MASConstraintMaker *make) {

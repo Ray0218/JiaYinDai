@@ -106,9 +106,20 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    
-    JYPasswodSettingVC *vc = [[JYPasswodSettingVC alloc]initWithVCType:JYPassVCTypeChangePass];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) { //修改登录密码
+            JYPasswodSettingVC *vc = [[JYPasswodSettingVC alloc]initWithVCType:JYPassVCTypeChangeLogPass];
+            [self.navigationController pushViewController:vc animated:YES];
+
+        }else if (indexPath.row== 1) {
+            JYPasswodSettingVC *vc = [[JYPasswodSettingVC alloc]initWithVCType:JYPassVCTypeChangePass];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            JYPasswodSettingVC *vc = [[JYPasswodSettingVC alloc]initWithVCType:JYPassVCTypeChangeTelNum];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+   
     
 }
 

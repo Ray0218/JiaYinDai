@@ -10,6 +10,7 @@
 #import "JYLoanTableViewCell.h"
 #import "JYLoanAlterVC.h"
 #import "UIViewController+Transition.h"
+#import "JYLoanInfoController.h"
 
 
 
@@ -245,7 +246,12 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
         _rTableFootView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 130) ;
         _rTableFootView.backgroundColor = [UIColor clearColor] ;
         
-    
+        @weakify(self)
+    [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self)
+        JYLoanInfoController *infoVC = [[JYLoanInfoController alloc]init];
+        [self.navigationController pushViewController:infoVC animated:YES] ;
+    }] ;
     }
     
     return _rTableFootView ;

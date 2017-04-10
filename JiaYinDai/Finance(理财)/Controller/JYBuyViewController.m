@@ -108,7 +108,9 @@
     [self.rContentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_rScrollView);
         make.width.mas_equalTo(SCREEN_WIDTH) ;
-        make.height.greaterThanOrEqualTo(@0);
+         
+        make.height.mas_greaterThanOrEqualTo(SCREEN_HEIGHT);
+
         
     }];
     
@@ -170,7 +172,7 @@
         make.right.equalTo(self.rContentView).offset(-15) ;
         make.top.equalTo(self.rAgreeBtn.mas_bottom).offset(25) ;
         make.height.mas_equalTo(45);
-        make.bottom.equalTo(self.rContentView).offset(-25) ;
+        make.bottom.equalTo(self.rContentView).offset(-25).priorityLow() ;
         
     }];
     
