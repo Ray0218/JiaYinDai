@@ -13,7 +13,7 @@
 #import "JYLoanInfoCell.h"
 #import "JYBankCardController.h"
 #import "JYLoanUsedController.h"
-
+#import "JYImageAddController.h"
 
 
 
@@ -209,9 +209,15 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1) {
-        
-        JYBankCardController *vc =[[JYBankCardController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+        if (indexPath.row == 0) {
+            
+            JYBankCardController *vc =[[JYBankCardController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            
+            JYImageAddController *vc = [[JYImageAddController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }else if (indexPath.section == 2){
         
         JYLoanUsedController *vc = [[JYLoanUsedController alloc]init];

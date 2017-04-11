@@ -7,9 +7,12 @@
 //
 
 #import "JYLoanUsedController.h"
+#import "JYLoanUsedCollectionViewCell.h"
+#import "JYPayCommtController.h"
 
 
-@interface JYLoanUsedController (){
+
+@interface JYLoanUsedController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
     UIScrollView *_rScrollView ;
     
     UIView *rBackView ;
@@ -22,6 +25,9 @@
 }
 @property (nonatomic, strong)UIView *rContentView ;
 
+@property (nonatomic ,strong) UICollectionView *rCollectionView ;
+
+
 @property (nonatomic, strong)UITextView *rTextView ;
 
 @property (nonatomic, strong)UIButton *rCommitBtn ;
@@ -30,8 +36,14 @@
 
 @property (nonatomic ,strong) UILabel *rLimitLabel ;
 
+@property (nonatomic ,strong) MASConstraint *rCollectionCons  ;
+
+
 
 @end
+
+static NSString *kCellIdentify = @"cellIdentify" ;
+static NSString *kHeaderIdentify = @"kHeaderIdentify" ;
 
 
 
@@ -99,6 +111,8 @@ static inline NSMutableAttributedString *TTTextViewString(NSString* labelText ){
     
     [self.rContentView addSubview:self.rTextField];
     
+    [self.rContentView addSubview:self.rCollectionView];
+    
     [self.rContentView addSubview:rDescLabel];
     [self.rContentView addSubview:self.rLimitLabel];
     
@@ -126,6 +140,16 @@ static inline NSMutableAttributedString *TTTextViewString(NSString* labelText ){
         make.height.mas_equalTo(45) ;
     }];
     
+    
+    
+    [self.rCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(rBackView.mas_bottom) ;
+        make.left.equalTo(self.rContentView).offset(15) ;
+        make.right.equalTo(self.rContentView).offset(-15) ;
+        self.rCollectionCons = make.height.mas_equalTo(0) ;
+    }] ;
+    
+    
     [rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(rBackView).offset(15) ;
         make.centerY.equalTo(rBackView) ;
@@ -145,8 +169,10 @@ static inline NSMutableAttributedString *TTTextViewString(NSString* labelText ){
         make.centerY.equalTo(rBackView) ;
         make.left.equalTo(rLineView.mas_right).offset(15) ;
     }] ;
+    
+    
     [rDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(rBackView.mas_bottom) ;
+        make.top.equalTo(self.rCollectionView.mas_bottom);
         make.left.equalTo(self.rContentView).offset(15) ;
         make.height.mas_equalTo(40) ;
     }] ;
@@ -178,6 +204,47 @@ static inline NSMutableAttributedString *TTTextViewString(NSString* labelText ){
     [super updateViewConstraints];
     
 }
+
+
+
+
+#pragma mark - UICollectionViewDelegate/UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return 39 ;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    JYLoanUsedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentify forIndexPath:indexPath ] ;
+    return cell ;
+    
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    
+    MyHeadView *headerView ;
+    
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        
+        headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kHeaderIdentify forIndexPath:indexPath  ] ;
+    }
+    
+    return headerView ;
+    
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog( @"indexPath =====  %zd",indexPath.row) ;
+    
+    JYLoanUsedCollectionViewCell *cell = (JYLoanUsedCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath] ;
+    
+    self.rTextField.text = cell.rTitleLabel.text ;
+    [self.rTextField endEditing:YES];
+}
+
+
 #pragma mark- action
 
 -(void)pvt_dissKeyBoard {
@@ -193,13 +260,33 @@ static inline NSMutableAttributedString *TTTextViewString(NSString* labelText ){
     if (_rContentView == nil) {
         _rContentView = [[UIView alloc]init];
         _rContentView.backgroundColor = kBackGroundColor ;
-        [_rContentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pvt_dissKeyBoard)]] ;
     }
     
     return _rContentView ;
 }
 
-
+-(UICollectionView*)rCollectionView {
+    
+    if (_rCollectionView == nil) {
+        
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init] ;
+        layout.itemSize = CGSizeMake((SCREEN_WIDTH-45)/2.0, 40) ;
+        layout.minimumLineSpacing = 15 ;
+        layout.minimumInteritemSpacing = 15 ;
+        layout.headerReferenceSize = CGSizeMake(SCREEN_WIDTH, 50) ;
+        
+        _rCollectionView =[[ UICollectionView  alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+        [_rCollectionView registerClass:[JYLoanUsedCollectionViewCell class] forCellWithReuseIdentifier:kCellIdentify];
+        [_rCollectionView registerClass:[MyHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kHeaderIdentify];
+        
+        _rCollectionView.delegate = self ;
+        _rCollectionView.dataSource = self ;
+        _rCollectionView.backgroundColor = [UIColor clearColor] ;
+        
+    }
+    
+    return _rCollectionView ;
+}
 
 -(UITextView*)rTextView {
     
@@ -213,14 +300,15 @@ static inline NSMutableAttributedString *TTTextViewString(NSString* labelText ){
         _rTextView.text = @"详细说明本次借款用途，自身优势和按时还款承诺等信息，限20-120字" ;
         _rTextView.font = [UIFont systemFontOfSize:16] ;
         _rTextView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0) ;
-        [_rTextView.rac_textSignal subscribeNext:^(NSString* x) {
+        [[_rTextView.rac_textSignal filter:^BOOL(NSString *value) {
+            NSLog(@"%@",value) ;
+            return value.length<= 120 ;
+        }] subscribeNext:^(NSString* x) {
             
             _rTextView.attributedText = TTTextViewString(x) ;
-            NSLog(@"%@",x) ;
+            self.rLimitLabel.text = [NSString stringWithFormat:@"%lu/120",(unsigned long)x.length] ;
         }  ] ;
     }
-    
-    
     
     
     return _rTextView ;
@@ -232,6 +320,31 @@ static inline NSMutableAttributedString *TTTextViewString(NSString* labelText ){
         _rTextField = [[UITextField alloc]init];
         _rTextField.placeholder = @"请如实填写您的借款用途，8-15字" ;
         _rTextField.font = [UIFont systemFontOfSize:16] ;
+        
+        
+        @weakify(self)
+        [[_rTextField rac_signalForControlEvents:UIControlEventEditingDidBegin]subscribeNext:^(id x) {
+            @strongify(self)
+            
+            self.rCollectionCons.mas_equalTo(300);
+            //    [self.rCollectionView setNeedsLayout];
+            //    [self.rCollectionView layoutIfNeeded];
+            NSLog(@"%@",x) ;
+            
+        }] ;
+        
+        [[_rTextField rac_signalForControlEvents:UIControlEventEditingDidEnd]subscribeNext:^(id x) {
+            @strongify(self)
+            
+            self.rCollectionCons.mas_equalTo(0);
+            //    [self.rCollectionView setNeedsLayout];
+            //    [self.rCollectionView layoutIfNeeded];
+            NSLog(@"%@",x) ;
+            
+        }] ;
+        [_rTextField.rac_textSignal subscribeNext:^(id x) {
+            NSLog(@"%@",x) ;
+        }] ;
     }
     
     return _rTextField ;
@@ -241,6 +354,12 @@ static inline NSMutableAttributedString *TTTextViewString(NSString* labelText ){
     
     if (_rCommitBtn == nil) {
         _rCommitBtn = [self jyCreateButtonWithTitle:@"提交"] ;
+        @weakify(self)
+        [[_rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self)
+            JYPayCommtController *payVC = [[JYPayCommtController alloc]init];
+            [self.navigationController pushViewController:payVC animated:YES];
+        }] ;
     }
     
     return _rCommitBtn ;
@@ -249,7 +368,6 @@ static inline NSMutableAttributedString *TTTextViewString(NSString* labelText ){
 -(UILabel*)rLimitLabel {
     if (_rLimitLabel == nil) {
         _rLimitLabel = [self jyCreateLabelWithTitle:@"0/120" font:16 color:kTextBlackColor align:NSTextAlignmentRight] ;
-        _rLimitLabel.backgroundColor = [UIColor orangeColor] ;
     }
     
     return _rLimitLabel ;
