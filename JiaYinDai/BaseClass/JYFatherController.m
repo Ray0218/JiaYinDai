@@ -12,7 +12,7 @@
 #define NAV_TITLE_COLOR [UIColor whiteColor]
 #define NAV_TITLE_FONT [UIFont systemFontOfSize:18.0]
 #define NAV_BACKGROUND_COLOR  [UIColor whiteColor]
-#define NAV_BUTTON_WIDTH 44.0
+#define NAV_BUTTON_WIDTH 80.0
 #define NAV_BUTTON_HEIGHT 44.0
 #define NAV_BUTTON_FONT [UIFont systemFontOfSize:15.0]
 #define NAV_BUTTON_COLOR [UIColor whiteColor]

@@ -47,9 +47,9 @@
     }] ;
     
     [self.rDeleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self.rBgView.mas_right).offset(-5) ;
-        make.centerY.equalTo(self.rBgView.mas_top).offset(5) ;
-        make.width.and.height.mas_equalTo(20) ;
+        make.top.equalTo(self) ;
+        make.right.equalTo(self) ;
+        make.width.and.height.mas_equalTo(25) ;
     }] ;
     
 }
@@ -119,6 +119,7 @@
         make.edges.insets(UIEdgeInsetsZero) ;
     }] ;
     
+    
 }
 
 -(JYAddImgView*)rCellView{
@@ -127,11 +128,19 @@
         
         _rCellView = [[ JYAddImgView alloc]init];
         
+        @weakify(self)
+        [[_rCellView.rDeleteBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self)
+            
+            if (self.rDeleteBlock) {
+                self.rDeleteBlock(self) ;
+            }
+        }] ;
+        
     }
     
     return _rCellView ; ;
 }
-
 
 
 @end

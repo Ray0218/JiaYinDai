@@ -9,10 +9,12 @@
 #import "JYImageAddController.h"
 #import "JYAddImgView.h"
 
- @interface JYImageAddController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
-
-     UIScrollView *_rScrollView ;
-
+@interface JYImageAddController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
+    
+    UIScrollView *_rScrollView ;
+    
+    NSMutableArray *rImgDataArr ;
+    
     
 }
 
@@ -23,7 +25,6 @@
 @property (nonatomic ,strong) UIButton *rCommitBtn ;
 @property (nonatomic ,strong) UITextField *rTipsView ;
 @property (nonatomic ,strong) JYAddImgView *rAddView ;
-@property (nonatomic ,strong) MASConstraint *rTipsTop ; ;
 @property (nonatomic ,strong) MASConstraint *rCollectionCons  ;
 
 
@@ -32,7 +33,7 @@
 
 static NSString *kCellIdentify = @"cellIdentify" ;
 
-#define kImageHeigh  (SCREEN_WIDTH-15-5-5-10)/3.0
+#define kImageHeigh  (SCREEN_WIDTH-15-5-5-5)/3.0
 
 
 
@@ -44,6 +45,11 @@ static NSString *kCellIdentify = @"cellIdentify" ;
     self.title = @"银行收入流水" ;
     
     [self buildSubViewsUI];
+    
+    rImgDataArr = [[NSMutableArray alloc]init];
+    
+    
+    
 }
 
 -(void)buildSubViewsUI {
@@ -56,8 +62,8 @@ static NSString *kCellIdentify = @"cellIdentify" ;
     
     [_rScrollView addSubview:self.rContentView];
     
-    [self.rContentView addSubview:self.rAddView];
     [self.rContentView addSubview:self.rCollectionView];
+    [self.rContentView addSubview:self.rAddView];
     
     
     [self.rContentView addSubview:self.rCommitBtn];
@@ -65,15 +71,13 @@ static NSString *kCellIdentify = @"cellIdentify" ;
     
     
     
-    
-    
-       [self.view setNeedsUpdateConstraints];
+    [self.view setNeedsUpdateConstraints];
     
 }
 
 -(void)updateViewConstraints {
     
-
+    
     [_rScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.insets(UIEdgeInsetsZero) ;
     }] ;
@@ -95,15 +99,14 @@ static NSString *kCellIdentify = @"cellIdentify" ;
     [self.rCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.rContentView).offset(5) ;
         make.left.equalTo(self.rContentView).offset(15) ;
-        make.right.equalTo(self.rContentView).offset(-15) ;
-        self.rCollectionCons = make.height.mas_equalTo(200) ;
+        make.right.equalTo(self.rContentView).offset(-5) ;
+        self.rCollectionCons = make.height.mas_equalTo(kImageHeigh ) ;
     }] ;
-    
     
     
     [self.rTipsView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.rContentView) ;
-        self.rTipsTop = make.top.equalTo(self.rContentView).offset(20 + 2*kImageHeigh + 10) ;
+        make.top.equalTo(self.rCollectionView.mas_bottom).offset(20);
         make.height.mas_equalTo(40) ;
         
     }];
@@ -115,7 +118,7 @@ static NSString *kCellIdentify = @"cellIdentify" ;
         make.top.equalTo(self.rTipsView.mas_bottom).offset(30) ;
         make.bottom.equalTo(self.rContentView).offset(-20).priorityLow() ;
     }] ;
-
+    
     
     [super updateViewConstraints];
     
@@ -124,14 +127,67 @@ static NSString *kCellIdentify = @"cellIdentify" ;
 #pragma mark - UICollectionViewDelegate/UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    
-    return 6 ;
+    if (rImgDataArr.count) {
+        return rImgDataArr.count+1 ;
+        
+    }
+    return 0 ;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     JYAddImgCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentify forIndexPath:indexPath ] ;
+    
+    if (indexPath.row == rImgDataArr.count) {
+        cell.rCellView.rDeleteBtn.hidden = YES ;
+    }else{
+        cell.rCellView.rDeleteBtn.hidden= NO ;
+    }
+    
+    @weakify(self)
+    cell.rDeleteBlock = ^(JYAddImgCollectionViewCell *cell) {
+        @strongify(self)
+        NSIndexPath *path = [self.rCollectionView indexPathForCell:cell] ;
+        
+        if (indexPath.row < rImgDataArr.count) {
+            [rImgDataArr removeObjectAtIndex:path.row] ;
+            [self.rCollectionView reloadData];
+            if (rImgDataArr.count <= 2) {
+                self.rCollectionCons.mas_equalTo(kImageHeigh);
+            }
+            if (rImgDataArr.count == 0) {
+                self.rAddView.hidden = NO ;
+                
+            }else{
+                self.rAddView.hidden = YES ;
+                
+            }
+            
+        }
+          
+    } ;
+    
+    if (indexPath.row == rImgDataArr.count) {
+        return cell ;
+    }
+    
+
     return cell ;
+    
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"ddd") ;
+    
+    if (indexPath.row == rImgDataArr.count) {
+        [rImgDataArr addObject:@"new"] ;
+        [self.rCollectionView reloadData];
+    }
+    
+    
+    if (rImgDataArr.count >= 3) {
+        self.rCollectionCons.mas_equalTo(2*kImageHeigh+5) ;
+    }
     
 }
 
@@ -152,13 +208,14 @@ static NSString *kCellIdentify = @"cellIdentify" ;
     if (_rCollectionView == nil) {
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init] ;
-        layout.itemSize = CGSizeMake((SCREEN_WIDTH-45)/3.0, kImageHeigh) ;
+        layout.itemSize = CGSizeMake(kImageHeigh, kImageHeigh) ;
         layout.minimumLineSpacing = 5 ;
         layout.minimumInteritemSpacing = 5 ;
         
+        
         _rCollectionView =[[ UICollectionView  alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         [_rCollectionView registerClass:[JYAddImgCollectionViewCell class] forCellWithReuseIdentifier:kCellIdentify];
-        
+        _rCollectionView.scrollEnabled = NO ;
         _rCollectionView.delegate = self ;
         _rCollectionView.dataSource = self ;
         _rCollectionView.backgroundColor = [UIColor clearColor] ;
@@ -172,9 +229,16 @@ static NSString *kCellIdentify = @"cellIdentify" ;
 -(JYAddImgView*)rAddView {
     if (_rAddView == nil) {
         _rAddView = [[JYAddImgView alloc]init];
+        _rAddView.rImageView.userInteractionEnabled = NO  ;
+        _rAddView.rDeleteBtn.hidden = YES ;
         @weakify(self)
         [[_rAddView.rBgView rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
             @strongify(self)
+            
+            self.rAddView.hidden = YES ;
+            
+            [rImgDataArr addObject:@"new"] ;
+            [self.rCollectionView reloadData];
             
             
         }] ;

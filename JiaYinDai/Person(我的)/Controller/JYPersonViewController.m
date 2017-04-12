@@ -11,6 +11,7 @@
 #import "JYPersonHeaderView.h"
 #import "JYPersonInfoVC.h"
 #import "JYMyFinanceVC.h"
+#import "JYLoanRecordController.h"
 
 
 
@@ -134,10 +135,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    JYMyFinanceVC *financeVC = [[JYMyFinanceVC alloc]init];
-    [self.navigationController pushViewController:financeVC animated:YES];
-    
+    if (indexPath.section == 0) {
+        
+        JYMyFinanceVC *financeVC = [[JYMyFinanceVC alloc]init];
+        [self.navigationController pushViewController:financeVC animated:YES];
+    }else if (indexPath.section == 1){
+        
+        JYLoanRecordController *recordVC = [[JYLoanRecordController alloc]init];
+        [self.navigationController pushViewController:recordVC animated:YES];
+    }
 }
 
 #pragma mark- action

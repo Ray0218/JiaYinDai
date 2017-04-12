@@ -20,10 +20,17 @@
 
 @end
 
+@class JYAddImgCollectionViewCell ;
+
+typedef void(^DeleteBlock)(JYAddImgCollectionViewCell *cell);
 
 @interface JYAddImgCollectionViewCell : UICollectionViewCell
 
 @property(nonatomic,strong)JYAddImgView *rCellView ;
+
+
+ 
+@property (nonatomic,copy) DeleteBlock rDeleteBlock ;
 
 
 @end

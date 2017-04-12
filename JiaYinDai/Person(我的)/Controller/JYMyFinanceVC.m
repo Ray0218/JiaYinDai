@@ -10,6 +10,7 @@
 #import "JYMyFinanceCell.h"
 #import "JYTabBar.h"
 #import "JYFinanceRecordVC.h"
+#import "JYMYFinanceHeader.h"
 
 
 

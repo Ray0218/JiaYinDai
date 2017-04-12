@@ -22,6 +22,4 @@ typedef NS_ENUM(NSUInteger, JYMyFinanceType) {
 
 
 
-@interface JYMYFinanceHeader : UIView
-
-@end
+ 
