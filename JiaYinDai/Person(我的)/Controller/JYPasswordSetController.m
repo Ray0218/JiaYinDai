@@ -125,34 +125,7 @@
     
     return nil ;
     
-    
-    
-    //    if (rLogType == JYLogFootViewTypeRegister) {
-    //        static NSString *identifier = @"identifierRegistr" ;
-    //
-    //        JYLogInCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
-    //        if (cell  == nil) {
-    //
-    //
-    //            cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypeCode reuseIdentifier:identifier];
-    //        }
-    //
-    //        return cell ;
-    //
-    //    }
-    //
-    //
-    //    static NSString *identifier = @"identifierLogin" ;
-    //
-    //    JYLogInCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
-    //    if (cell  == nil) {
-    //
-    //
-    //        cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypePassword reuseIdentifier:identifier];
-    //    }
-    //
-    //    return cell ;
-    
+ 
     
     
     

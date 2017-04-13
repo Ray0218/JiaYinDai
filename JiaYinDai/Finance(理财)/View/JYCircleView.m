@@ -101,7 +101,6 @@
 
 
 - (void)startTimeGCD
-
 {
  
     @weakify(self)

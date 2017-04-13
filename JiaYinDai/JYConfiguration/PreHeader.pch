@@ -16,7 +16,7 @@
 #import <MJRefresh.h>
 #import <ReactiveCocoa.h>
 #import <JSONModel.h>
-
+#import <AFNetworking.h>
 
 #import "JYDefine.h"
 #import "JYCategoryHeader.h"

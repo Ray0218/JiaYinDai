@@ -11,7 +11,7 @@
 #import "JYMYFinanceHeader.h"
 #import "JYLoanDetailController.h"
 
-
+ 
 @interface JYLoanRecordController ()<UITableViewDelegate,UITableViewDataSource>{
     
     NSArray *rDataArray ;
@@ -31,6 +31,7 @@
     // Do any additional setup after loading the view.
     self.title = @"我的贷款" ;
     [self buildSubViewUI];
+    
 }
 
 
@@ -84,6 +85,13 @@
         headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
         headerView.contentView.backgroundColor = [UIColor clearColor];
         headerView.textLabel.text = @"近期还款计划";
+        
+        headerView.backgroundView = ({
+        
+            UIView *view= [[UIView alloc]init];
+            view.backgroundColor = kBackGroundColor;
+            view ;
+        }) ;
     }
     
     

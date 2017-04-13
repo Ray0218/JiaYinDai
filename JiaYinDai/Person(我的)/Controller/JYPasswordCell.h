@@ -17,7 +17,11 @@ typedef NS_ENUM(NSUInteger, JYPassCellType) {
 
 @interface JYPasswordCell : UITableViewCell
 
+@property (nonatomic, strong,readonly) UILabel*rTitleLabel ;
+@property (nonatomic, strong,readonly) UITextField*rTextField  ;
+
 -(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier ;
+
 -(void)setDataModel:(JYPasswordSetModel*)model ;
 
 @end

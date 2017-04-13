@@ -209,6 +209,7 @@
         _rImageButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
         [_rImageButton setTitle:@"订单号" forState:UIControlStateNormal] ;
         [_rImageButton setTitleColor:kBlueColor forState:UIControlStateNormal];
+        [_rImageButton setImage:[UIImage imageNamed:@"loan_num"] forState:UIControlStateNormal];
         
     }
     
