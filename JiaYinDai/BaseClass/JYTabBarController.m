@@ -7,9 +7,12 @@
 //
 
 #import "JYTabBarController.h"
-#import "JYFinanceViewController.h"
+//#import "JYFinanceViewController.h"
 #import "JYLoanViewController.h"
 #import "JYPersonViewController.h"
+
+#import "JYLoanRecordController.h"
+
 
  
 
@@ -32,16 +35,17 @@
     
     NSArray *childItemsArray = @[
                                  
-                                 @{kClassVCKey  : @"JYFinanceViewController",
-                                   kTitleKey    : @"理财",
-                                   kImageKey    : @"tab_financialGray",
-                                   kSelImageKey : @"tab_finance"},
                                  
                                  @{kClassVCKey  : @"JYLoanViewController",
                                    kTitleKey    : @"借贷",
                                    kImageKey    : @"tab_LoanGray",
                                    kSelImageKey : @"tab_loan"},
                                  
+                                 @{kClassVCKey  : @"JYLoanRecordController",
+                                   kTitleKey    : @"还款",
+                                   kImageKey    : @"tab_financialGray",
+                                   kSelImageKey : @"tab_finance"},
+
                                  @{kClassVCKey  : @"JYPersonViewController",
                                      kTitleKey    : @"我的",
                                    kImageKey    : @"tab_myGray",

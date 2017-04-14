@@ -9,6 +9,7 @@
 #import "JYLoanDetailController.h"
 #import "JYLoanDetailHeader.h"
 #import "JYPayBackController.h"
+#import "JYRecordPayController.h"
 
 
 
@@ -58,7 +59,6 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //
     
     if (indexPath.row == 0) {
         
@@ -77,9 +77,15 @@
                 
                 JYPayBackController *vc = [[JYPayBackController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES] ;
-                
-            }] ;
+             }] ;
             
+            [[cell.rOrderButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+                @strongify(self)
+                
+                
+                JYRecordPayController *vc = [[JYRecordPayController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES] ;
+            }] ;
         }
         
         return cell ;

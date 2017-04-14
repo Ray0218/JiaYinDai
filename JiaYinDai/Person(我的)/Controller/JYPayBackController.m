@@ -9,9 +9,10 @@
 #import "JYPayBackController.h"
 #import "JYLoanDetailHeader.h"
 #import "JYLogInCell.h"
-#import "JYPasswordCell.h"
-#import "JYPersonInfoCell.h"
 #import "JYPayBackCell.h"
+#import "JYPayStyleController.h"
+#import "JYRedCardController.h"
+
 
 
 @interface JYPayBackController ()<UITableViewDelegate,UITableViewDataSource>
@@ -71,34 +72,33 @@
     
     if (indexPath.section == 0) {
         
-     if ( indexPath.row == 0) {
-        
-        static NSString *identifier = @"identifierLpayBack" ;
-        
-        JYLoanDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
-        
-        if (cell  == nil) {
+        if ( indexPath.row == 0) {
             
-            cell = [[JYLoanDetailCell alloc]initWithCellType:JYLoanDetailCellTypeLabOnly reuseIdentifier:identifier];
+            static NSString *identifier = @"identifierLpayBack" ;
             
-         }
-        
-        return cell ;
-        
-    }
-        
+            JYPayBackCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
+            
+            if (cell  == nil) {
+                
+                cell = [[JYPayBackCell alloc]initWithCellType:JYPayBackCellTypeHeader reuseIdentifier:identifier];
+            }
+            
+            cell.rTitleLabel.text = @"本期应还" ;
+            cell.rRightLabel.text = @"已还款期数" ;
+            
+            return cell ;
+            
+        }
         
         if (indexPath.row == 2) {
             static NSString *identifier = @"identifierLoanHeaer" ;
             
-            JYPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
+            JYPayBackCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
             
             if (cell  == nil) {
                 
-                cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeNormal reuseIdentifier:identifier];
-                cell.rTitleLabel.textAlignment = NSTextAlignmentCenter ;
+                cell = [[JYPayBackCell alloc]initWithCellType:JYPayBackCellTypeTextField reuseIdentifier:identifier];
                 cell.rTitleLabel.text  = @"还款金额" ;
-                
                 cell.rTextField.placeholder = @"XXX.00" ;
                 
             }
@@ -114,39 +114,39 @@
         
         if (cell  == nil) {
             
-            cell = [[JYPayBackCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-         }
+            cell = [[JYPayBackCell alloc]initWithCellType:JYPayBackCellTypeSwitch reuseIdentifier:identifier];
+        }
         
         return cell ;
-
-
+        
+        
     }
     
     
-     static NSString *identifier = @"identifierLoanNormal" ;
+    static NSString *identifier = @"identifierLoanNormal" ;
     
-    JYPersonInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
+    JYPayBackCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
     
     if (cell  == nil) {
         
-        cell = [[JYPersonInfoCell alloc]initWithCellType:JYPernfoCellTypeNormal reuseIdentifier:identifier];
-     }
+        cell = [[JYPayBackCell alloc]initWithCellType:JYPayBackCellTypeNormal reuseIdentifier:identifier];
+    }
     
     if (indexPath.row == 0) {
         cell.rTitleLabel.text = @"支付方式" ;
-        cell.rDetailLabel.text = @"选择余额/借记卡" ;
+        cell.rRightLabel.text = @"选择余额/借记卡" ;
     }else{
-    
+        
         cell.rTitleLabel.text = @"选择优惠券" ;
-        cell.rDetailLabel.text = @"选择红包/优惠券" ;
-
+        cell.rRightLabel.text = @"选择红包/优惠券" ;
+        
     }
     
     return cell ;
     
     
 }
- -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger) section {
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger) section {
     
     
     static NSString *headerIdentifier = @"headerIdentifier" ;
@@ -163,13 +163,28 @@
         headerView.contentView.backgroundColor = [UIColor clearColor];
         
     }
-     
+    
     
     return headerView ;
     
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            JYPayStyleController *vc =[[JYPayStyleController alloc]init];
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+        
+            JYRedCardController *cardVC = [[JYRedCardController alloc]init];
+            [self.navigationController pushViewController:cardVC animated:YES];
+            
+        
+        }
+    }
+}
 
 #pragma mark- getter
 
@@ -184,7 +199,6 @@
 }
 
 
-#pragma  mark- getter
 
 -(UITableView*)rTableView {
     
@@ -194,7 +208,7 @@
         _rTableView.delegate = self ;
         _rTableView.dataSource = self ;
         _rTableView.sectionFooterHeight = 15 ;
-         _rTableView.tableFooterView = self.rFooterView ;
+        _rTableView.tableFooterView = self.rFooterView ;
         _rTableView.separatorInset = UIEdgeInsetsZero ;
         _rTableView.estimatedRowHeight = 45 ;
         _rTableView.rowHeight = UITableViewAutomaticDimension ;
@@ -211,6 +225,11 @@
         _rFooterView =[[JYLogFootView alloc]initWithType:JYLogFootViewTypeRegister];
         [_rFooterView.rCommitBtn setTitle:@"开始还款" forState:UIControlStateNormal];
         _rFooterView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 80) ;
+        @weakify(self)
+        [[_rFooterView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self)
+           
+        }] ;
     }
     
     return _rFooterView ;
@@ -222,13 +241,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

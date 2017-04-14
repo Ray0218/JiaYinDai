@@ -10,6 +10,10 @@
 
 @interface JYLoanDetailHeader : UIView
 
+@property (nonatomic ,strong,readonly) UILabel *rMoneyLabel ; //金额
+ @property (nonatomic ,strong,readonly) UILabel *rSateLabel  ; //还款中
+
+
 @end
 
 

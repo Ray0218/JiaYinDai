@@ -101,7 +101,7 @@
     [self.rImageButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.top.equalTo(rBgView).offset(15);
         make.height.mas_equalTo(25) ;
-    }] ;
+     }] ;
     
     [self.rOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.rImageButton.mas_right).offset(15) ;
@@ -207,9 +207,10 @@
     
     if (_rImageButton == nil) {
         _rImageButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-        [_rImageButton setTitle:@"订单号" forState:UIControlStateNormal] ;
+        [_rImageButton setTitle:@"  订单号" forState:UIControlStateNormal] ;
         [_rImageButton setTitleColor:kBlueColor forState:UIControlStateNormal];
         [_rImageButton setImage:[UIImage imageNamed:@"loan_num"] forState:UIControlStateNormal];
+        _rImageButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft ;
         
     }
     

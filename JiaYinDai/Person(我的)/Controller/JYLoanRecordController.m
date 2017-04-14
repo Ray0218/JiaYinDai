@@ -10,6 +10,8 @@
 #import "JYLoanRecordCell.h"
 #import "JYMYFinanceHeader.h"
 #import "JYLoanDetailController.h"
+#import "JYPayRecordController.h"
+
 
  
 @interface JYLoanRecordController ()<UITableViewDelegate,UITableViewDataSource>{
@@ -29,6 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationItem.leftBarButtonItems = nil ;
+
     self.title = @"我的贷款" ;
     [self buildSubViewUI];
     
@@ -48,10 +52,13 @@
     
 }
 
+-(void)pvt_clickButtonNavRight {
+
+    JYPayRecordController *recordVC =[[JYPayRecordController alloc]init];
+    [self.navigationController pushViewController:recordVC animated:YES] ;
+}
+
 #pragma mark- UITableViewDataSource/UITableViewDelegate
-
-
-
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return  5;
