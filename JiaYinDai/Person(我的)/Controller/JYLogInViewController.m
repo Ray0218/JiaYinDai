@@ -51,6 +51,18 @@
     
 }
 
+#pragma mark- agction
+
+-(void)pvt_clickButtonNavLeft {
+    if (rLogFootType == JYLogFootViewTypeLogIn) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 
 #pragma mark - builUI
 -(void)buildSubViewUI {
@@ -80,7 +92,23 @@
         if (cellTime == nil) {
             
             cellTime = [[JYLogInCell alloc]initWithCellType:JYLogCellTypeNormal reuseIdentifier:identifier];
+                  
+            [[cellTime.rTextField.rac_textSignal filter:^BOOL(id value) {
+               
+                NSLog(@"%@",value) ;
+
+                return YES ;
+            }] subscribeNext:^(id x) {
+                NSLog(@"%@",x) ;
+            }] ;
+            
         }
+        
+        [ cellTime.rTextField.rac_textSignal filter:^BOOL(id value) {
+            NSLog(@"%@",value) ;
+            
+            return YES ;
+        }] ;
         
         return cellTime ;
     }
@@ -94,7 +122,7 @@
         JYLogInCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
         if (cell  == nil) {
             
-             cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypeCode reuseIdentifier:identifier];
+            cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypeCode reuseIdentifier:identifier];
         }
         
         return cell ;
@@ -108,7 +136,13 @@
     
     if (cell  == nil) {
         
-         cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypePassword reuseIdentifier:identifier];
+        cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypePassword reuseIdentifier:identifier];
+        
+        [ cell.rTextField.rac_textSignal filter:^BOOL(id value) {
+            NSLog(@"%@",value) ;
+            
+            return YES ;
+        }] ;
     }
     
     return cell ;
@@ -126,7 +160,8 @@
         _rTableView.backgroundColor = kBackGroundColor ;
         _rTableView.estimatedRowHeight = 180 ;
         _rTableView.rowHeight = UITableViewAutomaticDimension;
-         _rTableView.tableHeaderView = self.rTableHeaderView ;
+        
+        _rTableView.tableHeaderView = self.rTableHeaderView ;
         _rTableView.tableFooterView = self.rTableFootView ;
         _rTableView.delegate = self ;
         _rTableView.dataSource = self ;

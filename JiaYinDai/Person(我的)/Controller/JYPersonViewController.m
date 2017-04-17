@@ -12,6 +12,7 @@
 #import "JYPersonInfoVC.h"
 #import "JYMyFinanceVC.h"
 #import "JYLoanRecordController.h"
+#import "JYImproveInfoController.h"
 
 
 
@@ -184,6 +185,13 @@
             JYPersonInfoVC *info = [[JYPersonInfoVC alloc]init];
             [self.navigationController pushViewController:info animated:YES];
             
+        }] ;
+        
+        
+        [[_rTableHeaderView.rFinishButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            
+            JYImproveInfoController *vc = [[JYImproveInfoController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }] ;
     }
     

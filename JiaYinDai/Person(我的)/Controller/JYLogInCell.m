@@ -407,7 +407,8 @@
             make.left.equalTo(self).offset(15) ;
             make.right.equalTo(self).offset(-15) ;
             make.height.mas_equalTo(45) ;
-            make.top.equalTo(self).offset(40) ;
+//            make.top.equalTo(self).offset(40) ;
+            make.bottom.equalTo(self).offset(-15);
             
         }];
     }

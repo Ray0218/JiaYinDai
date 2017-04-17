@@ -45,7 +45,9 @@
     //    //导航栏标题颜色和字体大小
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18], NSFontAttributeName,nil]];
     //    //导航栏背景颜色设置
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forBarMetrics:UIBarMetricsDefault];
+    
+    self.navigationController.navigationBar.barTintColor = kBlueColor ;
     self.navigationController.navigationBar.shadowImage = [UIImage jy_imageWithColor:[UIColor clearColor]];
     
     

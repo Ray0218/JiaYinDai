@@ -11,4 +11,7 @@
 @interface JYPersonHeaderView : UIView
 @property (nonatomic ,strong,readonly)UIButton *rRightArrow ;
 
+@property (nonatomic ,strong,readonly) UIButton *rFinishButton ;
+
+
 @end

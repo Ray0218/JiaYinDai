@@ -12,7 +12,7 @@
 #import "JYPersonViewController.h"
 
 #import "JYLoanRecordController.h"
-
+#import "JYLogInViewController.h"
 
  
 
@@ -61,7 +61,6 @@
         UITabBarItem *item = nav.tabBarItem;
         
         item.title =  dict[kTitleKey];
-//        [item setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)] ;
         
         item.image = [UIImage imageNamed:dict[kImageKey]];
         item.selectedImage = [[UIImage imageNamed:dict[kSelImageKey]] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)];
@@ -69,9 +68,37 @@
         
         
         [controlls addObject:nav];
+
     }];
+    
+    self.delegate = self ;
     self.viewControllers = controlls;
 }
+
+-(BOOL)tabBarController:(UITabBarController *)tabBarController  shouldSelectViewController:(nonnull UIViewController *)viewController {
+
+    
+    
+    return YES ;
+}
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+
+    if (tabBarController.selectedIndex == 1) {
+        
+        JYLogInViewController *logVC =[[JYLogInViewController alloc]initWithLogType:JYLogFootViewTypeLogIn];
+        UINavigationController *nvc =[[UINavigationController alloc]initWithRootViewController:logVC] ;
+
+        [self presentViewController:nvc animated:YES completion:^{
+        }] ;
+    }
+    
+    
+}
+
+
+
+
+
 
 
 

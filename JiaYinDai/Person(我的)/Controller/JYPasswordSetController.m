@@ -142,7 +142,7 @@
         _rTableView.estimatedRowHeight = 180 ;
         _rTableView.rowHeight = UITableViewAutomaticDimension;
         _rTableView.tableFooterView = [[UIView alloc]init];
-        _rTableView.tableHeaderView = self.rTableHeaderView ;
+//        _rTableView.tableHeaderView = self.rTableHeaderView ;
         _rTableView.tableFooterView = self.rTableFootView ;
         _rTableView.delegate = self ;
         _rTableView.dataSource = self ;

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JYTabBarController : UITabBarController
+@interface JYTabBarController : UITabBarController<UITabBarControllerDelegate>
 
 @end
