@@ -101,7 +101,7 @@
     
     [self.rMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.rNormalBackView).offset(-15) ;
-        make.bottom.equalTo(self.rNormalBackView).offset(-30) ;
+        make.bottom.equalTo(self.rNormalBackView).offset(-40) ;
      }] ;
     
     
@@ -116,7 +116,7 @@
             UIView *rBackView = [[UIView alloc]init];
             rBackView.backgroundColor = [UIColor clearColor] ;
             rBackView.layer.cornerRadius = 5 ;
-            rBackView.layer.borderWidth = 1.5 ;
+            rBackView.layer.borderWidth = 1 ;
             rBackView.layer.borderColor = kBlueColor.CGColor ;
             
             rBackView.layer.shadowColor = kBlueColor.CGColor ;

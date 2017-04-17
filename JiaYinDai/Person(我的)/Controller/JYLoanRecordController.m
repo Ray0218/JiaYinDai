@@ -110,7 +110,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    JYLoanDetailController *recordVC = [[JYLoanDetailController alloc]init];
+    BOOL over = indexPath.row %2 ;
+    
+    JYLoanDetailController *recordVC = [[JYLoanDetailController alloc]initWithOver:over ];
     [self.navigationController pushViewController:recordVC animated:YES];
 }
 

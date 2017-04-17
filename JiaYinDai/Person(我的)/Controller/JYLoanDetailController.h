@@ -10,4 +10,7 @@
 
 @interface JYLoanDetailController : JYFatherController
 
+-(instancetype)initWithOver:(BOOL) isOver ;
+
+
 @end

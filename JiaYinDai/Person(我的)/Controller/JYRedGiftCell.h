@@ -10,4 +10,10 @@
 
 @interface JYRedGiftCell : UITableViewCell
 
+@property (nonatomic ,strong,readonly) UIImageView *rBottomView ;
+
+@property (nonatomic ,strong,readonly) UILabel *rTimeLabel ; //有效期
+
+
+
 @end

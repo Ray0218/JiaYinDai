@@ -14,7 +14,10 @@
 
 
 
-@interface JYLoanDetailController ()<UITableViewDelegate,UITableViewDataSource>
+@interface JYLoanDetailController ()<UITableViewDelegate,UITableViewDataSource>{
+    
+    BOOL rIsOver ;
+}
 
 @property(nonatomic ,strong) UITableView *rTableView ;
 
@@ -25,7 +28,37 @@
 
 @implementation JYLoanDetailController
 
+-(instancetype)initWithOver:(BOOL) isOver{
+    
+    self = [super init] ;
+    if (self) {
+        rIsOver = isOver ;
+    }
+    return self ;
+}
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.barTintColor = kBlueColor;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated] ;
+    
+    if (rIsOver) {
+        
+        self.navigationController.navigationBar.barTintColor = kYellowColor;
+    }else{
+        self.navigationController.navigationBar.barTintColor = kBlueColor;
+        
+    }
+    //    self.navigationController.navigationBar.tintColor = [UIColor redColor];
+    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    
+    
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,16 +101,22 @@
         
         if (cell  == nil) {
             
-            cell = [[JYLoanDetailCell alloc]initWithCellType:JYLoanDetailCellTypeButton reuseIdentifier:identifier];
+            
+            if (rIsOver ) {
+                
+                cell = [[JYLoanDetailCell alloc]initWithCellType:JYLoanDetailCellTypeOverButton reuseIdentifier:identifier];
+            }else{
+                cell = [[JYLoanDetailCell alloc]initWithCellType:JYLoanDetailCellTypeButton reuseIdentifier:identifier];
+            }
             
             @weakify(self)
             [[cell.rcommitButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
-               @strongify(self)
+                @strongify(self)
                 
                 
                 JYPayBackController *vc = [[JYPayBackController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES] ;
-             }] ;
+            }] ;
             
             [[cell.rOrderButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
                 @strongify(self)
@@ -176,7 +215,6 @@
 
 
 
-
 #pragma mark- getter
 
 -(JYLoanDetailHeader*)rHeaderView {
@@ -184,6 +222,14 @@
     if (_rHeaderView == nil) {
         _rHeaderView = [[JYLoanDetailHeader alloc]init ];
         _rHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 160) ;
+        
+        if (rIsOver) {
+            _rHeaderView.rBgView.backgroundColor = kYellowColor ;
+            _rHeaderView.rSateLabel.text = @"已逾期" ;
+            _rHeaderView.rLeftImg.image = [UIImage imageNamed:@"loan_yellow"] ;
+        }else{
+            _rHeaderView.rBgView.backgroundColor = kBlueColor ;
+        }
     }
     
     return _rHeaderView ;

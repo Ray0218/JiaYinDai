@@ -41,9 +41,10 @@
                           keyImage    : @"per_finance",
                           }
                       ],
-                   @[ @{  keyTitle    : @"我的借款",
-                          keyImage    : @"per_loan",
-                          },
+                   @[
+//  @{  keyTitle    : @"我的借款",
+//                          keyImage    : @"per_loan",
+//                          },
                       @{  keyTitle    : @"借款申请记录",
                           keyImage    : @"per_record",
                           }

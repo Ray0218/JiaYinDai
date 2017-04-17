@@ -11,7 +11,11 @@
 @interface JYLoanDetailHeader : UIView
 
 @property (nonatomic ,strong,readonly) UILabel *rMoneyLabel ; //金额
- @property (nonatomic ,strong,readonly) UILabel *rSateLabel  ; //还款中
+@property (nonatomic ,strong,readonly) UILabel *rSateLabel  ; //还款中
+@property (nonatomic ,strong,readonly) UIImageView *rLeftImg  ; //
+
+@property (nonatomic,strong,readonly) UIView *rBgView ;
+
 
 
 @end
@@ -20,8 +24,10 @@
 
 typedef NS_ENUM(NSUInteger, JYLoanDetailCellType) {
     JYLoanDetailCellTypeButton, //含有按钮
+    JYLoanDetailCellTypeOverButton, //逾期
+    
     JYLoanDetailCellTypeLabOnly, //只有一行
- };
+};
 
 @interface JYLoanDetailCell : UITableViewCell
 
@@ -38,11 +44,10 @@ typedef NS_ENUM(NSUInteger, JYLoanDetailCellType) {
 @end
 
 
-
 typedef NS_ENUM(NSUInteger, JYLoanCllType) {
     JYLoanCllTypeNormal,
     JYLoanCllTypeHeader,
- };
+};
 
 @interface JYLoanTimesCell : UITableViewCell
 

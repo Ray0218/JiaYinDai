@@ -14,7 +14,7 @@
 @interface JYRedCardController ()<UITableViewDelegate,UITableViewDataSource>{
     
     
-    BOOL rIsFinish ;
+    BOOL rIsRedGift ;
 }
 
 @property(nonatomic ,strong) UITableView *rTableView ;
@@ -32,7 +32,7 @@
     
     [self buildSubViewUI];
     
-    rIsFinish = NO ;
+    rIsRedGift = YES ;
     
 }
 
@@ -72,7 +72,18 @@
     if (cell  == nil) {
         
         cell = [[JYRedGiftCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        
     }
+    
+    
+    if (rIsRedGift) {
+        cell.rBottomView.backgroundColor = kBlueColor ;
+        cell.rTimeLabel.textColor = [UIColor whiteColor] ;
+    }else{
+        cell.rBottomView.backgroundColor = [UIColor whiteColor] ;
+        cell.rTimeLabel.textColor = kTextBlackColor ;
+    }
+
     
     return cell ;
     
@@ -107,11 +118,11 @@
         [tabbar.rac_signalForSelectedItem subscribeNext:^(JYTabBarItem *item) {
             @strongify(self)
             
-            if (item.tag - 1000 == 1 && !rIsFinish ) {
-                rIsFinish = YES ;
+            if (item.tag - 1000 == 0 && !rIsRedGift ) {
+                rIsRedGift = YES ;
                 [self.rTableView reloadData];
-            }else if(rIsFinish){
-                rIsFinish = NO ;
+            }else if(rIsRedGift){
+                rIsRedGift = NO ;
                 [self.rTableView reloadData];
             }
         }] ;
