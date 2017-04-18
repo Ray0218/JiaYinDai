@@ -7,7 +7,13 @@
 // 银行卡认证
 
 #import "JYFatherController.h"
+#import "JYIdentifyHeader.h"
+
+
+
 
 @interface JYBankIdentifyController : JYFatherController
+
+- (instancetype)initWithHeaderType:(JYIdentifyType)type ;
 
 @end

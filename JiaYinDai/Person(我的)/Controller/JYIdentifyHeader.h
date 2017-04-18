@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JYAddImgView.h"
+
+typedef NS_ENUM(NSUInteger, JYIdentifyType) {
+    JYIdentifyTypeName,
+    JYIdentifyTypeBank,
+    JYIdentifyTypePassword,
+};
 
 @interface JYIdentifyHeader : UIView
+
+- (instancetype)initWithType:(JYIdentifyType)type ;
+
 
 @end

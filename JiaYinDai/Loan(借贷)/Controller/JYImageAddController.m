@@ -33,7 +33,6 @@
 
 static NSString *kCellIdentify = @"cellIdentify" ;
 
-#define kImageHeigh  (SCREEN_WIDTH-15-5-5-5)/3.0
 
 
 

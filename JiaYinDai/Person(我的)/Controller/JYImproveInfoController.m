@@ -9,6 +9,8 @@
 #import "JYImproveInfoController.h"
 #import "JYPersonCell.h"
 #import "JYBankIdentifyController.h"
+#import "JYPersonIdentifController.h"
+
 
 
 @interface JYImproveInfoController (){
@@ -57,7 +59,7 @@
     self.tableView.estimatedRowHeight = 45 ;
     self.tableView.rowHeight = UITableViewAutomaticDimension ;
     self.tableView.sectionHeaderHeight = 15 ;
-        self.tableView.tableFooterView = self.rTableFootView ;
+    self.tableView.tableFooterView = self.rTableFootView ;
     self.tableView.separatorInset = UIEdgeInsetsZero ;
     
 }
@@ -103,7 +105,7 @@
         headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
         headerView.contentView.backgroundColor = [UIColor clearColor];
         headerView.backgroundView = ({
-             UIView *view = [[UIView alloc]init] ;
+            UIView *view = [[UIView alloc]init] ;
             view.backgroundColor = [UIColor clearColor] ;
             view ;
         });
@@ -116,15 +118,23 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    JYBankIdentifyController *vc = [[JYBankIdentifyController alloc]init];
-    [self.navigationController pushViewController:vc
-                                         animated:YES];
- 
+    
+    if (indexPath.section == 0) {
+        
+        JYBankIdentifyController *vc = [[JYBankIdentifyController alloc]initWithHeaderType:JYIdentifyTypeName];
+        [self.navigationController pushViewController:vc
+                                             animated:YES];
+    }else{
+        
+        JYPersonIdentifController *vc = [[JYPersonIdentifController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
 }
 
 
 -(UIButton*)rTableFootView {
-
+    
     if (_rTableFootView == nil) {
         _rTableFootView = [UIButton buttonWithType:UIButtonTypeCustom] ;
         
@@ -138,7 +148,7 @@
         
         [attString addAttribute:NSForegroundColorAttributeName value:kBlueColor range:rang] ;
         [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:rang] ;
-
+        
         
         [_rTableFootView setAttributedTitle:attString forState:UIControlStateNormal ];
     }

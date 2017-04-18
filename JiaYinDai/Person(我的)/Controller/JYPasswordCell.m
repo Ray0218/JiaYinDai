@@ -10,12 +10,19 @@
 
 @interface JYPasswordCell (){
     JYPassCellType rCellType ;
+    
+    BOOL rHasSure ;
+    
+    CGFloat rLabelWidth ;
 }
 
 @property (nonatomic, strong) UILabel*rTitleLabel ;
 @property (nonatomic, strong) UITextField*rTextField  ;
 
 @property (nonatomic, strong) UIButton *rCodeButon  ;
+
+@property (nonatomic, strong) UIButton *rRightArrow  ;
+
 
 
 
@@ -28,11 +35,21 @@
     // Initialization code
 }
 
--(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier{
 
+
+-(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier hasSure:(BOOL)hasSure{
+    
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] ;
     if (self) {
         rCellType = type ;
+        rHasSure = hasSure;
+        
+        if (hasSure) {
+            rLabelWidth = 120 ;
+        }else{
+            rLabelWidth = 80 ;
+        }
+        
         self.selectionStyle = UITableViewCellSelectionStyleNone ;
         [self buildSubViewsUI];
     }
@@ -40,8 +57,14 @@
     return self ;
 }
 
--(void)setDataModel:(JYPasswordSetModel*)model {
 
+-(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier{
+    
+    return [self initWithCellType:type reuseIdentifier:reuseIdentifier hasSure:NO];
+}
+
+-(void)setDataModel:(JYPasswordSetModel*)model {
+    
     self.rTitleLabel.text = model.rTitle ;
     self.rTextField.text = model.rTFTitle ;
     self.rTextField.placeholder = model.rTFPlaceholder ;
@@ -59,18 +82,86 @@
     
     [self.contentView addSubview:rLineView ];
     [self.contentView addSubview:self.rTitleLabel];
+    
+    
+    if (rCellType == JYPassCellTypeTwoBtn) {
+        
+        UIButton *rManBtn = ({
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
+            [btn setTitle:@"先生" forState:UIControlStateNormal] ;
+            btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
+            [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal] ;
+            btn ;
+            
+        }) ;
+        
+        UIButton *rWomenBtn = ({
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
+            [btn setTitle:@"女士" forState:UIControlStateNormal] ;
+            btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
+            [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal] ;
+            btn ;
+            
+        }) ;
+        
+        [self.contentView addSubview:rManBtn];
+        [self.contentView addSubview:rWomenBtn];
+        
+        
+        
+        [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(15) ;
+            make.centerY.equalTo(self.contentView) ;
+            make.width.mas_equalTo(rLabelWidth) ;
+        }] ;
+        
+        [rLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.rTitleLabel.mas_right).offset(15) ;
+            make.centerY.equalTo(self.contentView) ;
+            make.height.mas_greaterThanOrEqualTo(25) ;
+            make.width.mas_equalTo(1) ;
+        }];
+        
+        
+        [rManBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(rLineView.mas_right).offset(15) ;
+            make.centerY.equalTo(self.contentView) ;
+        }];
+        
+        [rWomenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(rManBtn.mas_right).offset(15) ;
+            make.centerY.equalTo(self.contentView) ;
+        }] ;
+        
+        
+        return ;
+    }
+    
+    
+    
     [self.contentView addSubview:self.rTextField];
+    
+    if (rCellType == JYPassCellTypeEye){
+        [self.rRightArrow setImage:[UIImage imageNamed:@"eye_icon"] forState:UIControlStateNormal] ;
+    }
+    
+    if (rCellType == JYPassCellTypeArrow) {
+        self.rTextField.enabled = NO ;
+        
+    }
     
     [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(15) ;
         make.centerY.equalTo(self.contentView) ;
-        make.width.mas_lessThanOrEqualTo(80) ;
+        make.width.mas_lessThanOrEqualTo(rLabelWidth) ;
     }] ;
     
     [rLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.rTitleLabel.mas_right).offset(15) ;
         make.centerY.equalTo(self.contentView) ;
-         make.height.mas_greaterThanOrEqualTo(25) ;
+        make.height.mas_greaterThanOrEqualTo(25) ;
         make.width.mas_equalTo(1) ;
     }];
     
@@ -94,11 +185,31 @@
         }] ;
         
         
-    }else{
+    }else if (rCellType == JYPassCellTypeArrow || rCellType == JYPassCellTypeEye) {
+        
+        
+        [self.contentView addSubview:self.rRightArrow];
+        
+        [self.rRightArrow mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(-5) ;
+            make.centerY.equalTo(self.contentView) ;
+            make.height.mas_equalTo(35) ;
+            make.width.mas_equalTo(35) ;
+        }];
+        
+        [self.rTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(rLineView.mas_right).offset(15) ;
+            make.centerY.equalTo(self.contentView) ;
+            make.right.equalTo(self.rRightArrow.mas_left).offset(-5) ;
+        }] ;
+        
+        
+    } else{
         
         [self.rTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(rLineView.mas_right).offset(15) ;
-             make.right.equalTo(self.contentView).offset(-15) ;
+            make.right.equalTo(self.contentView).offset(-15) ;
             make.centerY.equalTo(self.contentView) ;
         }] ;
     }
@@ -187,7 +298,7 @@
 -(UILabel*)rTitleLabel {
     
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"交易密码" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"交易密码" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
     
     return _rTitleLabel ;
@@ -200,6 +311,16 @@
         _rTextField.font = [UIFont systemFontOfSize:16] ;
     }
     return _rTextField ;
+}
+
+-(UIButton*)rRightArrow {
+    if (_rRightArrow == nil) {
+        _rRightArrow = [UIButton buttonWithType:UIButtonTypeCustom] ;
+        
+        [_rRightArrow setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal] ;
+    }
+    
+    return _rRightArrow ;
 }
 
 
@@ -220,7 +341,6 @@
             [self startTimeGCD];
             
         }] ;
-        
         
         
     }

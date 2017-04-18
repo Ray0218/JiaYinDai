@@ -10,16 +10,29 @@
 #import "JYLogInCell.h"
 #import "JYPasswordCell.h"
 
-@interface JYBankIdentifyController ()<UITableViewDelegate,UITableViewDataSource>
+
+@interface JYBankIdentifyController ()<UITableViewDelegate,UITableViewDataSource>{
+    
+    JYIdentifyType rHeaderType ;
+}
 
 @property (nonatomic ,strong) UITableView *rTableView ;
 @property (nonatomic ,strong) JYLogFootView *rTableFootView ;
-@property (nonatomic ,strong) UIView *rTableHeaderView ;
+@property (nonatomic ,strong) JYIdentifyHeader *rTableHeaderView ;
 
 
 @end
 
 @implementation JYBankIdentifyController
+
+- (instancetype)initWithHeaderType:(JYIdentifyType)type
+{
+    self = [super init];
+    if (self) {
+        rHeaderType = type ;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,12 +57,78 @@
 
 #pragma mark- UITableViewDataSource/UITableViewDelegate
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    if (rHeaderType == JYIdentifyTypeBank) {
+        return 2 ;
+    }
+    
+    return 1 ;
+}
+
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2 ;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (rHeaderType == JYIdentifyTypeBank) {
+        
+        if (indexPath.section == 0 && indexPath.row == 0) {
+            static NSString *identifier = @"identifierArrow" ;
+            
+            JYPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
+            
+            if (cell  == nil) {
+                
+                cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeArrow reuseIdentifier:identifier ];
+                [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"验证码" fieldText:@"" placeHolder:@"请选择借记卡（储蓄卡）" hasCode:NO]] ;
+                
+            }
+            
+            return cell ;
+            
+        }
+        
+        
+        if (indexPath.section == 1 && indexPath.row == 1) {
+            static NSString *identifier = @"identifierCode" ;
+            
+            JYPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
+            
+            if (cell  == nil) {
+                
+                cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeCode reuseIdentifier:identifier ];
+                
+                [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"验证码" fieldText:@"" placeHolder:@"请输入验证码" hasCode:NO]] ;
+                
+            }
+            
+            return cell ;
+        }
+        
+    }
+    
+    if (rHeaderType == JYIdentifyTypePassword) {
+        static NSString *identifier = @"identifierEye" ;
+        
+        JYPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
+        
+        if (cell  == nil) {
+            
+            cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeEye reuseIdentifier:identifier hasSure:YES];
+        }
+        
+        if (indexPath.row == 0) {
+            [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"交易密码" fieldText:@"" placeHolder:@"设置6位数字交易密码" hasCode:NO]] ;
+        }else{
+            [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"确认交易密码" fieldText:@"" placeHolder:@"再次输入交易密码" hasCode:NO]] ;
+        }
+        
+        return cell ;
+    }
+    
     
     static NSString *identifier = @"identifierNormal" ;
     
@@ -60,13 +139,27 @@
         cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeNormal reuseIdentifier:identifier ];
     }
     
-    if (indexPath.row == 0) {
-        [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"姓名" fieldText:@"" placeHolder:@"输入本人姓名" hasCode:NO]] ;
-    }else{
-        [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"身份证" fieldText:@"" placeHolder:@"输入本人身份证号" hasCode:NO]] ;
-
-     }
     
+    if (rHeaderType == JYIdentifyTypeName) {
+        if (indexPath.row == 0) {
+            [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"姓名" fieldText:@"" placeHolder:@"输入本人姓名" hasCode:NO]] ;
+        }else{
+            [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"身份证" fieldText:@"" placeHolder:@"输入本人身份证号" hasCode:NO]] ;
+            
+        }
+    }else{
+        
+        
+        if (indexPath.section == 0) {
+            
+            [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"卡号" fieldText:@"" placeHolder:@"输入卡号" hasCode:NO]] ;
+            
+        }else{
+            
+            [cell setDataModel:[[JYPasswordSetModel alloc] initWithTitle:@"手机号" fieldText:@"" placeHolder:@"请输入银行预留手机号" hasCode:NO]] ;
+            
+        }
+    }
     return cell ;
     
     
@@ -120,6 +213,7 @@
         _rTableView.sectionFooterHeight = 15 ;
         _rTableView.separatorStyle = UITableViewCellSeparatorStyleNone ;
         _rTableView.tableFooterView = self.rTableFootView ;
+        _rTableView.tableHeaderView = self.rTableHeaderView ;
         
     }
     return _rTableView ;
@@ -130,19 +224,56 @@
     
     if (_rTableFootView == nil) {
         _rTableFootView = [[JYLogFootView alloc]initWithType:JYLogFootViewTypeGetBackPass] ;
-        
-        [_rTableFootView.rCommitBtn setTitle:@"下一步" forState:UIControlStateNormal] ;
-        
-          _rTableFootView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 80) ;
-      }
+        if (rHeaderType == JYIdentifyTypePassword) {
+            [_rTableFootView.rCommitBtn setTitle:@"确认" forState:UIControlStateNormal] ;
+            
+        }else{
+            [_rTableFootView.rCommitBtn setTitle:@"下一步" forState:UIControlStateNormal] ;
+        }
+        _rTableFootView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 80) ;
+        [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            
+            if (rHeaderType == JYIdentifyTypeName) {
+                
+                JYBankIdentifyController *vc = [[JYBankIdentifyController alloc]initWithHeaderType:JYIdentifyTypeBank] ;
+                [self.navigationController pushViewController:vc animated:YES];
+            }else if (rHeaderType == JYIdentifyTypeBank){
+                
+                JYBankIdentifyController *vc = [[JYBankIdentifyController alloc]initWithHeaderType:JYIdentifyTypePassword] ;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }else{
+                
+                
+            }
+            
+            
+        }] ;
+    }
     
     return _rTableFootView ;
 }
 
 
--(UIView*)rTableHeaderView {
+-(JYIdentifyHeader*)rTableHeaderView {
     if (_rTableHeaderView == nil) {
-        _rTableHeaderView = [[UIView alloc]init];
+        if (rHeaderType == JYIdentifyTypeName) {
+            _rTableHeaderView = [[JYIdentifyHeader alloc]initWithType:JYIdentifyTypeName];
+            
+            _rTableHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 220+kImageHeigh) ;
+            
+        } else if(rHeaderType == JYIdentifyTypeBank){
+            _rTableHeaderView = [[JYIdentifyHeader alloc]initWithType:JYIdentifyTypeBank];
+            
+            _rTableHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 160) ;
+            
+        }else{
+            _rTableHeaderView = [[JYIdentifyHeader alloc]initWithType:JYIdentifyTypePassword];
+            _rTableHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 160) ;
+            
+            
+        }
+        
         _rTableHeaderView.backgroundColor = kBackGroundColor ;
     }
     

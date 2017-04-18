@@ -34,3 +34,6 @@ typedef void(^DeleteBlock)(JYAddImgCollectionViewCell *cell);
 
 
 @end
+
+
+#define kImageHeigh  (SCREEN_WIDTH-15-5-5-5)/3.0

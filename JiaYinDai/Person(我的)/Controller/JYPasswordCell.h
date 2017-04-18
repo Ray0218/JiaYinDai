@@ -13,6 +13,12 @@
 typedef NS_ENUM(NSUInteger, JYPassCellType) {
     JYPassCellTypeNormal,
     JYPassCellTypeCode, //验证码
+    JYPassCellTypeArrow, //有右侧箭头
+    JYPassCellTypeEye, //隐藏密码功能
+    
+    JYPassCellTypeTwoBtn, //两个按钮
+
+
  };
 
 @interface JYPasswordCell : UITableViewCell
@@ -20,7 +26,10 @@ typedef NS_ENUM(NSUInteger, JYPassCellType) {
 @property (nonatomic, strong,readonly) UILabel*rTitleLabel ;
 @property (nonatomic, strong,readonly) UITextField*rTextField  ;
 
+-(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier hasSure:(BOOL)hasSure;
+
 -(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier ;
+
 
 -(void)setDataModel:(JYPasswordSetModel*)model ;
 
