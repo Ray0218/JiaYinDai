@@ -7,6 +7,7 @@
 //
 
 #import "JYLoanTableViewCell.h"
+#import "JYSlider.h"
 
 
 
@@ -23,6 +24,7 @@
 @property (nonatomic ,strong) UILabel *rMinLabel ; //最小金额
 @property (nonatomic ,strong) UILabel *rMaxLabel ; //最大金额
 @property (nonatomic ,strong) UITextField *rTextField ; //输入框
+@property (nonatomic ,strong) JYSlider *rSliderView ;
 
 
 @end
@@ -51,12 +53,17 @@
     
     
     rImgView = [[UIImageView alloc]init];
-    rImgView.backgroundColor = [UIColor orangeColor] ;
+    rImgView.image = [UIImage imageNamed:@"home_money"] ;
+    rImgView.contentMode = UIViewContentModeCenter ;
+    rImgView.backgroundColor = [UIColor clearColor] ;
     [self.contentView addSubview:rImgView];
     
     
     rTitle = [self jyCreateLabelWithTitle:@"申请金额（元）" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     [self.contentView addSubview:rTitle];
+    
+    
+    [self.contentView addSubview:self.rSliderView];
     
     
     rAddBtn = ({
@@ -129,11 +136,11 @@
     
     [rImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.top.equalTo(self.contentView).offset(15) ;
-        make.width.and.height.mas_equalTo(25) ;
+        make.width.and.height.mas_equalTo(20) ;
     }] ;
     
     [rTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(rImgView.mas_right).offset(15) ;
+        make.left.equalTo(rImgView.mas_right).offset(5) ;
         make.centerY.equalTo(rImgView) ;
     }] ;
     
@@ -151,15 +158,22 @@
         make.top.equalTo(self.rTextField.mas_bottom).offset(20) ;
         make.left.equalTo(self.contentView).offset(15) ;
         make.bottom.equalTo(self.contentView).offset(-20);
-//        make.height.mas_greaterThanOrEqualTo(20) ;
+        //        make.height.mas_greaterThanOrEqualTo(20) ;
     }] ;
     
     [self.rMaxLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.rTextField.mas_bottom).offset(20) ;
         make.right.equalTo(self.contentView).offset(-15) ;
         make.bottom.equalTo(self.contentView).offset(-20);
-//        make.height.mas_equalTo(20) ;
+        //        make.height.mas_equalTo(20) ;
         
+    }] ;
+    
+    [self.rSliderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.rMinLabel.mas_right).offset(10) ;
+        make.right.equalTo(self.rMaxLabel.mas_left).offset(-10) ;
+        make.centerY.equalTo(self.rMinLabel) ;
+//        make.height.mas_equalTo(60) ;
     }] ;
 }
 
@@ -204,6 +218,23 @@
     return _rMaxLabel ;
 }
 
+-(JYSlider*)rSliderView {
+
+    if (_rSliderView == nil) {
+        _rSliderView = [[JYSlider alloc]init];
+        _rSliderView.backgroundColor = [UIColor clearColor] ;
+        _rSliderView.minimumTrackTintColor =kBlueColor;
+        _rSliderView.maximumTrackTintColor =  UIColorFromRGB(0xb9dfff) ;
+        [_rSliderView setThumbImage:[UIImage imageNamed:@"loan_slider"] forState:UIControlStateNormal];
+        _rSliderView.minimumValue = 3000 ;
+        _rSliderView.maximumValue = 5000 ;
+        _rSliderView.value = 3500 ;
+    }
+    
+    return _rSliderView ;
+}
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
@@ -214,7 +245,7 @@
 
 
 @interface JYLoanTimeCell (){
-
+    
     NSMutableArray *rButtonArray ;
 }
 
@@ -226,7 +257,7 @@
 @implementation JYLoanTimeCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-
+    
     self = [super initWithStyle: style reuseIdentifier:reuseIdentifier] ;
     if (self) {
         
@@ -235,7 +266,7 @@
         self.backgroundColor=
         self.contentView.backgroundColor = [UIColor clearColor] ;
         [self buildSubViewsUI];
-
+        
     }
     
     return self ;
@@ -243,7 +274,7 @@
 
 
 -(void)buildSubViewsUI {
-
+    
     [self.contentView addSubview:self.rTitle];
     [self.rTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.top.equalTo(self.contentView).offset(15) ;
@@ -265,7 +296,7 @@
     
     [rButtonArray mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.rTitle.mas_bottom).offset(15) ;
-         make.height.mas_equalTo(30) ;
+        make.height.mas_equalTo(30) ;
         make.bottom.equalTo(self.contentView).offset(-15) ;
     }] ;
     
@@ -274,7 +305,7 @@
 
 
 -(UILabel*)rTitle {
-
+    
     if (_rTitle == nil) {
         _rTitle = [self jyCreateLabelWithTitle:@"申请期限" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
@@ -284,7 +315,7 @@
 
 
 -(UIButton*)creatButtonWithButtonTitle:(NSString*)title {
-
+    
     UIButton *btn  = [ self jyCreateButtonWithTitle:title] ;
     
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
@@ -292,32 +323,32 @@
     
     [btn setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forState:UIControlStateSelected];
     [btn setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forState:UIControlStateHighlighted];
-
-     [btn setBackgroundImage:[UIImage jy_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
- 
+    
+    [btn setBackgroundImage:[UIImage jy_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    
     
     btn.layer.borderWidth = 1 ;
     btn.layer.borderColor = kLineColor.CGColor ;
     btn.layer.cornerRadius = 4 ;
-
+    
     btn.titleLabel.font = [UIFont systemFontOfSize:16] ;
     btn.backgroundColor = [UIColor clearColor] ;
-
+    
     
     [[[btn rac_signalForControlEvents:UIControlEventTouchUpInside]filter:^BOOL(UIButton* value) {
         
-         
+        
         return !value.selected ;
         
-     } ] subscribeNext:^(UIButton* button) {
+    } ] subscribeNext:^(UIButton* button) {
         
-         
-         [rButtonArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-             
-             UIButton *btn = (UIButton*)obj ;
-             btn.selected = NO ;
-             
-         }] ;
+        
+        [rButtonArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            UIButton *btn = (UIButton*)obj ;
+            btn.selected = NO ;
+            
+        }] ;
         
         button.selected = YES ;
         

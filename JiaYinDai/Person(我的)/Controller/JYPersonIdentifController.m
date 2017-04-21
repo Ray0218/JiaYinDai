@@ -107,6 +107,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"身份认证" ;
     [self buildSubViewUI];
     
     //    [[JYPasswordSetModel alloc]initWithTitle:@"" fieldText:@"" placeHolder:@"" hasCode:NO]
@@ -193,7 +194,8 @@
         if (cell  == nil) {
             
             cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeEye reuseIdentifier:identifier ];
-        }
+            [cell.rRightArrow setImage:[UIImage imageNamed:@"ident_address"] forState:UIControlStateNormal] ;
+         }
         
         
         [cell setDataModel:model] ;

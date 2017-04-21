@@ -15,6 +15,8 @@
 #import "NSDate+Extern.h"
 #import "UILabel+swizzle.h"
 #import "NSObject+Factory.h"
+#import "UIViewController+Transition.h"
+
 
 
 #endif /* JYCategoryHeader_h */

@@ -9,16 +9,13 @@
 #import "JYLoanViewController.h"
 #import "JYLoanTableViewCell.h"
 #import "JYLoanAlterVC.h"
-#import "UIViewController+Transition.h"
 #import "JYLoanInfoController.h"
-
 
 
 @interface JYLoanFootVew : UIView
 
 @property (nonatomic,strong) UIButton *rCommitBtn ;
 @property (nonatomic,strong) UILabel *rAddressLab ;
-
 
 @end
 
@@ -43,6 +40,7 @@
     
     
     
+     
 }
 
 -(void)layoutSubviews {
@@ -140,7 +138,6 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
         }
         
         
-        
         return cell ;
         
     }
@@ -168,8 +165,15 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
         
         
         cellTime = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        cellTime.selectionStyle = UITableViewCellSelectionStyleNone ;
         cellTime.backgroundColor =
         cellTime.contentView.backgroundColor = [UIColor clearColor] ;
+    }
+    
+    if (indexPath.row == 4) {
+        cellTime.detailTextLabel.textColor = kBlueColor ;
+    }else{
+        cellTime.detailTextLabel.textColor = kTextBlackColor ;
     }
     
     cellTime.textLabel.text = rCellTitles[indexPath.row - 2];

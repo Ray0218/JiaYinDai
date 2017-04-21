@@ -21,3 +21,16 @@ typedef NS_ENUM(NSUInteger, JYIdentifyType) {
 
 
 @end
+
+
+
+@interface JYImageLabe : UIView
+
+@property (nonatomic, strong) UIImageView *rImageView ;
+
+@property (nonatomic ,strong) UILabel *rLabel ;
+
+@property (nonatomic ,assign) BOOL rHighlighted ;
+
+
+@end

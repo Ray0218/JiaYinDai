@@ -11,8 +11,8 @@
 #import "JYPersonHeaderView.h"
 #import "JYPersonInfoVC.h"
 #import "JYMyFinanceVC.h"
-#import "JYLoanRecordController.h"
-#import "JYImproveInfoController.h"
+ #import "JYImproveInfoController.h"
+#import "JYLoanApplyController.h"
 
 
 
@@ -143,7 +143,7 @@
         [self.navigationController pushViewController:financeVC animated:YES];
     }else if (indexPath.section == 1){
         
-        JYLoanRecordController *recordVC = [[JYLoanRecordController alloc]init];
+        JYLoanApplyController *recordVC = [[JYLoanApplyController alloc]init];
         [self.navigationController pushViewController:recordVC animated:YES];
     }
 }
@@ -167,7 +167,7 @@
         _rTableView.tableHeaderView = self.rTableHeaderView ;
         _rTableView.delegate = self ;
         _rTableView.dataSource = self ;
-        _rTableView.sectionHeaderHeight = 20 ;
+        _rTableView.sectionHeaderHeight = 15 ;
         
     }
     return _rTableView ;

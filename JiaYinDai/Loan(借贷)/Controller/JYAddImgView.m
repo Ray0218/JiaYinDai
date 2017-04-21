@@ -43,7 +43,7 @@
     
     [self.rImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.rBgView) ;
-        make.width.and.height.mas_equalTo(self.rBgView).offset(-5) ;
+        make.width.and.height.mas_equalTo(self.rBgView).offset(-15) ;
     }] ;
     
     [self.rDeleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,8 +59,10 @@
     
     if (_rImageView == nil) {
         _rImageView = [[UIImageView alloc]init];
-        _rImageView.backgroundColor = [UIColor lightGrayColor] ;
+        _rImageView.backgroundColor = [UIColor clearColor] ;
         _rImageView.userInteractionEnabled = YES ;
+        _rImageView.image = [UIImage imageNamed:@""] ;
+        _rImageView.contentMode =  UIViewContentModeCenter;
     }
     return _rImageView ;
 }
@@ -69,7 +71,8 @@
     
     if (_rBgView == nil) {
         _rBgView = [UIButton buttonWithType:UIButtonTypeCustom] ;
-        _rBgView.backgroundColor = [UIColor greenColor] ;
+        _rBgView.backgroundColor = [UIColor clearColor] ;
+        [_rBgView  setBackgroundImage:[UIImage imageNamed:@"ident_bg"] forState:UIControlStateNormal] ;
     }
     
     return _rBgView ;
@@ -77,7 +80,8 @@
 
 -(UIButton*)rDeleteBtn {
     if (_rDeleteBtn == nil) {
-        _rDeleteBtn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure] ;
+        _rDeleteBtn = [UIButton buttonWithType:UIButtonTypeCustom] ;
+        [_rDeleteBtn setImage:[UIImage imageNamed:@"loan_delete"] forState:UIControlStateNormal];
         _rDeleteBtn.backgroundColor = [UIColor clearColor] ;
     }
     

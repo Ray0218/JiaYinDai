@@ -8,6 +8,17 @@
 
 #import "JYFatherController.h"
 
+
+typedef NS_ENUM(NSUInteger, JYImageAddType) {
+    JYImageAddTypeJob,
+    JYImageAddTypeBank,
+ };
+
+
 @interface JYImageAddController : JYFatherController
+
+
+
+- (instancetype)initWithType:(JYImageAddType) type ;
 
 @end

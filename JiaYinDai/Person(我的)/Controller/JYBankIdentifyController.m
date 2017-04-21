@@ -117,7 +117,7 @@
         
         if (cell  == nil) {
             
-            cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeEye reuseIdentifier:identifier hasSure:YES];
+            cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeEye reuseIdentifier:identifier maxWidth:120];
         }
         
         if (indexPath.row == 0) {
@@ -260,16 +260,16 @@
         if (rHeaderType == JYIdentifyTypeName) {
             _rTableHeaderView = [[JYIdentifyHeader alloc]initWithType:JYIdentifyTypeName];
             
-            _rTableHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 220+kImageHeigh) ;
+            _rTableHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 180+kImageHeigh) ;
             
         } else if(rHeaderType == JYIdentifyTypeBank){
             _rTableHeaderView = [[JYIdentifyHeader alloc]initWithType:JYIdentifyTypeBank];
             
-            _rTableHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 160) ;
+            _rTableHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 120) ;
             
         }else{
             _rTableHeaderView = [[JYIdentifyHeader alloc]initWithType:JYIdentifyTypePassword];
-            _rTableHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 160) ;
+            _rTableHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 120) ;
             
             
         }

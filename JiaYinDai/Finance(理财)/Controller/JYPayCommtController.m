@@ -9,8 +9,7 @@
 #import "JYPayCommtController.h"
 
 #import "JYSuccessAlterController.h"
-#import "UIViewController+Transition.h"
-#import "JYPasswordView.h"
+ #import "JYPasswordView.h"
 
 
 @interface JYPayCommtController (){

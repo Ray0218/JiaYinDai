@@ -11,7 +11,6 @@
 @interface JYPasswordCell (){
     JYPassCellType rCellType ;
     
-    BOOL rHasSure ;
     
     CGFloat rLabelWidth ;
 }
@@ -22,6 +21,10 @@
 @property (nonatomic, strong) UIButton *rCodeButon  ;
 
 @property (nonatomic, strong) UIButton *rRightArrow  ;
+
+
+@property (nonatomic, strong) UIButton *rManButton  ;
+@property (nonatomic, strong) UIButton *rWomenButton  ;
 
 
 
@@ -37,15 +40,14 @@
 
 
 
--(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier hasSure:(BOOL)hasSure{
+-(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier maxWidth:(CGFloat)width{
     
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] ;
     if (self) {
         rCellType = type ;
-        rHasSure = hasSure;
         
-        if (hasSure) {
-            rLabelWidth = 120 ;
+        if (width > 0  ) {
+            rLabelWidth = width ;
         }else{
             rLabelWidth = 80 ;
         }
@@ -60,7 +62,7 @@
 
 -(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier{
     
-    return [self initWithCellType:type reuseIdentifier:reuseIdentifier hasSure:NO];
+    return [self initWithCellType:type reuseIdentifier:reuseIdentifier maxWidth:0];
 }
 
 -(void)setDataModel:(JYPasswordSetModel*)model {
@@ -69,6 +71,7 @@
     self.rTextField.text = model.rTFTitle ;
     self.rTextField.placeholder = model.rTFPlaceholder ;
 }
+
 
 
 -(void)buildSubViewsUI {
@@ -86,28 +89,9 @@
     
     if (rCellType == JYPassCellTypeTwoBtn) {
         
-        UIButton *rManBtn = ({
-            
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
-            [btn setTitle:@"先生" forState:UIControlStateNormal] ;
-            btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
-            [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal] ;
-            btn ;
-            
-        }) ;
         
-        UIButton *rWomenBtn = ({
-            
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
-            [btn setTitle:@"女士" forState:UIControlStateNormal] ;
-            btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
-            [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal] ;
-            btn ;
-            
-        }) ;
-        
-        [self.contentView addSubview:rManBtn];
-        [self.contentView addSubview:rWomenBtn];
+        [self.contentView addSubview:self.rManButton];
+        [self.contentView addSubview:self.rWomenButton];
         
         
         
@@ -125,13 +109,13 @@
         }];
         
         
-        [rManBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.rManButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(rLineView.mas_right).offset(15) ;
             make.centerY.equalTo(self.contentView) ;
         }];
         
-        [rWomenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(rManBtn.mas_right).offset(15) ;
+        [self.rWomenButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.rManButton.mas_right).offset(15) ;
             make.centerY.equalTo(self.contentView) ;
         }] ;
         
@@ -346,6 +330,40 @@
     }
     return _rCodeButon ;
 }
+
+-(UIButton*)rManButton {
+    
+    if (_rManButton == nil) {
+        _rManButton = ({
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
+            [btn setTitle:@"先生" forState:UIControlStateNormal] ;
+            btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
+            [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal] ;
+            btn ;
+            
+        }) ;
+    }
+    
+    return _rManButton ;
+}
+
+-(UIButton*)rWomenButton {
+    if (_rWomenButton == nil) {
+        _rWomenButton = ({
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
+            [btn setTitle:@"女士" forState:UIControlStateNormal] ;
+            btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
+            [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal] ;
+            btn ;
+            
+        }) ;
+    }
+    
+    return _rWomenButton ;
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

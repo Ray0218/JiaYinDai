@@ -10,6 +10,9 @@
 #import "JYPersonCell.h"
 #import "JYBankIdentifyController.h"
 #import "JYPersonIdentifController.h"
+#import "JYJobIdentifyController.h"
+#import "JYPhoneIndetyfyController.h"
+#import "JYGJJIdentifyController.h"
 
 
 
@@ -32,22 +35,22 @@
     
     rDataArray = @[
                    @{  keyTitle    : @"实名认证",
-                       keyImage    : @"per_finance",
+                       keyImage    : @"imp_name",
                        },
                    @{  keyTitle    : @"身份认证",
-                       keyImage    : @"per_record",
+                       keyImage    : @"imp_sfz",
                        },
                    @{  keyTitle    : @"工作信息",
-                       keyImage    : @"per_welf",
+                       keyImage    : @"imp_job",
                        },
                    @{  keyTitle    : @"手机验证",
-                       keyImage    : @"per_friend",
+                       keyImage    : @"imp_phone",
                        },
-                   @{  keyTitle    : @"攻击机查询",
-                       keyImage    : @"per_recommend",
+                   @{  keyTitle    : @"公积金查询",
+                       keyImage    : @"imp_gjj",
                        },
                    @{  keyTitle    : @"征信报告（个人版）",
-                       keyImage    : @"per_active",
+                       keyImage    : @"imp_zxbg",
                        }
                    ] ;
     
@@ -124,11 +127,23 @@
         JYBankIdentifyController *vc = [[JYBankIdentifyController alloc]initWithHeaderType:JYIdentifyTypeName];
         [self.navigationController pushViewController:vc
                                              animated:YES];
-    }else{
+    } else if(indexPath.section == 1){
         
         JYPersonIdentifController *vc = [[JYPersonIdentifController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
+    }else if(indexPath.section == 2){
+    
+        JYJobIdentifyController *vc= [[JYJobIdentifyController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if(indexPath.section == 3){
+        JYPhoneIndetyfyController *vc = [[JYPhoneIndetyfyController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        JYGJJIdentifyController *vc = [[JYGJJIdentifyController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+
     }
+    
     
 }
 
