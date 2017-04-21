@@ -8,6 +8,8 @@
 
 #import "JYBankCardController.h"
 #import "JYBankCardCell.h"
+#import "JYAddBankController.h"
+
 
 @interface JYBankCardController ()
 
@@ -40,8 +42,7 @@
 
 #pragma mark- UITableViewDataSource/UITableViewDelegate
 
-
-
+ 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
         return 3 ;
@@ -77,9 +78,12 @@
     
  }
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == [tableView numberOfRowsInSection:0] - 1) {
         
+        JYAddBankController *vc =[[JYAddBankController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES] ;
     }else{
     
     JYBankCardCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;

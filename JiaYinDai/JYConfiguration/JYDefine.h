@@ -34,10 +34,10 @@
 #define kLineColor UIColorFromRGB(0xcccccc) 
 #define kBlueColor UIColorFromRGB(0x005dad)
 
-#define kYellowColor UIColorFromRGB(0xd7991d)
+#define kOrangewColor UIColorFromRGB(0xd7991d)
 #define kBackGroundColor UIColorFromRGB(0xf2f2f2)
 #define kTextBlackColor UIColorFromRGB(0x333333)
-
+#define kGrayColor UIColorFromRGB(0x999999)
 
 /************************ 数字格式化 ************************/
 

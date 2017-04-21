@@ -11,7 +11,10 @@
 
 @interface JYLoanRecordCell ()
 
-@property (nonatomic ,strong) UIButton *rImageButton ;
+
+@property (nonatomic ,strong) UIImageView *rLeftImg ;
+
+@property (nonatomic ,strong) UILabel *rTitleLabel ;
 
 @property (nonatomic ,strong) UILabel *rOrderLabel ;
 
@@ -86,7 +89,8 @@
     
     
     
-    [self.contentView addSubview:self.rImageButton];
+    [self.contentView addSubview:self.rLeftImg];
+    [self.contentView addSubview:self.rTitleLabel];
     [self.contentView addSubview:self.rOrderLabel];
     [self.contentView addSubview:self.rMoneyLabel];
     
@@ -98,14 +102,20 @@
     }];
     
     
-    [self.rImageButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.rLeftImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.top.equalTo(rBgView).offset(15);
-        make.height.mas_equalTo(25) ;
-     }] ;
+        make.height.width.mas_equalTo(25) ;
+    }] ;
+    
+    [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.rLeftImg.mas_right).offset(10) ;
+        make.centerY.equalTo(self.rLeftImg) ;
+    }] ;
+
     
     [self.rOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.rImageButton.mas_right).offset(15) ;
-        make.centerY.equalTo(self.rImageButton) ;
+        make.left.equalTo(self.rTitleLabel.mas_right).offset(15) ;
+        make.centerY.equalTo(self.rLeftImg) ;
         make.right.equalTo(rBgView).offset(-15) ;
     }] ;
     
@@ -113,7 +123,7 @@
     
     [self.rSecLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.contentView) ;
-        make.top.equalTo(self.rImageButton.mas_bottom).offset(10) ;
+        make.top.equalTo(self.rLeftImg.mas_bottom).offset(10) ;
         
     }] ;
     
@@ -200,22 +210,25 @@
     return _rThirLabel ;
 }
 
-
-
-
--(UIButton*)rImageButton {
+-(UILabel*)rTitleLabel {
+    if (_rTitleLabel == nil) {
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"订单号" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+    }
     
-    if (_rImageButton == nil) {
-        _rImageButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-        [_rImageButton setTitle:@"  订单号" forState:UIControlStateNormal] ;
-        [_rImageButton setTitleColor:kBlueColor forState:UIControlStateNormal];
-        [_rImageButton setImage:[UIImage imageNamed:@"loan_num"] forState:UIControlStateNormal];
-        _rImageButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft ;
+    return _rTitleLabel ;
+}
+
+-(UIImageView*)rLeftImg {
+    
+    if (_rLeftImg == nil) {
+        _rLeftImg =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loan_num"]]  ;
         
     }
     
-    return _rImageButton ;
+    return _rLeftImg ;
 }
+
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

@@ -8,6 +8,8 @@
 
 #import "JYLoanApplyController.h"
 #import "JYLoanApplyCell.h"
+#import "JYApplyDetailController.h"
+
 
 
 @interface JYLoanApplyController ()
@@ -27,7 +29,7 @@
     
     self.tableView.estimatedRowHeight = 45 ;
     self.tableView.rowHeight = UITableViewAutomaticDimension ;
-     self.tableView.tableFooterView =  [UIView new];
+    self.tableView.tableFooterView =  [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone ;
     
 }
@@ -59,11 +61,17 @@
     
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    JYApplyDetailController *vc = [[JYApplyDetailController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 //-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    
-//    
+//
+//
 //    static NSString *headerIdentifier = @"headerIdentifier" ;
-//    
+//
 //    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
 //    if (headerView == nil) {
 //        headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
@@ -74,9 +82,9 @@
 //            view ;
 //        });
 //    }
-//    
+//
 //    return headerView ;
-//    
+//
 //}
 
 
@@ -86,13 +94,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -48,7 +48,7 @@
     
     if (rIsOver) {
         
-        self.navigationController.navigationBar.barTintColor = kYellowColor;
+        self.navigationController.navigationBar.barTintColor = kOrangewColor;
     }else{
         self.navigationController.navigationBar.barTintColor = kBlueColor;
         
@@ -224,7 +224,7 @@
         _rHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 160) ;
         
         if (rIsOver) {
-            _rHeaderView.rBgView.backgroundColor = kYellowColor ;
+            _rHeaderView.rBgView.backgroundColor = kOrangewColor ;
             _rHeaderView.rSateLabel.text = @"已逾期" ;
             _rHeaderView.rLeftImg.image = [UIImage imageNamed:@"loan_yellow"] ;
         }else{

@@ -302,7 +302,7 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
         
     }else if(rType == JYLoanDetailCellTypeOverButton){
         
-        self.rcommitButton.backgroundColor = kYellowColor ;
+        self.rcommitButton.backgroundColor = kOrangewColor ;
         
         [self.rOrderButton setTitleColor:kTextBlackColor forState:UIControlStateNormal];
         self.rOrderButton.layer.borderColor = kLineColor.CGColor ;

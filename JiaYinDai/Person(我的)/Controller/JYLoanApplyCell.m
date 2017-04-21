@@ -84,14 +84,7 @@
     self.rStateTitlesArr = [NSMutableArray arrayWithCapacity:4] ;
     for (int i=0; i<4; i++) {
         UILabel *lab = [self jyCreateLabelWithTitle:self.rTitlesArr[i] font:12 color:kTextBlackColor align:NSTextAlignmentCenter] ;
-
-//        if (i == 0  ) {
-//            lab.textAlignment = NSTextAlignmentLeft ;
-//        }
-//        
-//        if (  i== 3) {
-//            lab.textAlignment = NSTextAlignmentRight ;
-//        }
+        
         [self.contentView addSubview:lab];
         [self.rStateTitlesArr addObject:lab];
     }
@@ -134,17 +127,17 @@
         make.top.equalTo(self.rMoneyLabel.mas_bottom).offset(15) ;
         make.left.equalTo(rBgView).offset(30) ;
         make.right.equalTo(rBgView).offset(-30) ;
-         make.height.mas_equalTo(25) ;
+        make.height.mas_equalTo(25) ;
     }] ;
     
     
     
-//    [self.rStateTitlesArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:2 leadSpacing:25 tailSpacing:25] ;
     [self.rStateTitlesArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedItemLength:55 leadSpacing:25 tailSpacing:25] ;
     
     [self.rStateTitlesArr mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.rBottomView.mas_bottom).offset(5) ;
         make.bottom.equalTo(rBgView).offset(-10) ;
+        
     }] ;
     
 }
@@ -174,7 +167,7 @@
     if (_rBottomView == nil) {
         _rBottomView =  [[UIImageView alloc]init];
         _rBottomView.backgroundColor = [UIColor clearColor] ;
-//        _rBottomView.contentMode = UIViewContentModeCenter ;
+        //        _rBottomView.contentMode = UIViewContentModeCenter ;
         _rBottomView.image = [UIImage imageNamed:@"apply_state5"] ;
     }
     return _rBottomView ;
@@ -196,7 +189,7 @@
 -(UIImageView*)rArrowView {
     if (_rArrowView == nil) {
         _rArrowView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"more"]] ;
-     }
+    }
     
     return _rArrowView ;
 }
