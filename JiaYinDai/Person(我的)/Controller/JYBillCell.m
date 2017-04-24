@@ -53,10 +53,10 @@
 
 -(void)setCellColor:(UIColor*) colorStyle {
     
-         self.rStateLabel.textColor =
-        self.rMoneyLabel.textColor =
-        rBottomView.backgroundColor=
-        self.rStateLabel.textColor = colorStyle  ;
+    self.rStateLabel.textColor =
+    self.rMoneyLabel.textColor =
+    rBottomView.backgroundColor=
+    self.rStateLabel.textColor = colorStyle  ;
     
 }
 
@@ -206,3 +206,91 @@
 }
 
 @end
+
+@interface JYBillAlterCell (){
+    NSMutableArray *rLinesArr ;
+}
+
+@property (nonatomic ,strong) NSMutableArray *rButonsArr ;
+
+@end
+
+
+@implementation JYBillAlterCell
+
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier] ;
+    if (self) {
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone ;
+        [self buildSbuViewsUI];
+    }
+    
+    return self ;
+}
+
+-(void)setTitles:(NSArray*)titles images:(NSArray*)images  {
+    
+    
+    for (int i = 0; i < 3; i ++) {
+        UIButton *btn = self .rButonsArr[i];
+        [btn setTitle:titles[i] forState:UIControlStateNormal] ;
+        [btn setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal] ;
+    }
+}
+
+#pragma mark- action
+
+-(void)pvt_select:(UIButton*)btn {
+
+    if (self.rBlock) {
+        self.rBlock(btn.tag - 999, self) ;
+    }
+}
+
+
+-(void)buildSbuViewsUI {
+    
+    self.rButonsArr = [NSMutableArray arrayWithCapacity:3] ;
+    rLinesArr = [NSMutableArray arrayWithCapacity:4] ;
+    for (int i = 0; i<4 ; i ++) {
+        UIView *line = [[UIView alloc]init];
+        line.backgroundColor = kLineColor ;
+        [self.contentView addSubview:line];
+        [rLinesArr addObject:line];
+    }
+    
+    
+    for (int i = 0; i < 3; i ++) {
+        UIButton *bt =[UIButton buttonWithType:UIButtonTypeCustom] ;
+        bt.backgroundColor = [UIColor clearColor] ;
+        [bt setTitleColor:kTextBlackColor forState:UIControlStateNormal];
+        [bt setTitle:@"ddd" forState:UIControlStateNormal] ;
+        [self.contentView addSubview:bt];
+        bt.tag = 999+ i ;
+        [bt addTarget:self action:@selector(pvt_select:) forControlEvents:UIControlEventTouchUpInside] ;
+        [self.rButonsArr addObject:bt];
+        
+    }
+    
+    
+    [self.rButonsArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:1 leadSpacing:0 tailSpacing:0] ;
+    [self.rButonsArr mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView) ;
+        make.height.mas_equalTo(50) ;
+    }] ;
+    
+    [rLinesArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedItemLength:1 leadSpacing:-1 tailSpacing:-1] ;
+    
+    [rLinesArr mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView) ;
+        make.height.mas_equalTo(30) ;
+    }] ;
+    
+    
+}
+
+@end
+
+

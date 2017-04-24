@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, JYLogCellType) {
 
 @property (nonatomic,strong,readonly) UITextField *rTextField ;
 @property (nonatomic,strong,readonly) UIImageView *rLeftImgView ;
+@property (nonatomic,strong,readonly) UIButton *rRightBtn ;
 
 
 

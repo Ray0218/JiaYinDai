@@ -17,4 +17,16 @@
 @end
 
 
+@class JYBillAlterCell ;
+typedef void(^JYBillBlock)(NSInteger index ,JYBillAlterCell *curCell);
+
+@interface JYBillAlterCell : UITableViewCell
+
+@property (nonatomic ,copy) JYBillBlock rBlock ;
+
+-(void)setTitles:(NSArray*)titles images:(NSArray*)images ;
+
+@end
+
+
  

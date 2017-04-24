@@ -69,6 +69,7 @@
         case JYLogCellTypeCode:{
             self.rLeftImgView.image = [UIImage imageNamed:@"code_icon"] ;
             self.rTextField.placeholder = @"请输入验证码" ;
+            self.rRightBtn.backgroundColor = kBlueColor ;
             
         }break ;
         default:{

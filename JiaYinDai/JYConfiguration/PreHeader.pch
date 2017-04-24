@@ -18,8 +18,11 @@
 #import <JSONModel.h>
 #import <AFNetworking.h>
 
+
+#import "AFHTTPSessionManager+JYManager.h"
 #import "JYDefine.h"
 #import "JYCategoryHeader.h"
+#import "JYService.h"
 
 
 #import "JYDateFormatter.h"
