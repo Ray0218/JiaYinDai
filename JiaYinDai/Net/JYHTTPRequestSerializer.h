@@ -8,12 +8,12 @@
 
 #import <AFNetworking/AFNetworking.h>
 
-@interface JYHTTPRequestSerializer : AFJSONRequestSerializer
+@interface JYHTTPRequestSerializer : AFHTTPRequestSerializer
 
 @end
 
 
-@interface JYHTTPResponseSerializer  : AFJSONResponseSerializer
+@interface JYHTTPResponseSerializer  : AFHTTPResponseSerializer
 
 @end
 

@@ -131,7 +131,7 @@
                  
                 NSDictionary *dic = @{@"cellphone":@"18757194522",@"type":@"reg"} ;
                 
-                [[AFHTTPSessionManager jy_sharedManager]POST:@"sms" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                [[AFHTTPSessionManager jy_sharedManager]POST:@"/sms" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     
                     NSLog(@"%@",responseObject) ;
                     

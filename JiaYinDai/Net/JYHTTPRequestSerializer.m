@@ -25,37 +25,49 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
 @implementation JYHTTPRequestSerializer
 
 
+#pragma mark - AFURLRequestSerialization
+
+
+
 - (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
                                withParameters:(id)parameters
                                         error:(NSError *__autoreleasing *)error
 {
+    
+    
     NSParameterAssert(request);
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
     
-    // 将参数直接拼接到URI中
-    if ([self.HTTPMethodsEncodingParametersInURI containsObject:[[mutableRequest HTTPMethod] uppercaseString]]) {
-        return [super requestBySerializingRequest:mutableRequest withParameters:parameters error:error];
+    [self.HTTPRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id field, id value, BOOL * __unused stop) {
+        if (![request valueForHTTPHeaderField:field]) {
+            [mutableRequest setValue:value forHTTPHeaderField:field];
+        }
+    }];
+    
+    NSString *query = nil ;
+    
+    if (parameters) {
+        
+        parameters = [self getTargetStringWithDic:parameters];
+        //加密
+        parameters = [self sessionEncryDicWithDic:parameters];
+        
+        query = AFQueryStringFromParameters(parameters);
+        
     }
     
-    // Body 组织
+    
+    if (!query) {
+        query = @"";
+    }
     if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
-        //        [mutableRequest setValue:@"secure/json" forHTTPHeaderField:@"Content-Type"];
-        //        [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [mutableRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     }
+    [mutableRequest setHTTPBody:[query dataUsingEncoding:self.stringEncoding]];
     
     
-    NSMutableDictionary *dic = [self getTargetStringWithDic:parameters];
-    NSData *data = nil;
+    return mutableRequest ;
     
-    // 加密处理
-    NSDictionary *secDic = [self sessionEncryDicWithDic:dic];
-    
-    data = [ NSJSONSerialization dataWithJSONObject:secDic options:NSJSONWritingPrettyPrinted error:nil] ;
-    
-    
-    [mutableRequest setHTTPBody:data];
-    return mutableRequest;
 }
 
 
@@ -167,50 +179,5 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
     
 }
 
-/**
- *  NSData转JSON对象
- */
-
-/*
- - (id)decrypeJsonWithData:(NSData *)data {
- // 1. 转成字符串
- NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
- // 2. 解密
- // 如果是加密传输在这里进行解密
- NSString *deCodeStr = [[EncryptStr getInstance] startDeencrypt:jsonStr key:kEncryptionKey];
- 
- // 3. 转成json对象
- NSDictionary *diction = [NSJSONSerialization JSONObjectWithData:[deCodeStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
- 
- if (APP_DELEGATE.userLogin && ([diction[@"rspCd"] isEqualToString:@"U0013"] || [diction[@"rspCd"] isEqualToString:@"U0007"] || [diction[@"rspCd"] isEqualToString:@"U0009"])) {
- 
- [[TMDiskCache sharedCache] removeObjectForKey:USERLOGIN_CACHE block:^(TMDiskCache *cache, NSString *key, id<NSCoding> object, NSURL *fileURL){
- 
- }];
- APP_DELEGATE.userLogin = nil;
- 
- 
- NSString *toastString = diction[@"rspInf"] ?: @"";
- [[NSNotificationCenter defaultCenter] postNotificationName:kReLoginNotify object:@{ @"toastString" : toastString }];
- [diction setValue:kErrorLogString forKey:@"rspInf"];
- }
- 
- 
- 
- if ([diction[@"rspCd"] isEqualToString:@"U0055"]) { //单点登录
- [[TMDiskCache sharedCache] removeObjectForKey:USERLOGIN_CACHE block:^(TMDiskCache *cache, NSString *key, id<NSCoding> object, NSURL *fileURL){
- 
- }];
- APP_DELEGATE.userLogin = nil;
- 
- 
- [[NSNotificationCenter defaultCenter] postNotificationName:kReLoginNotify object:nil];
- 
- [diction setValue:kErrorLogString forKey:@"rspInf"];
- }
- 
- return diction;
- }
- */
 @end
 
