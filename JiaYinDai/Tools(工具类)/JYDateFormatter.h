@@ -13,6 +13,8 @@ typedef NS_ENUM(NSUInteger, JYDateFormatType) {
     JYDateFormatTypeYMD,//年月日
     JYDateFormatTypeYMDHM,//年月日时分
     JYDateFormatTypeYMDHMS,////年月日时分秒
+    JYDateFormatTypeYMDHMSS,////年月日时分秒毫秒
+
 };
 
 

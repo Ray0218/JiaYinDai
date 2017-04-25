@@ -49,6 +49,9 @@
     // Do any additional setup after loading the view.
     [self buildSubViewUI];
     
+    
+     
+    
 }
 
 #pragma mark- agction
@@ -125,18 +128,17 @@
             cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypeCode reuseIdentifier:identifier];
             [[cell.rRightBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
                 
-                NSLog(@"dddddddddddddd") ;
+                 
+                NSDictionary *dic = @{@"cellphone":@"18757194522",@"type":@"reg"} ;
                 
-                NSDictionary *dic = @{@"cellphone":@"18757194522",} ;
+                [[AFHTTPSessionManager jy_sharedManager]POST:@"sms" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                    
+                    NSLog(@"%@",responseObject) ;
+                    
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                    NSLog(@"%@",error) ;
+                }] ;
                 
-//                [[AFHTTPSessionManager jy_sharedManager]POST:@"/sms" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//                    
-//                    NSLog(@"%@",responseObject) ;
-//                    
-//                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//                    NSLog(@"%@",error) ;
-//                }] ;
-//                
                 
             }] ;
         }

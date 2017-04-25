@@ -15,6 +15,8 @@ static JYDateFormatter *_formatter = nil ;
 @property(nonatomic, strong) NSDateFormatter *rYMDFormatter ;
 @property(nonatomic, strong) NSDateFormatter *rYMDHMFormatter ;
 @property(nonatomic, strong) NSDateFormatter *rYMDHMSFormatter ;
+@property(nonatomic, strong) NSDateFormatter *rYMDHMSSFormatter ;
+
 
 @end
 
@@ -45,6 +47,9 @@ static JYDateFormatter *_formatter = nil ;
             return self.rYMDHMFormatter ;
         case JYDateFormatTypeYMDHMS:
             return self.rYMDHMSFormatter ;
+             
+         case JYDateFormatTypeYMDHMSS:
+             return self.rYMDHMSSFormatter ;
         default:
             break;
     }
@@ -77,11 +82,19 @@ static JYDateFormatter *_formatter = nil ;
     
     if (_rYMDHMSFormatter == nil) {
         _rYMDHMSFormatter = [[NSDateFormatter alloc]init];
-        _rYMDHMSFormatter.dateFormat = @"yyyy-MM-dd HH:mm:SS" ;
+        _rYMDHMSFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss" ;
     }
     return _rYMDHMSFormatter ;
 }
 
+-(NSDateFormatter*)rYMDHMSSFormatter {
+    
+    if (_rYMDHMSSFormatter == nil) {
+        _rYMDHMSSFormatter = [[NSDateFormatter alloc]init];
+        _rYMDHMSSFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss:SS" ;
+    }
+    return _rYMDHMSSFormatter ;
+}
 
 
 

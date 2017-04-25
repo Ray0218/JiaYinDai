@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
 
 @implementation JYHTTPRequestSerializer
 
+
 - (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
                                withParameters:(id)parameters
                                         error:(NSError *__autoreleasing *)error
@@ -36,41 +37,40 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
         return [super requestBySerializingRequest:mutableRequest withParameters:parameters error:error];
     }
     
-    //    // 判断是否登录超时
-    //    NSData *key = [DPMemberManager sharedInstance].secureKey;
-    //    if (key.length == 0) {
-    //        if (error) {
-    //            NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey: NSLocalizedStringFromTable(@"Session timeout.", @"AFNetworking", nil),
-    //                                       kDPHTTPErrorMessageKey: @"登录超时, 请重新登录.",
-    //                                       kDPHTTPErrorCodeKey: @(DPHTTPErrorCodeSessionTimeOut)};
-    //            *error = [NSError errorWithDomain:AFURLRequestSerializationErrorDomain code:kDPHTTPRequestSerializeError userInfo:userInfo];
-    //        }
-    //        return nil;
-    //    }
-    
     // Body 组织
     if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
-        [mutableRequest setValue:@"secure/json" forHTTPHeaderField:@"Content-Type"];
+        //        [mutableRequest setValue:@"secure/json" forHTTPHeaderField:@"Content-Type"];
+        //        [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [mutableRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     }
+    
+    
     NSMutableDictionary *dic = [self getTargetStringWithDic:parameters];
     NSData *data = nil;
-//    if ([request.URL.absoluteString containsString:kSetCertificationRealName options:NSBackwardsSearch]) {    //实名认证
-//        data = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
-//    } else
-    {
-        // 加密处理
-        NSString *secuString = [self sessionEncryDicWithDic:dic];
-        data = [secuString dataUsingEncoding:NSUTF8StringEncoding];
-    }
+    
+    // 加密处理
+    NSDictionary *secDic = [self sessionEncryDicWithDic:dic];
+    
+    data = [ NSJSONSerialization dataWithJSONObject:secDic options:NSJSONWritingPrettyPrinted error:nil] ;
+    
+    
     [mutableRequest setHTTPBody:data];
     return mutableRequest;
 }
 
 
-- (NSString *)sessionEncryDicWithDic:(NSMutableDictionary *)dic {
-    NSString *preSignStr = [self getPreSignStringWithDic:dic];
+- (NSDictionary *)sessionEncryDicWithDic:(NSMutableDictionary *)dic {
     
-    return preSignStr;
+    NSString *preSignStr = [ self getPreSignStringWithDic:dic signKey:@"65846b8c29154b3ef911e913f9e2205d"];
+    
+    NSMutableDictionary * dataDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+    
+    [dataDic setObject:preSignStr forKey:@"sign" ] ;
+    
+    
+    return [dataDic copy] ;
+    
+    
 }
 
 /**
@@ -80,34 +80,43 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
  *
  *  @return 排序后的sign
  */
-- (NSString *)getPreSignStringWithDic:(NSMutableDictionary *)jsonDict {
-    NSMutableArray *keys = [NSMutableArray arrayWithCapacity:10];
-    for (NSString *key in jsonDict.allKeys) {
-        [keys addObject:key];
-    }
+- (NSString *)getPreSignStringWithDic:(NSMutableDictionary *)jsonDict signKey:(NSString*) sig{
     
-    NSArray *akeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2) {
-        NSComparisonResult result = [obj1 compare:obj2];
-        return result == NSOrderedDescending;
+    NSArray *keyArray=[jsonDict allKeys];
+    //参数按顺序按首字母升序排列,值为空的不参与签名,MD5的key值放在最后
+    NSArray *resultArray=[keyArray sortedArrayUsingComparator:^NSComparisonResult(NSString *key1, NSString *key2) {
+        return [key1 compare:key2];
     }];
-    //    NSLog(@"%@",akeys);
-    NSMutableArray *strs = [NSMutableArray arrayWithCapacity:10];
     
-    for (int i = 0; i < akeys.count; i++) {
-        NSString *value = [jsonDict objectForKey:akeys[i]];
-        [strs addObject:akeys[i]];
-        [strs addObject:value];
+    NSMutableString *paramString=[NSMutableString stringWithString:@""];
+    
+    //拼接成 A=B&X=Y
+    for (NSString *key in resultArray) {
+        if ([jsonDict[key] length]!=0) {
+            [paramString appendFormat:@"&%@=%@",key,jsonDict[key]];
+        }
     }
     
-    //    NSLog(@"%@",strs);
-    NSString *str1;
-    NSString *str2 = @"";
-    for (int i = 0; i < strs.count; i++) {
-        str1 = [str2 stringByAppendingString:strs[i]];
-        str2 = str1;
+    //删除第一个&字符
+    if ([paramString length]>1) {
+        [paramString deleteCharactersInRange:NSMakeRange(0, 1)];
     }
-    //    NSLog(@"str2 = \n%@",str2);
-    return str2;
+    
+    //如果是md5加密 给paramString后面添加 MD5 key
+    if (sig) {
+        NSString *pay_md5_key=[NSString stringWithFormat:@"%@",sig];
+        [paramString appendFormat:@"&key=%@",pay_md5_key];
+    }
+    NSLog(@"加密前===%@",paramString);
+    
+    
+    //md5 加密
+    NSString  *signString=[ paramString jy_MD5String] ;
+    return signString;
+    
+    return nil ;
+    
+    
 }
 
 /**
@@ -118,29 +127,16 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
  *  @return 请求body
  */
 - (NSMutableDictionary *)getTargetStringWithDic:(NSDictionary *)jsonDict {
-    NSMutableDictionary *tranDic = [[NSMutableDictionary alloc] init];
-    //系统版本
-//    NSString *requestTm = [NSString getFormatCurrDate];
-//    [tranDic setObject:APP_VERSION forKey:@"appVersion"];         // app版本号
-//    [tranDic setObject:DEVICE_VESION_STR forKey:@"osVersion"];    // 客户端系统版本号
-//    [tranDic setObject:@"IOS" forKey:@"termTyp"];                 // 客户端类型
-//    [tranDic setObject:@"APPStore" forKey:@"channelId"];          // 客户端渠道 APPStore
-//    [tranDic setObject:DEVICE_ADUUID forKey:@"termId"];           // 广告标识符
-//    [tranDic setObject:requestTm forKey:@"requestTm"];            // 请求时间
-//    [tranDic setObject:kClientId forKey:@"clientId"];             //
-//    [tranDic setObject:[JPUSHService registrationID]?:@"" forKey:@"deviceId"];
-//    
-//    NSLog(@"%@",[JPUSHService registrationID]) ;
-//    if (APP_DELEGATE.userLogin.tokenId.length) {
-//        [tranDic setObject:APP_DELEGATE.userLogin.tokenId forKey:@"tokenId"];
-//        
-//    }
-//    
-//    for (NSString *key in jsonDict.allKeys) {
-//        [tranDic setObject:[jsonDict objectForKey:key] forKey:key];
-//    }
-//
-     return tranDic;
+    NSMutableDictionary *tranDic = [NSMutableDictionary  dictionaryWithDictionary:jsonDict];
+    
+    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+    long long totalMilliseconds = interval*1000 ;
+    [tranDic setValue:[NSString stringWithFormat:@"%lld",totalMilliseconds] forKey:@"timestamp"] ;
+    
+    
+    
+    
+    return [tranDic copy];
 }
 
 
@@ -167,54 +163,54 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
                           error:(NSError *__autoreleasing *)error
 {
     
-         return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:error] ;
-        
- }
+    return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:error] ;
+    
+}
 
 /**
  *  NSData转JSON对象
  */
 
 /*
-- (id)decrypeJsonWithData:(NSData *)data {
-    // 1. 转成字符串
-    NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    // 2. 解密
-    // 如果是加密传输在这里进行解密
-    NSString *deCodeStr = [[EncryptStr getInstance] startDeencrypt:jsonStr key:kEncryptionKey];
-    
-    // 3. 转成json对象
-    NSDictionary *diction = [NSJSONSerialization JSONObjectWithData:[deCodeStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
-    
-    if (APP_DELEGATE.userLogin && ([diction[@"rspCd"] isEqualToString:@"U0013"] || [diction[@"rspCd"] isEqualToString:@"U0007"] || [diction[@"rspCd"] isEqualToString:@"U0009"])) {
-        
-        [[TMDiskCache sharedCache] removeObjectForKey:USERLOGIN_CACHE block:^(TMDiskCache *cache, NSString *key, id<NSCoding> object, NSURL *fileURL){
-            
-        }];
-        APP_DELEGATE.userLogin = nil;
-        
-        
-        NSString *toastString = diction[@"rspInf"] ?: @"";
-        [[NSNotificationCenter defaultCenter] postNotificationName:kReLoginNotify object:@{ @"toastString" : toastString }];
-        [diction setValue:kErrorLogString forKey:@"rspInf"];
-    }
-    
-    
-    
-    if ([diction[@"rspCd"] isEqualToString:@"U0055"]) { //单点登录
-        [[TMDiskCache sharedCache] removeObjectForKey:USERLOGIN_CACHE block:^(TMDiskCache *cache, NSString *key, id<NSCoding> object, NSURL *fileURL){
-            
-        }];
-        APP_DELEGATE.userLogin = nil;
-        
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kReLoginNotify object:nil];
-        
-        [diction setValue:kErrorLogString forKey:@"rspInf"];
-    }
-    
-    return diction;
-}
-*/
+ - (id)decrypeJsonWithData:(NSData *)data {
+ // 1. 转成字符串
+ NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+ // 2. 解密
+ // 如果是加密传输在这里进行解密
+ NSString *deCodeStr = [[EncryptStr getInstance] startDeencrypt:jsonStr key:kEncryptionKey];
+ 
+ // 3. 转成json对象
+ NSDictionary *diction = [NSJSONSerialization JSONObjectWithData:[deCodeStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+ 
+ if (APP_DELEGATE.userLogin && ([diction[@"rspCd"] isEqualToString:@"U0013"] || [diction[@"rspCd"] isEqualToString:@"U0007"] || [diction[@"rspCd"] isEqualToString:@"U0009"])) {
+ 
+ [[TMDiskCache sharedCache] removeObjectForKey:USERLOGIN_CACHE block:^(TMDiskCache *cache, NSString *key, id<NSCoding> object, NSURL *fileURL){
+ 
+ }];
+ APP_DELEGATE.userLogin = nil;
+ 
+ 
+ NSString *toastString = diction[@"rspInf"] ?: @"";
+ [[NSNotificationCenter defaultCenter] postNotificationName:kReLoginNotify object:@{ @"toastString" : toastString }];
+ [diction setValue:kErrorLogString forKey:@"rspInf"];
+ }
+ 
+ 
+ 
+ if ([diction[@"rspCd"] isEqualToString:@"U0055"]) { //单点登录
+ [[TMDiskCache sharedCache] removeObjectForKey:USERLOGIN_CACHE block:^(TMDiskCache *cache, NSString *key, id<NSCoding> object, NSURL *fileURL){
+ 
+ }];
+ APP_DELEGATE.userLogin = nil;
+ 
+ 
+ [[NSNotificationCenter defaultCenter] postNotificationName:kReLoginNotify object:nil];
+ 
+ [diction setValue:kErrorLogString forKey:@"rspInf"];
+ }
+ 
+ return diction;
+ }
+ */
 @end
 

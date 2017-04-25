@@ -10,7 +10,7 @@
 #define JYService_h
 
 
-#define kServiceURL  @"192.168.1.216"
+#define kServiceURL  @"http://192.168.1.156:8080"
 
 
 

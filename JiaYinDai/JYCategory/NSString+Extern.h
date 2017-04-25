@@ -22,4 +22,12 @@
 //数字校验(只包含数字和小数点)
 - (BOOL)jy_stringCheckNumber;
 
+
+/**
+ MD5加密
+
+ @return <#return value description#>
+ */
+- (NSString *)jy_MD5String ;
+
 @end

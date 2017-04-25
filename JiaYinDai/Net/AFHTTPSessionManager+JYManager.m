@@ -39,70 +39,70 @@ const CGFloat kTimeoutIntervalForWWAN = 18;
 
 
 
-- (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
-                                       URLString:(NSString *)URLString
-                                      parameters:(id)parameters
-                                  uploadProgress:(nullable void (^)(NSProgress *uploadProgress)) uploadProgress
-                                downloadProgress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
-                                         success:(void (^)(NSURLSessionDataTask *, id))success
-                                         failure:(void (^)(NSURLSessionDataTask *, NSError *))failure
-{
-    
-    NSError *serializationError = nil;
-    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:method URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:&serializationError];
-    if (serializationError) {
-        if (failure) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
-            dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
-                failure(nil, serializationError);
-            });
-#pragma clang diagnostic pop
-        }
-        
-        return nil;
-    }
-    
-    __block NSURLSessionDataTask *dataTask = nil;
-    dataTask = [self dataTaskWithRequest:request
-                          uploadProgress:uploadProgress
-                        downloadProgress:downloadProgress
-                       completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
-                           
-                           
-                           
-                           if (error) {
-                               if (failure) {
-                                   failure(dataTask, error);
-                               }
-                           } else {
-                               
-                               
-                               if (success) {
-                                   success(dataTask, responseObject);
-                               }
-                           }
-                           
-                           
-                           
-                           if ([responseObject[@"rspCd"] isEqualToString:@"00000"]) {    // 请求成功
-                               
-                               if (success) {
-                                   success(dataTask, responseObject);
-                               }
-                           }else{
-                               
-                               
-                               
-                               //                                    [SVProgressHUD showErrorWithStatus:responseObject[@"rspInf"]];
-                           }
-                           
-                           
-                       }];
-    
-    return dataTask;
-}
-
+//- (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
+//                                       URLString:(NSString *)URLString
+//                                      parameters:(id)parameters
+//                                  uploadProgress:(nullable void (^)(NSProgress *uploadProgress)) uploadProgress
+//                                downloadProgress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
+//                                         success:(void (^)(NSURLSessionDataTask *, id))success
+//                                         failure:(void (^)(NSURLSessionDataTask *, NSError *))failure
+//{
+//    
+//    NSError *serializationError = nil;
+//    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:method URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:&serializationError];
+//    if (serializationError) {
+//        if (failure) {
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wgnu"
+//            dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
+//                failure(nil, serializationError);
+//            });
+//#pragma clang diagnostic pop
+//        }
+//        
+//        return nil;
+//    }
+//    
+//    __block NSURLSessionDataTask *dataTask = nil;
+//    dataTask = [self dataTaskWithRequest:request
+//                          uploadProgress:uploadProgress
+//                        downloadProgress:downloadProgress
+//                       completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
+//                           
+//                           
+//                           
+//                           if (error) {
+//                               if (failure) {
+//                                   failure(dataTask, error);
+//                               }
+//                           } else {
+//                               
+//                               
+//                               if (success) {
+//                                   success(dataTask, responseObject);
+//                               }
+//                           }
+//                           
+//                           
+//                           
+//                           if ([responseObject[@"rspCd"] isEqualToString:@"00000"]) {    // 请求成功
+//                               
+//                               if (success) {
+//                                   success(dataTask, responseObject);
+//                               }
+//                           }else{
+//                               
+//                               
+//                               
+//                               //                                    [SVProgressHUD showErrorWithStatus:responseObject[@"rspInf"]];
+//                           }
+//                           
+//                           
+//                       }];
+//    
+//    return dataTask;
+//}
+//
 
 
 
