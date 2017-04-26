@@ -20,22 +20,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JiaYinDai/Person(&#x6211;&#x7684;)/Controller/JYLogInViewController.m"
-            timestampString = "514877506.781896"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JiaYinDai/Person(&#x6211;&#x7684;)/Controller/JYLogInViewController.m"
             timestampString = "514877856.971891"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

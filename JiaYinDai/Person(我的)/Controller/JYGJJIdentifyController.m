@@ -126,8 +126,8 @@
         if (cell  == nil) {
             
             cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeTwoBtn reuseIdentifier:identifier ];
-            [cell.rManButton setTitle:@"省级" forState:UIControlStateNormal];
-            [cell.rWomenButton setTitle:@"市级" forState:UIControlStateNormal];
+            [cell.rManButton setTitle:@" 省级" forState:UIControlStateNormal];
+            [cell.rWomenButton setTitle:@" 市级" forState:UIControlStateNormal];
         }
         
         
@@ -167,7 +167,7 @@
         headerView.contentView.backgroundColor = [UIColor clearColor];
         
         
-        NSString *titles[] = {@"客户号",@"用户名",@"市民邮箱"} ;
+        NSString *titles[] = {@" 客户号",@" 用户名",@" 市民邮箱"} ;
         NSMutableArray *arr = [NSMutableArray arrayWithCapacity:3] ;
         for (int i = 0; i < 3; i++) {
             UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
@@ -175,8 +175,19 @@
             btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
             [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal];
             [headerView.contentView addSubview:btn];
-            btn.tag = 1000+i ;
+            
+            [btn setImage:[UIImage imageNamed:@"imp_unselect"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"imp_select"] forState:UIControlStateSelected];
+             btn.tag = 1000+i ;
             [arr addObject:btn];
+            btn.selected = NO ;
+            
+            if (i == 0) {
+                btn.selected = YES ;
+            }
+            
+            [btn addTarget:self action:@selector(pvt_selectBtn:) forControlEvents:UIControlEventTouchUpInside] ;
+            
         }
         
         [arr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:15 leadSpacing:25 tailSpacing:110] ;
@@ -195,6 +206,24 @@
     view.backgroundColor = [UIColor clearColor] ;
     return view ;
     
+}
+
+-(void)pvt_selectBtn:(UIButton*) button {
+    
+    
+    UITableViewHeaderFooterView *headerView = [self.rTableView headerViewForSection:1] ;
+    UIButton *btn0 = [headerView.contentView viewWithTag:1000] ;
+    UIButton *btn1 = [headerView.contentView viewWithTag:1001] ;
+    UIButton *btn2 = [headerView.contentView viewWithTag:1002] ;
+    
+    btn0.selected = btn1.selected = btn2.selected = NO ;
+    
+    
+    button.selected = YES ;
+
+    
+
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

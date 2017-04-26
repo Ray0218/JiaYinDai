@@ -337,9 +337,22 @@
         _rManButton = ({
             
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
-            [btn setTitle:@"先生" forState:UIControlStateNormal] ;
+            [btn setTitle:@" 先生" forState:UIControlStateNormal] ;
             btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
             [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal] ;
+            [btn setImage:[UIImage imageNamed:@"imp_unselect"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"imp_select"] forState:UIControlStateSelected];
+            btn.selected = YES ;
+            
+            
+            @weakify(self)
+            [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIButton* x) {
+                @strongify(self)
+                
+                x.selected =  YES ;
+                self.rWomenButton.selected =  NO ;
+            }] ;
+            
             btn ;
             
         }) ;
@@ -353,9 +366,21 @@
         _rWomenButton = ({
             
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
-            [btn setTitle:@"女士" forState:UIControlStateNormal] ;
+            [btn setTitle:@" 女士" forState:UIControlStateNormal] ;
             btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
             [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal] ;
+            [btn setImage:[UIImage imageNamed:@"imp_unselect"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"imp_select"] forState:UIControlStateSelected];
+            btn.selected = NO  ;
+            
+            @weakify(self)
+            [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIButton* x) {
+                @strongify(self)
+                
+                x.selected =  YES ;
+                self.rManButton.selected =  NO ;
+            }] ;
+
             btn ;
             
         }) ;

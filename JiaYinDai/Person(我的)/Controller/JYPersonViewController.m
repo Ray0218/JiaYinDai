@@ -169,6 +169,7 @@
         _rTableView.estimatedRowHeight = 45 ;
         _rTableView.rowHeight = UITableViewAutomaticDimension;
         _rTableView.tableHeaderView = self.rTableHeaderView ;
+        _rTableView.tableFooterView = [UIView new] ;
         _rTableView.delegate = self ;
         _rTableView.dataSource = self ;
         _rTableView.sectionHeaderHeight = 15 ;
