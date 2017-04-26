@@ -21,6 +21,8 @@
 		7132F5FB1E977AF2009B22EA /* JYPasswodSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F5FA1E977AF1009B22EA /* JYPasswodSettingVC.m */; };
 		7132F5FE1E97807B009B22EA /* JYPasswordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F5FD1E97807B009B22EA /* JYPasswordCell.m */; };
 		7132F6011E9793FD009B22EA /* JYPasswordSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F6001E9793FD009B22EA /* JYPasswordSetModel.m */; };
+		7135E3FC1EB06BAC001E57B9 /* JYUserCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135E3FB1EB06BAC001E57B9 /* JYUserCenter.m */; };
+		7135E3FF1EB06E2B001E57B9 /* JYWelcomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135E3FE1EB06E2B001E57B9 /* JYWelcomController.m */; };
 		713C65AB1E8DE6C100B80664 /* NSObject+Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 713C65AA1E8DE6C100B80664 /* NSObject+Factory.m */; };
 		713C65AE1E8DF66600B80664 /* JYPayStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 713C65AD1E8DF66600B80664 /* JYPayStyleView.m */; };
 		713CA7291EA5C3F400E9AA5A /* JYPersonIdentifController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713CA7281EA5C3F400E9AA5A /* JYPersonIdentifController.m */; };
@@ -157,6 +159,10 @@
 		7132F5FD1E97807B009B22EA /* JYPasswordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYPasswordCell.m; path = "JiaYinDai/Person(我的)/Controller/JYPasswordCell.m"; sourceTree = SOURCE_ROOT; };
 		7132F5FF1E9793FD009B22EA /* JYPasswordSetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYPasswordSetModel.h; path = "JiaYinDai/Person(我的)/Controller/JYPasswordSetModel.h"; sourceTree = SOURCE_ROOT; };
 		7132F6001E9793FD009B22EA /* JYPasswordSetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYPasswordSetModel.m; path = "JiaYinDai/Person(我的)/Controller/JYPasswordSetModel.m"; sourceTree = SOURCE_ROOT; };
+		7135E3FA1EB06BAC001E57B9 /* JYUserCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYUserCenter.h; sourceTree = "<group>"; };
+		7135E3FB1EB06BAC001E57B9 /* JYUserCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYUserCenter.m; sourceTree = "<group>"; };
+		7135E3FD1EB06E2B001E57B9 /* JYWelcomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYWelcomController.h; sourceTree = "<group>"; };
+		7135E3FE1EB06E2B001E57B9 /* JYWelcomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYWelcomController.m; sourceTree = "<group>"; };
 		713C65A91E8DE6C100B80664 /* NSObject+Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Factory.h"; sourceTree = "<group>"; };
 		713C65AA1E8DE6C100B80664 /* NSObject+Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Factory.m"; sourceTree = "<group>"; };
 		713C65AC1E8DF66600B80664 /* JYPayStyleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPayStyleView.h; sourceTree = "<group>"; };
@@ -465,6 +471,8 @@
 				71F432081E8358AB009AA864 /* JYFatherController.m */,
 				71A246201E8F9F6100049B79 /* JYFatherTableController.h */,
 				71A246211E8F9F6100049B79 /* JYFatherTableController.m */,
+				7135E3FD1EB06E2B001E57B9 /* JYWelcomController.h */,
+				7135E3FE1EB06E2B001E57B9 /* JYWelcomController.m */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -502,6 +510,8 @@
 				71F432381E83A4CA009AA864 /* JYNoNetworkManager.m */,
 				713CA72A1EA5FD7900E9AA5A /* JYPickerView.h */,
 				713CA72B1EA5FD7900E9AA5A /* JYPickerView.m */,
+				7135E3FA1EB06BAC001E57B9 /* JYUserCenter.h */,
+				7135E3FB1EB06BAC001E57B9 /* JYUserCenter.m */,
 			);
 			path = "Tools(工具类)";
 			sourceTree = "<group>";
@@ -992,6 +1002,7 @@
 				71DA76491E84F613001C3995 /* JYTabBar.m in Sources */,
 				710AD0B41E94C32400082363 /* JYLogInCell.m in Sources */,
 				7123DDBA1E88D852007C094A /* JYFinanceCell.m in Sources */,
+				7135E3FF1EB06E2B001E57B9 /* JYWelcomController.m in Sources */,
 				71D05F321E82713D004CBE04 /* UIViewController+Transition.m in Sources */,
 				71F8C6091E8BA66000609DB5 /* JYEstimateView.m in Sources */,
 				71BDB4571EA715A200FC9850 /* JYJobIdentifyController.m in Sources */,
@@ -1026,6 +1037,7 @@
 				71492D961E9B5359008C5799 /* JYBankCardCell.m in Sources */,
 				71405F671EA9D2B800119535 /* JYAddBankController.m in Sources */,
 				7132F5F51E975C33009B22EA /* JYPersonInfoCell.m in Sources */,
+				7135E3FC1EB06BAC001E57B9 /* JYUserCenter.m in Sources */,
 				715970171EA09EDE006A229C /* JYPayRecordController.m in Sources */,
 				715970111EA07867006A229C /* JYRecordPayController.m in Sources */,
 				7159705F1EA0C287006A229C /* JYRedCardController.m in Sources */,

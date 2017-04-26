@@ -12,6 +12,9 @@
 #import "JYNoNetworkManager.h"
 #import "IQKeyboardManager.h"
 
+#import "JYWelcomController.h"
+
+
 @interface AppDelegate ()
 
 @end
@@ -27,14 +30,10 @@
     [self.window makeKeyAndVisible];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
- 
     
-    JYTabBarController *rootVC = [[JYTabBarController alloc]init];
+    [self setRootViewController];
     
-    self.window.rootViewController = rootVC ;
-    
-    
-    [self initNetWork];
+     [self initNetWork];
     
     
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
@@ -44,8 +43,27 @@
     manager.enableAutoToolbar = NO;
     
     
-    
     return YES;
+}
+
+
+#pragma mark- 设置根试图
+-(void)setRootViewController {
+    
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kHasLoadWelcom] boolValue]) {
+        JYTabBarController *rootVC = [[JYTabBarController alloc]init];
+        self.window.rootViewController = rootVC ;
+        
+    }else{
+        
+        
+        JYWelcomController *rootVC = [[JYWelcomController alloc]init];
+        
+        self.window.rootViewController = rootVC ;
+        [[NSUserDefaults standardUserDefaults]setValue:@(YES) forKey:kHasLoadWelcom];
+        
+    }
+    
 }
 
 //网络检测

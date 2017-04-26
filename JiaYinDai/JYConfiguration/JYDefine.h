@@ -41,6 +41,14 @@
 
 /************************ 数字格式化 ************************/
 
+#define kNumber @"0123456789"
+
+
+#define kHasLoadWelcom @"kHasLoadWelcom"
+
+
+
+
 static inline NSMutableAttributedString * TTFormateNumString( NSString*text,CGFloat bigFont ,CGFloat smallFont,NSInteger smallLength){
     
     NSMutableAttributedString *att = [[NSMutableAttributedString  alloc]initWithString:text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:bigFont]}] ;

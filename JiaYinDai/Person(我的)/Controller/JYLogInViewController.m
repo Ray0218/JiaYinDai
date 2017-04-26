@@ -12,7 +12,7 @@
 
 
 
-@interface JYLogInViewController ()<UITableViewDelegate,UITableViewDataSource>{
+@interface JYLogInViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>{
     JYLogFootViewType rLogFootType ;
 }
 
@@ -21,6 +21,12 @@
 @property(nonatomic ,strong) UIImageView *rTableHeaderView ;
 
 @property(nonatomic ,strong) JYLogFootView *rTableFootView ;
+
+
+@property(nonatomic ,strong) UITextField *rFirstTextField ;
+@property(nonatomic ,strong) UITextField *rSecondTextField ;
+
+
 @end
 
 @implementation JYLogInViewController
@@ -39,8 +45,27 @@
     self = [super init];
     if (self) {
         rLogFootType = type ;
+        self.rFirstTextField = self.rSecondTextField = nil ;
     }
     return self;
+}
+
+-(void)viewDidAppear:(BOOL)animated  {
+    [super viewDidAppear:animated];
+    
+    [[RACSignal  combineLatest:@[
+                                 self.rFirstTextField.rac_textSignal,
+                                 self.rSecondTextField.rac_textSignal,
+                                 ]
+                        reduce:^(NSString *username,NSString *password) {
+                            return @([username length] == 11 && [password length] > 0 );
+                        }] subscribeNext:^(NSNumber* x) {
+                            
+                            self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
+                        }];
+    
+    
+    
 }
 
 
@@ -49,8 +74,6 @@
     // Do any additional setup after loading the view.
     [self buildSubViewUI];
     
-    
-     
     
 }
 
@@ -95,23 +118,30 @@
         if (cellTime == nil) {
             
             cellTime = [[JYLogInCell alloc]initWithCellType:JYLogCellTypeNormal reuseIdentifier:identifier];
-                  
-            [[cellTime.rTextField.rac_textSignal filter:^BOOL(id value) {
-               
+            
+            self.rFirstTextField = cellTime.rTextField ;
+            cellTime.rTextField.delegate = self ;
+            
+            [[[[cellTime.rTextField rac_signalForControlEvents:UIControlEventEditingChanged] map:^id(UITextField* value) {
+                return value.text ;
+                
+            }] filter:^BOOL(id value) {
+                
                 NSLog(@"%@",value) ;
-
+                
+                
+                
                 return YES ;
             }] subscribeNext:^(id x) {
+                
+                
                 NSLog(@"%@",x) ;
+                
             }] ;
             
         }
         
-        [ cellTime.rTextField.rac_textSignal filter:^BOOL(id value) {
-            NSLog(@"%@",value) ;
-            
-            return YES ;
-        }] ;
+        
         
         return cellTime ;
     }
@@ -126,9 +156,12 @@
         if (cell  == nil) {
             
             cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypeCode reuseIdentifier:identifier];
+            
+            self.rSecondTextField = cell.rTextField ;
+            
             [[cell.rRightBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
                 
-                 
+                
                 NSDictionary *dic = @{@"cellphone":@"18757194522",@"type":@"reg"} ;
                 
                 [[AFHTTPSessionManager jy_sharedManager]POST:@"/sms" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -155,6 +188,7 @@
     if (cell  == nil) {
         
         cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypePassword reuseIdentifier:identifier];
+        self.rSecondTextField = cell.rTextField ;
         
         [ cell.rTextField.rac_textSignal filter:^BOOL(id value) {
             NSLog(@"%@",value) ;
@@ -166,6 +200,35 @@
     return cell ;
     
     
+}
+
+#pragma mark- UITextFieldDelegate
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    
+    if ([string isEqualToString:@""]) {
+        
+        return YES ;
+    }
+    
+    NSCharacterSet *cs  = [[NSCharacterSet characterSetWithCharactersInString:kNumber] invertedSet];
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""]; //按cs分离出数组,数组按@""分离出字符串
+    BOOL canChange = [string isEqualToString:filtered];
+    
+    NSString *fullString = [textField.text stringByReplacingCharactersInRange:range withString:string] ;
+    
+    if (canChange ) {
+        
+        if (fullString.length <= 11) {
+            return YES ;
+        }else{
+            return NO ;
+        }
+        return YES ;
+    }
+    
+    return NO ;
 }
 
 
@@ -234,7 +297,7 @@
             _rTableFootView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 120) ;
         }
         
-        
+        _rTableFootView.rCommitBtn.enabled = NO ;
         [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self)
             
