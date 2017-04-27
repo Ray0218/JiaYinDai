@@ -71,22 +71,32 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
 }
 
 
-- (NSDictionary *)sessionEncryDicWithDic:(NSMutableDictionary *)dic {
-    
-    NSString *preSignStr = [ self getPreSignStringWithDic:dic signKey:@"65846b8c29154b3ef911e913f9e2205d"];
-    
-    NSMutableDictionary * dataDic = [NSMutableDictionary dictionaryWithDictionary:dic];
-    
-    [dataDic setObject:preSignStr forKey:@"sign" ] ;
+- (NSDictionary *)sessionEncryDicWithDic:(NSDictionary *)dict {
     
     
-    return [dataDic copy] ;
+    NSMutableDictionary *jsonDict = [NSMutableDictionary dictionaryWithDictionary:dict] ;
+    
+    NSString *signKey = jsonDict[@"key"] ;
+    
+    [jsonDict removeObjectForKey:@"key"] ;
+    
+    NSString *preSignStr = [ self getPreSignStringWithDic:jsonDict signKey:signKey];
+
+    
+    
+    [jsonDict setObject:preSignStr forKey:@"sign" ] ;
+    
+    
+    return [jsonDict copy] ;
     
     
 }
 
+
+
+
 /**
- *  请求body转换sign
+ *  对字典进行拼接 然后MD5加密
  *
  *  @param jsonDict body
  *
@@ -114,7 +124,7 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
         [paramString deleteCharactersInRange:NSMakeRange(0, 1)];
     }
     
-    //如果是md5加密 给paramString后面添加 MD5 key
+    //如果需要签名key
     if (sig) {
         NSString *pay_md5_key=[NSString stringWithFormat:@"%@",sig];
         [paramString appendFormat:@"&key=%@",pay_md5_key];
@@ -141,13 +151,8 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
 - (NSMutableDictionary *)getTargetStringWithDic:(NSDictionary *)jsonDict {
     NSMutableDictionary *tranDic = [NSMutableDictionary  dictionaryWithDictionary:jsonDict];
     
-    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
-    long long totalMilliseconds = interval*1000 ;
-    [tranDic setValue:[NSString stringWithFormat:@"%lld",totalMilliseconds] forKey:@"timestamp"] ;
     
-    
-    
-    
+     
     return [tranDic copy];
 }
 

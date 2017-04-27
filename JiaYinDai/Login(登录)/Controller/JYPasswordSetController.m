@@ -21,6 +21,10 @@
 
 @property(nonatomic ,strong) JYLogFootView *rTableFootView ;
 
+@property (nonatomic ,strong) UITextField *rFirstTextField ;
+@property (nonatomic ,strong) UITextField *rSecondTextField ;
+
+
 @end
 
 @implementation JYPasswordSetController
@@ -34,6 +38,26 @@
     }
     return self;
 }
+
+
+-(void)viewDidAppear:(BOOL)animated  {
+    [super viewDidAppear:animated];
+    
+    [[RACSignal  combineLatest:@[
+                                 self.rFirstTextField.rac_textSignal,
+                                 self.rSecondTextField.rac_textSignal,
+                                 ]
+                        reduce:^(NSString *username,NSString *password) {
+                            return @([username length] == 11 && [password length] > 0 );
+                        }] subscribeNext:^(NSNumber* x) {
+                            
+                            self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
+                        }];
+    
+    
+    
+}
+
 
 
 - (void)viewDidLoad {
@@ -110,10 +134,12 @@
         if (indexPath.row == 0) {
             cell.rTextField.placeholder = @"请设置6-16位英文或数字及组合密码" ;
             cell.rLeftImgView.image = [UIImage imageNamed:@"password_icon"] ;
+            self.rFirstTextField = cell.rTextField ;
 
         }else{
             cell.rTextField.placeholder = @"确认登录密码" ;
             cell.rLeftImgView.image = [UIImage imageNamed:@"makesure_icon"] ;
+            self.rSecondTextField = cell.rTextField ;
 
             
         }
@@ -170,6 +196,19 @@
         if (rFootType == JYLogFootViewTypeSetPassword) { //设置密码
             _rTableFootView = [[JYLogFootView alloc]initWithType:JYLogFootViewTypeSetPassword] ;
             _rTableFootView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 120) ;
+            @weakify(self)
+            [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+                @strongify(self)
+                
+                
+                [[AFHTTPSessionManager jy_sharedManager]POST:kRegisterURL parameters:@{@"cellphone":self.rTelPhone,@"password":self.rFirstTextField.text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                    
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                    
+                }] ;
+                
+                
+            }] ;
             
             
             

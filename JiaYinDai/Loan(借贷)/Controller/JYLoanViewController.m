@@ -10,6 +10,7 @@
 #import "JYLoanTableViewCell.h"
 #import "JYLoanAlterVC.h"
 #import "JYLoanInfoController.h"
+#import <SDCycleScrollView.h>
 
 
 @interface JYLoanFootVew : UIView
@@ -80,13 +81,17 @@
 @end
 
 
-@interface JYLoanViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface JYLoanViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 
 @property(nonatomic ,strong) UITableView *rTableView ;
 
-@property(nonatomic ,strong) UIView *rTableHeaderView ;
+@property(nonatomic ,strong) SDCycleScrollView *rTableHeaderView ;
 
 @property(nonatomic ,strong) JYLoanFootVew *rTableFootView ;
+
+@property(nonatomic ,strong) UILabel *rTitleLabel ;
+@property(nonatomic ,strong) UIView *rTitleView ;
+
 
 
 @end
@@ -96,14 +101,40 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
 
 @implementation JYLoanViewController
 
+-(void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:animated] ;
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor clearColor];
+//    [[self.navigationController.navigationBar subviews] objectAtIndex:0].alpha = 0;
+
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsCompact];
+
+    
+    self.navigationController.navigationBarHidden = YES ;
+ 
+    
+    [self.rTableHeaderView adjustWhenControllerViewWillAppera] ;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO ;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.leftBarButtonItems = nil ;
     
+    
     [self buildSubViewUI];
     
-}
+    
+    self.rTableHeaderView.imageURLStringsGroup = @[@"https://oss.aliyuncs.com/jiayuanbank-image/2017-03/68d23c1374324bbb9fe9d078301ca858.jpg",@"https://oss.aliyuncs.com/jiayuanbank-image/2017-03/79f9e182eda4495f877a5b84f191607b.jpg",@"https://oss.aliyuncs.com/jiayuanbank-image/2017-03/1f0f355b9a2f4f3685e9e80555495ecb.jpg",@"https://oss.aliyuncs.com/jiayuanbank-image/2017-04/c99676624a4a40cbbba032a6f9702f89.jpg"] ;
+    
+ }
 
 
 #pragma mark - builUI
@@ -113,6 +144,11 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
     [self.rTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.insets(UIEdgeInsetsZero) ;
     }];
+    
+    
+    [self.view addSubview:self.rTitleView];
+    
+    
     
 }
 
@@ -211,6 +247,21 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
     }
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+     
+    self.rTitleView.alpha =  (scrollView.contentOffset.y/44.);
+    
+}
+
+#pragma mark- SDCycleScrollViewDelegate
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+
+    NSLog(@"dddd === %zd",index) ;
+}
+
+
 #pragma  mark- getter
 
 -(UITableView*)rTableView {
@@ -233,10 +284,10 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
     return _rTableView ;
 }
 
--(UIView*)rTableHeaderView {
+-(SDCycleScrollView*)rTableHeaderView {
     
     if (_rTableHeaderView == nil) {
-        _rTableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
+        _rTableHeaderView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130) delegate:self placeholderImage:nil] ;
         _rTableHeaderView.backgroundColor = kBlueColor ;
     }
     
@@ -260,6 +311,33 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
     
     return _rTableFootView ;
 
+}
+
+-(UILabel*)rTitleLabel {
+
+    if (_rTitleLabel == nil) {
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"首页" font:18 color:[UIColor whiteColor] align:NSTextAlignmentCenter] ;
+
+        _rTitleLabel.backgroundColor = [UIColor clearColor] ;
+    }
+    return _rTitleLabel ;
+}
+
+-(UIView*)rTitleView {
+
+    if (_rTitleView == nil) {
+        _rTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+        _rTitleView.backgroundColor = kBlueColor ;
+        _rTitleView.alpha  = 0 ;
+        
+        [_rTitleView addSubview:self.rTitleLabel];
+        [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(_rTitleView) ;
+            make.height.mas_equalTo(44) ;
+        }] ;
+     }
+    
+    return _rTitleView ;
 }
 
 

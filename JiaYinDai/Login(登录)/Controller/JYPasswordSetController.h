@@ -13,4 +13,6 @@
 
 - (instancetype)initWithLogType:(JYLogFootViewType) type ;
 
+@property (nonatomic,strong) NSString *rTelPhone ;
+
 @end

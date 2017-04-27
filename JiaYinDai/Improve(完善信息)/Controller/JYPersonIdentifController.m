@@ -278,7 +278,27 @@
     
     self.rPickerView.hidden = NO ;
     
-    self.rPickerView.rDataArray = @[@"硕士研究生或以上",@"本科",@"专科",@"高中或中专",@"初中或初中以下"] ;
+    NSMutableArray *ar ;
+    [ar addObjectsFromArray:ar];
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+            self.rPickerView.rDataArray = @[@"已婚",@"未婚"] ;
+
+        }else if(indexPath.row == 2) {
+            self.rPickerView.rDataArray = @[@"企业主",@"一般上市公司员工",@"一般单位（私企）员工",@"其他职业"] ;
+
+        }else if(indexPath.row == 3){
+            self.rPickerView.rDataArray = @[@"硕士研究生或以上",@"本科",@"专科",@"高中或中专",@"初中或初中以下"] ;
+
+        }else if(indexPath.row == 4) {
+            self.rPickerView.rDataArray = @[@"无房无车",@"有车无房",@"有房无车",@"有房有车"] ;
+
+        }
+    }else{
+    
+        self.rPickerView.rDataArray = @[@"配偶",@"父母",@"兄弟姐妹",@"子女",@"其他亲戚"] ;
+}
     
     
     

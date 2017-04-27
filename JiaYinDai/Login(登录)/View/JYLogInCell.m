@@ -54,16 +54,19 @@
             self.rLeftImgView.image = [UIImage imageNamed:@"password_icon"] ;
             self.rTextField.placeholder = @"请输入登录密码" ;
             
-            [self.rRightBtn setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateNormal];
-            
+            [self.rRightBtn setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateSelected];
+            [self.rRightBtn setImage:[UIImage imageNamed:@"eye_close"]  forState:UIControlStateNormal];
+            self.rTextField.secureTextEntry = YES ;
             
         }
             break;
         case JYLogCellTypeMakesurePassword:{
             self.rLeftImgView.image = [UIImage imageNamed:@"makesure_icon"] ;
             self.rTextField.placeholder = @"确认登录密码" ;
-            [self.rRightBtn setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateNormal];
-            
+            [self.rRightBtn setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateSelected];
+            [self.rRightBtn setImage:[UIImage imageNamed:@"eye_close"]  forState:UIControlStateNormal];
+            self.rTextField.secureTextEntry = YES ;
+           
             
         }break ;
         case JYLogCellTypeCode:{
@@ -98,8 +101,9 @@
             @strongify(self)
             
             if (rType == JYLogCellTypePassword) {
-                self.rTextField.secureTextEntry = !self.rTextField.secureTextEntry ;
-            }else{
+                     self.rRightBtn.selected = !self.rRightBtn.selected ;
+                    self.rTextField.secureTextEntry = !self.rRightBtn.selected ;
+             }else{
                 
                 [self startTimeGCD];
                 
@@ -421,6 +425,10 @@
 -(UIButton*)rCommitBtn {
     if (_rCommitBtn == nil) {
         _rCommitBtn = [self jyCreateButtonWithTitle:@""] ;
+        _rCommitBtn.backgroundColor = [UIColor clearColor] ;
+        [_rCommitBtn setBackgroundImage:[UIImage jy_imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled] ;
+        [_rCommitBtn setBackgroundImage:[UIImage jy_imageWithColor: kBlueColor] forState:UIControlStateNormal] ;
+
     }
     
     return _rCommitBtn ;

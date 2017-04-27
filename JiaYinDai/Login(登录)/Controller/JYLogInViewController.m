@@ -162,7 +162,10 @@
             [[cell.rRightBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
                 
                 
-                NSDictionary *dic = @{@"cellphone":@"18757194522",@"type":@"reg"} ;
+                NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+                long long totalMilliseconds = interval*1000 ;
+                
+                NSDictionary *dic = @{@"cellphone":@"18268931633",@"type":@"reg",@"timestamp":[NSString stringWithFormat:@"%lld",totalMilliseconds],@"key":kSignKey} ;
                 
                 [[AFHTTPSessionManager jy_sharedManager]POST:@"/sms" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     
@@ -309,6 +312,13 @@
             }else{
                 
                 NSLog(@"注册请求") ;
+                
+                [[AFHTTPSessionManager jy_sharedManager ] POST:kCodeVerifyURL parameters:@{@"cellphone":self.rFirstTextField.text,@"smsCaptcha":self.rSecondTextField.text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                    
+                    
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                    
+                }] ;
                 
                 
                 JYPasswordSetController *setPassVC = [[JYPasswordSetController alloc]initWithLogType:JYLogFootViewTypeSetPassword] ;
