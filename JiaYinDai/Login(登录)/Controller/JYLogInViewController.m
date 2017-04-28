@@ -8,7 +8,7 @@
 
 #import "JYLogInViewController.h"
 #import "JYPasswordSetController.h"
-
+#import "JYTabBarController.h"
 
 
 
@@ -77,12 +77,80 @@
     
 }
 
-#pragma mark- agction
+#pragma mark- action
+
+-(void)pvt_login {
+    
+    [[AFHTTPSessionManager jy_sharedManager ] POST:kLogInURL parameters:@{@"cellphone":self.rFirstTextField.text,@"password":self.rSecondTextField.text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSDictionary *dataDic = responseObject[@"data"] ;
+        
+        
+        if ([responseObject[@"code"] integerValue] == 0) {
+            
+            [JYSingtonCenter shareCenter].rUserModel =  [[JYUserModel alloc]initWithDictionary:dataDic error:nil];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        }  else{
+            
+            [JYProgressManager showBriefAlert:responseObject[@"msg"]] ;
+            
+        }
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+}
+
+-(void)pvt_register {
+    
+    [[AFHTTPSessionManager jy_sharedManager ] POST:kCodeVerifyURL parameters:@{@"cellphone":self.rFirstTextField.text,@"smsCaptcha":self.rSecondTextField.text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        JYPasswordSetController *setPassVC = [[JYPasswordSetController alloc]initWithLogType:JYLogFootViewTypeSetPassword] ;
+        setPassVC.title = @"设置登录密码" ;
+        setPassVC.rTelPhone = self.rFirstTextField.text ;
+        
+        [self.navigationController pushViewController:setPassVC animated:YES];
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+    
+}
+
+-(void)pvt_getCode {
+    
+    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+    long long totalMilliseconds = interval*1000 ;
+    
+    NSDictionary *dic = @{@"cellphone":self.rFirstTextField.text,@"type":@"reg",@"timestamp":[NSString stringWithFormat:@"%lld",totalMilliseconds],@"key":kSignKey} ;
+    
+    [[AFHTTPSessionManager jy_sharedManager]POST:@"/sms" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"%@",responseObject) ;
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error) ;
+    }] ;
+    
+}
 
 -(void)pvt_clickButtonNavLeft {
     if (rLogFootType == JYLogFootViewTypeLogIn) {
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        JYTabBarController *tab= (JYTabBarController*)[[[UIApplication sharedApplication]keyWindow ]rootViewController] ;
+        [tab setSelectedIndex:0] ;
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+        
+        
     }else{
         
         [self.navigationController popViewControllerAnimated:YES];
@@ -159,21 +227,11 @@
             
             self.rSecondTextField = cell.rTextField ;
             
+            @weakify(self)
             [[cell.rRightBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+                @strongify(self)
                 
-                
-                NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
-                long long totalMilliseconds = interval*1000 ;
-                
-                NSDictionary *dic = @{@"cellphone":@"18268931633",@"type":@"reg",@"timestamp":[NSString stringWithFormat:@"%lld",totalMilliseconds],@"key":kSignKey} ;
-                
-                [[AFHTTPSessionManager jy_sharedManager]POST:@"/sms" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                    
-                    NSLog(@"%@",responseObject) ;
-                    
-                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                    NSLog(@"%@",error) ;
-                }] ;
+                [self pvt_getCode];
                 
                 
             }] ;
@@ -288,6 +346,8 @@
             [[_rTableFootView.rForgetBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
                 @strongify(self)
                 
+                
+                 
                 JYPasswordSetController *getPassVC = [[JYPasswordSetController alloc]initWithLogType:JYLogFootViewTypeGetBackPass] ;
                 getPassVC.title = @"找回密码" ;
                 
@@ -308,23 +368,14 @@
             if (rLogFootType == JYLogFootViewTypeLogIn) {
                 
                 NSLog(@"登录请求") ;
+                [self pvt_login];
                 
             }else{
                 
                 NSLog(@"注册请求") ;
                 
-                [[AFHTTPSessionManager jy_sharedManager ] POST:kCodeVerifyURL parameters:@{@"cellphone":self.rFirstTextField.text,@"smsCaptcha":self.rSecondTextField.text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                    
-                    
-                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                    
-                }] ;
-                
-                
-                JYPasswordSetController *setPassVC = [[JYPasswordSetController alloc]initWithLogType:JYLogFootViewTypeSetPassword] ;
-                setPassVC.title = @"设置登录密码" ;
-                
-                [self.navigationController pushViewController:setPassVC animated:YES];
+                [self pvt_register];
+              
             }
             
         }] ;

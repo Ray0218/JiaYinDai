@@ -428,6 +428,7 @@
         _rCommitBtn.backgroundColor = [UIColor clearColor] ;
         [_rCommitBtn setBackgroundImage:[UIImage jy_imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled] ;
         [_rCommitBtn setBackgroundImage:[UIImage jy_imageWithColor: kBlueColor] forState:UIControlStateNormal] ;
+        _rCommitBtn.enabled = NO ;
 
     }
     

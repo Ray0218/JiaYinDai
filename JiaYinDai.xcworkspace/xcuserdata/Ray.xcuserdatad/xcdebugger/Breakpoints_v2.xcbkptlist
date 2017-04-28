@@ -36,45 +36,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JiaYinDai/Login(&#x767b;&#x5f55;)/Controller/JYLogInViewController.m"
-            timestampString = "514977156.204544"
+            timestampString = "515063949.050506"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "317"
-            endingLineNumber = "317"
-            landmarkName = "-rTableFootView"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "-pvt_login"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__39-[JYLogInViewController rTableFootView]_block_invoke_2"
-                  moduleName = "JiaYinDai"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ray/Desktop/JiaYinDai/JiaYinDai/Login(%E7%99%BB%E5%BD%95)/Controller/JYLogInViewController.m"
-                  timestampString = "514980408.588632"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "319"
-                  endingLineNumber = "319"
-                  offsetFromSymbolStart = "77">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__39-[JYLogInViewController rTableFootView]_block_invoke_3"
-                  moduleName = "JiaYinDai"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ray/Desktop/JiaYinDai/JiaYinDai/Login(%E7%99%BB%E5%BD%95)/Controller/JYLogInViewController.m"
-                  timestampString = "514980408.593678"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "321"
-                  endingLineNumber = "321"
-                  offsetFromSymbolStart = "83">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -84,12 +52,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JiaYinDai/Login(&#x767b;&#x5f55;)/Controller/JYLogInViewController.m"
-            timestampString = "514977157.655249"
+            timestampString = "515063964.225538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
-            landmarkName = "-rTableFootView"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "-pvt_login"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

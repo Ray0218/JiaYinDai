@@ -13,5 +13,11 @@
 
 @property (nonatomic ,strong,readonly) UIButton *rFinishButton ;
 
+@property (nonatomic ,strong,readonly) UIButton * rMoneyButton ; //金额
+@property (nonatomic ,strong,readonly) UIButton *rBankCardButton ; //银行卡
+
+
+//@property (nonatomic ,strong,readonly) UIButton *rMiddleButton ;
+
 
 @end

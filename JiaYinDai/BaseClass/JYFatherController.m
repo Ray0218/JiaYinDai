@@ -64,6 +64,7 @@
     [buttonLeft setTitleColor:NAV_BUTTON_COLOR forState:UIControlStateNormal];
     buttonLeft.titleLabel.font = NAV_BUTTON_FONT;
     buttonLeft.titleLabel.numberOfLines = 0;
+    [buttonLeft setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft] ;
     [buttonLeft setImage:image forState:UIControlStateNormal];
     
     [buttonLeft setImage:[image jy_imageWithTintColor:UIColorFromRGB(0xe5e5e5)] forState:UIControlStateHighlighted];
@@ -89,7 +90,8 @@
     [buttonRight setTitle:title forState:UIControlStateNormal];
     [buttonRight setTitleColor:NAV_BUTTON_COLOR forState:UIControlStateNormal];
     [buttonRight setTitleColor:[UIColor colorWithWhite:0 alpha:0.6] forState:UIControlStateHighlighted];
-    
+    [buttonRight setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight] ;
+
     buttonRight.titleLabel.font = NAV_BUTTON_FONT;
     buttonRight.titleLabel.numberOfLines = 0;
     [buttonRight setImage:image forState:UIControlStateNormal];

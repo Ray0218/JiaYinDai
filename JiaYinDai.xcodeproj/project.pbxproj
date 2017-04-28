@@ -13,6 +13,7 @@
 		7123DDB71E88A172007C094A /* JYMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7123DDB61E88A172007C094A /* JYMessageCell.m */; };
 		7123DDBA1E88D852007C094A /* JYFinanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7123DDB91E88D852007C094A /* JYFinanceCell.m */; };
 		7123DDBD1E891948007C094A /* JYFinanceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7123DDBC1E891948007C094A /* JYFinanceDetailController.m */; };
+		712D12C21EB319D400246D89 /* JYProgressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 712D12C11EB319D400246D89 /* JYProgressManager.m */; };
 		7132F5F81E97779A009B22EA /* JYSecureSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F5F71E97779A009B22EA /* JYSecureSettingVC.m */; };
 		7132F5FB1E977AF2009B22EA /* JYPasswodSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7132F5FA1E977AF1009B22EA /* JYPasswodSettingVC.m */; };
 		7135C89A1EB17A330044A83B /* JYBankIdentifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135C8891EB17A330044A83B /* JYBankIdentifyController.m */; };
@@ -30,7 +31,6 @@
 		7135C8B01EB1899C0044A83B /* JYFinanceRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135C8AF1EB1899C0044A83B /* JYFinanceRecordVC.m */; };
 		7135C8B51EB189A80044A83B /* JYMyFinanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135C8B21EB189A80044A83B /* JYMyFinanceCell.m */; };
 		7135C8B61EB189A80044A83B /* JYMYFinanceHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135C8B41EB189A80044A83B /* JYMYFinanceHeader.m */; };
-		7135E3FC1EB06BAC001E57B9 /* JYUserCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135E3FB1EB06BAC001E57B9 /* JYUserCenter.m */; };
 		7135E3FF1EB06E2B001E57B9 /* JYWelcomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135E3FE1EB06E2B001E57B9 /* JYWelcomController.m */; };
 		7135E4061EB08AF6001E57B9 /* JYLoanRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135E4031EB08AF6001E57B9 /* JYLoanRecordController.m */; };
 		7135E40B1EB08B93001E57B9 /* JYLoanDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7135E4081EB08B93001E57B9 /* JYLoanDetailController.m */; };
@@ -80,6 +80,8 @@
 		715970111EA07867006A229C /* JYRecordPayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 715970101EA07867006A229C /* JYRecordPayController.m */; };
 		715970141EA09C26006A229C /* JYPayStyleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 715970131EA09C26006A229C /* JYPayStyleController.m */; };
 		7159705F1EA0C287006A229C /* JYRedCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7159705E1EA0C287006A229C /* JYRedCardController.m */; };
+		716AF2FB1EB32C940029EBA1 /* JYUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 716AF2FA1EB32C940029EBA1 /* JYUserModel.m */; };
+		716AF2FE1EB32D650029EBA1 /* JYSingtonCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 716AF2FD1EB32D650029EBA1 /* JYSingtonCenter.m */; };
 		71A2461C1E8F7CB000049B79 /* JYPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2461B1E8F7CB000049B79 /* JYPasswordView.m */; };
 		71A246221E8F9F6100049B79 /* JYFatherTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A246211E8F9F6100049B79 /* JYFatherTableController.m */; };
 		71D05EEC1E826134004CBE04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05EEB1E826134004CBE04 /* main.m */; };
@@ -143,6 +145,8 @@
 		7123DDB91E88D852007C094A /* JYFinanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFinanceCell.m; sourceTree = "<group>"; };
 		7123DDBB1E891948007C094A /* JYFinanceDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFinanceDetailController.h; sourceTree = "<group>"; };
 		7123DDBC1E891948007C094A /* JYFinanceDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFinanceDetailController.m; sourceTree = "<group>"; };
+		712D12C01EB319D400246D89 /* JYProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYProgressManager.h; sourceTree = "<group>"; };
+		712D12C11EB319D400246D89 /* JYProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYProgressManager.m; sourceTree = "<group>"; };
 		7132F5F61E97779A009B22EA /* JYSecureSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSecureSettingVC.h; sourceTree = "<group>"; };
 		7132F5F71E97779A009B22EA /* JYSecureSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSecureSettingVC.m; sourceTree = "<group>"; };
 		7132F5F91E977AF1009B22EA /* JYPasswodSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPasswodSettingVC.h; sourceTree = "<group>"; };
@@ -177,8 +181,6 @@
 		7135C8B21EB189A80044A83B /* JYMyFinanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYMyFinanceCell.m; sourceTree = "<group>"; };
 		7135C8B31EB189A80044A83B /* JYMYFinanceHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYMYFinanceHeader.h; sourceTree = "<group>"; };
 		7135C8B41EB189A80044A83B /* JYMYFinanceHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYMYFinanceHeader.m; sourceTree = "<group>"; };
-		7135E3FA1EB06BAC001E57B9 /* JYUserCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYUserCenter.h; sourceTree = "<group>"; };
-		7135E3FB1EB06BAC001E57B9 /* JYUserCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYUserCenter.m; sourceTree = "<group>"; };
 		7135E3FD1EB06E2B001E57B9 /* JYWelcomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYWelcomController.h; sourceTree = "<group>"; };
 		7135E3FE1EB06E2B001E57B9 /* JYWelcomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYWelcomController.m; sourceTree = "<group>"; };
 		7135E4021EB08AF6001E57B9 /* JYLoanRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYLoanRecordController.h; sourceTree = "<group>"; };
@@ -277,6 +279,10 @@
 		715970131EA09C26006A229C /* JYPayStyleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPayStyleController.m; sourceTree = "<group>"; };
 		7159705D1EA0C287006A229C /* JYRedCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYRedCardController.h; sourceTree = "<group>"; };
 		7159705E1EA0C287006A229C /* JYRedCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYRedCardController.m; sourceTree = "<group>"; };
+		716AF2F91EB32C940029EBA1 /* JYUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYUserModel.h; sourceTree = "<group>"; };
+		716AF2FA1EB32C940029EBA1 /* JYUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYUserModel.m; sourceTree = "<group>"; };
+		716AF2FC1EB32D650029EBA1 /* JYSingtonCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSingtonCenter.h; sourceTree = "<group>"; };
+		716AF2FD1EB32D650029EBA1 /* JYSingtonCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSingtonCenter.m; sourceTree = "<group>"; };
 		71A2461A1E8F7CB000049B79 /* JYPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPasswordView.h; sourceTree = "<group>"; };
 		71A2461B1E8F7CB000049B79 /* JYPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPasswordView.m; sourceTree = "<group>"; };
 		71A246201E8F9F6100049B79 /* JYFatherTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFatherTableController.h; sourceTree = "<group>"; };
@@ -550,6 +556,7 @@
 		7135E4681EB094BB001E57B9 /* Login(登录) */ = {
 			isa = PBXGroup;
 			children = (
+				716AF2F81EB32C6D0029EBA1 /* Model */,
 				7135E4691EB0952A001E57B9 /* Controller */,
 				7135E46C1EB0952A001E57B9 /* View */,
 			);
@@ -574,6 +581,15 @@
 				7135E4721EB095FF001E57B9 /* JYLogInCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		716AF2F81EB32C6D0029EBA1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				716AF2F91EB32C940029EBA1 /* JYUserModel.h */,
+				716AF2FA1EB32C940029EBA1 /* JYUserModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		71D05EDE1E826134004CBE04 = {
@@ -690,14 +706,16 @@
 		71D05F341E827B3B004CBE04 /* Tools(工具类) */ = {
 			isa = PBXGroup;
 			children = (
+				712D12C01EB319D400246D89 /* JYProgressManager.h */,
+				712D12C11EB319D400246D89 /* JYProgressManager.m */,
 				71D05F351E827B6D004CBE04 /* JYDateFormatter.h */,
 				71D05F361E827B6D004CBE04 /* JYDateFormatter.m */,
 				71F432371E83A4CA009AA864 /* JYNoNetworkManager.h */,
 				71F432381E83A4CA009AA864 /* JYNoNetworkManager.m */,
 				713CA72A1EA5FD7900E9AA5A /* JYPickerView.h */,
 				713CA72B1EA5FD7900E9AA5A /* JYPickerView.m */,
-				7135E3FA1EB06BAC001E57B9 /* JYUserCenter.h */,
-				7135E3FB1EB06BAC001E57B9 /* JYUserCenter.m */,
+				716AF2FC1EB32D650029EBA1 /* JYSingtonCenter.h */,
+				716AF2FD1EB32D650029EBA1 /* JYSingtonCenter.m */,
 			);
 			path = "Tools(工具类)";
 			sourceTree = "<group>";
@@ -1083,6 +1101,7 @@
 				7135C89A1EB17A330044A83B /* JYBankIdentifyController.m in Sources */,
 				7135E45C1EB09103001E57B9 /* JYPayBackCell.m in Sources */,
 				71F432091E8358AB009AA864 /* JYFatherController.m in Sources */,
+				716AF2FE1EB32D650029EBA1 /* JYSingtonCenter.m in Sources */,
 				713DBA3B1E8A477A001C65D2 /* JYAlterViewController.m in Sources */,
 				71DA76491E84F613001C3995 /* JYTabBar.m in Sources */,
 				7123DDBA1E88D852007C094A /* JYFinanceCell.m in Sources */,
@@ -1115,6 +1134,7 @@
 				7135C89F1EB17A330044A83B /* JYPhoneIndetyfyController.m in Sources */,
 				7123DDB71E88A172007C094A /* JYMessageCell.m in Sources */,
 				7135E4701EB095BE001E57B9 /* JYPasswordSetController.m in Sources */,
+				712D12C21EB319D400246D89 /* JYProgressManager.m in Sources */,
 				71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */,
 				71F432401E83CFB8009AA864 /* NSDate+Extern.m in Sources */,
 				7135E4541EB09103001E57B9 /* JYBillCell.m in Sources */,
@@ -1124,7 +1144,6 @@
 				7135E4601EB09103001E57B9 /* JYRedGiftCell.m in Sources */,
 				71F8C6061E8B655200609DB5 /* JYEstimateController.m in Sources */,
 				71405F671EA9D2B800119535 /* JYAddBankController.m in Sources */,
-				7135E3FC1EB06BAC001E57B9 /* JYUserCenter.m in Sources */,
 				7135C89B1EB17A330044A83B /* JYGJJIdentifyController.m in Sources */,
 				715970111EA07867006A229C /* JYRecordPayController.m in Sources */,
 				7159705F1EA0C287006A229C /* JYRedCardController.m in Sources */,
@@ -1161,6 +1180,7 @@
 				7135C8AA1EB17B210044A83B /* JYPersonHeaderView.m in Sources */,
 				71FEE9B71E8CE0EA00AA3E80 /* JYBuyViewController.m in Sources */,
 				71492D9C1E9B7249008C5799 /* JYLoanUsedController.m in Sources */,
+				716AF2FB1EB32C940029EBA1 /* JYUserModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,18 +1,20 @@
 //
-//  JYUserCenter.m
+//  JYSingtonCenter.m
 //  JiaYinDai
 //
-//  Created by 孔亮 on 2017/4/26.
+//  Created by 孔亮 on 2017/4/28.
 //  Copyright © 2017年 嘉远控股. All rights reserved.
 //
 
-#import "JYUserCenter.h"
+#import "JYSingtonCenter.h"
 
-@implementation JYUserCenter
-static JYUserCenter *center = nil ;
+@implementation JYSingtonCenter
+
+static JYSingtonCenter *center = nil ;
+
 
 +(instancetype) shareCenter {
-
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         center = [[super allocWithZone:NULL]init];
@@ -22,7 +24,8 @@ static JYUserCenter *center = nil ;
 }
 
 +(instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [JYUserCenter shareCenter] ;
+    return [JYSingtonCenter shareCenter] ;
 }
+
 
 @end

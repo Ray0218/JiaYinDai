@@ -24,14 +24,15 @@
 
 }
 
-@property (nonatomic ,strong) UIImageView *rHeaderImg ;
-@property (nonatomic ,strong) UILabel *rUserNameLabel ;
-@property (nonatomic ,strong) UILabel *rUserTelLabel ;
-@property (nonatomic ,strong) UIImageView *rUserCodeView ;
-@property (nonatomic ,strong) UILabel *rMoneyLabel ;
-@property (nonatomic ,strong) UILabel *rBankCardLabel ;
-@property (nonatomic ,strong)UIButton *rRightArrow ;
-@property (nonatomic ,strong) UIButton *rFinishButton ;
+@property (nonatomic ,strong) UIImageView *rHeaderImg ; //头像
+@property (nonatomic ,strong) UILabel *rUserNameLabel ; //用户名
+@property (nonatomic ,strong) UILabel *rUserTelLabel ; //电话号码
+@property (nonatomic ,strong) UIImageView *rUserCodeView ; //二维码
+@property (nonatomic ,strong) UIButton * rMoneyButton ; //金额
+@property (nonatomic ,strong) UIButton *rBankCardButton ; //银行卡
+@property (nonatomic ,strong)UIButton *rRightArrow ; //箭头
+@property (nonatomic ,strong) UIButton *rFinishButton ; //已完成按钮
+//@property (nonatomic ,strong) UIButton *rMiddleButton ;
 
 
 
@@ -81,10 +82,11 @@
     [self addSubview:rCompleteLab];
     [self addSubview:self.rFinishButton];
     [self addSubview:rCompDesLab];
+//    [self  addSubview: self.rMiddleButton ] ;
 
     [self addSubview:rAccountLab];
-     [self addSubview:self.rMoneyLabel];
-    [self addSubview:self.rBankCardLabel];
+     [self addSubview:self. rMoneyButton];
+    [self addSubview:self.rBankCardButton];
     [self addSubview:rBankLab];
     
  
@@ -118,6 +120,7 @@
     [self.rRightArrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.rHeaderImg) ;
         make.right.equalTo(self).offset(-15) ;
+        make.width.height.mas_equalTo(25) ;
     }];
     
     [self.rUserCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -145,19 +148,33 @@
     }];
     
     
-    [self.rMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self).offset(-15) ;
+//    [self.rMiddleButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.bottom.equalTo(self.rHeaderImg) ;
+//        make.left.equalTo(self.rHeaderImg.mas_right).offset(15) ;
+//        make.right.equalTo(self.rUserCodeView.mas_left).offset(-15) ;
+//    }] ;
+    
+    
+    [self. rMoneyButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self).offset(-5) ;
         make.right.equalTo(self.mas_centerX).offset(-15) ;
+        make.height.mas_equalTo(35) ;
+        make.left.equalTo(rAccountLab.mas_right).offset(5) ;
+        
     }] ;
     
-    [self.rBankCardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.rBankCardButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-15) ;
-        make.bottom.equalTo(self.rMoneyLabel) ;
+        make.bottom.equalTo(self. rMoneyButton) ;
+        make.height.mas_equalTo(35) ;
+        make.left.equalTo(rBankLab.mas_right).offset(5) ;
+
+
     }] ;
     
     
     [rAccountLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.rBankCardLabel) ;
+        make.centerY.equalTo(self.rBankCardButton) ;
         make.left.equalTo(self).offset(30) ;
     }];
     
@@ -215,24 +232,34 @@
     return _rUserTelLabel ;
 }
 
--(UILabel*)rMoneyLabel {
+-(UIButton*) rMoneyButton {
 
-    if (_rMoneyLabel == nil) {
-        _rMoneyLabel = [self jyCreateLabelWithTitle:@"0.00元" font:16 color:kBlueColor align:NSTextAlignmentRight] ;
-        _rMoneyLabel.backgroundColor = [UIColor whiteColor] ;
+    if (_rMoneyButton == nil) {
+        _rMoneyButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+        [_rMoneyButton setTitleColor:kBlueColor forState:UIControlStateNormal];
+        _rMoneyButton.titleLabel.font = [UIFont systemFontOfSize:16] ;
+        [_rMoneyButton setTitle:@"0.00元" forState:UIControlStateNormal] ;
+        _rMoneyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight ;
+          _rMoneyButton.backgroundColor = [UIColor clearColor] ;
 
     }
     
-    return _rMoneyLabel ;
+    return _rMoneyButton ;
 }
 
--(UILabel*)rBankCardLabel {
-    if (_rBankCardLabel == nil) {
-        _rBankCardLabel = [self jyCreateLabelWithTitle:@"2张" font:16 color:kBlueColor align:NSTextAlignmentRight] ;
-        _rBankCardLabel.backgroundColor = [UIColor whiteColor] ;
+-(UIButton*)rBankCardButton {
+    if (_rBankCardButton == nil) {
+        
+        
+        _rBankCardButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+        [_rBankCardButton setTitleColor:kBlueColor forState:UIControlStateNormal];
+        _rBankCardButton.titleLabel.font = [UIFont systemFontOfSize:16] ;
+        [_rBankCardButton setTitle:@"2张" forState:UIControlStateNormal] ;
+        _rBankCardButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight ;
+           _rBankCardButton.backgroundColor = [UIColor clearColor] ;
     }
     
-    return _rBankCardLabel ;
+    return _rBankCardButton ;
 }
 
 -(UIButton*)rFinishButton {
@@ -250,6 +277,18 @@
     
     return _rFinishButton ;
 }
+
+
+//-(UIButton*)rMiddleButton {
+//    
+//    if (_rMiddleButton == nil) {
+//        _rMiddleButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+//           _rMiddleButton.backgroundColor = [UIColor orangeColor] ;
+//        
+//    }
+//    
+//    return _rMiddleButton ;
+//}
 
 -(UIButton*)rRightArrow {
     if (_rRightArrow == nil) {

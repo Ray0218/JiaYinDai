@@ -69,7 +69,10 @@ const CGFloat kTimeoutIntervalForWWAN = 18;
                            if (error) {
                                if (failure) {
                                    NSLog(@"失败  %@",error) ;
-
+                                   
+                                   [JYProgressManager showBriefAlert:[error dp_errorMessage]] ;
+                                   
+                                   
                                    failure(dataTask, error);
                                }
                            } else {
@@ -85,7 +88,7 @@ const CGFloat kTimeoutIntervalForWWAN = 18;
 }
 
 
- 
+
 @end
 
 
@@ -105,7 +108,7 @@ const CGFloat kTimeoutIntervalForWWAN = 18;
 - (NSString *)dp_errorMessage {
     
     if(![AFNetworkReachabilityManager sharedManager].reachable){
-        return @"星主，网络不给力呀~";
+        return @"网络不给力呀~";
         
     }
     switch (self.code) {
@@ -114,10 +117,9 @@ const CGFloat kTimeoutIntervalForWWAN = 18;
         case NSURLErrorTimedOut:
             return @"网络请求超时";
         case NSURLErrorNotConnectedToInternet:
-            return @"星主，网络不给力呀~";
+            return @" 网络不给力呀~";
         case NSURLErrorCannotConnectToHost:
-            //            return @"网络请求失败";
-            return @"星主，网络不给力呀~";
+            return @"无法连接到服务器";
         default:
             return self.userInfo[kDPHTTPErrorMessageKey];
     }

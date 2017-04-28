@@ -14,11 +14,16 @@
 
 #define kServiceURL  @"http://192.168.1.156:8080"
 
+//注册
 #define kRegisterURL @"/register"
-#define kCodeURL @"sms"
-
-#define kCodeVerifyURL @"smsVerify"
-
+//发送验证码
+#define kCodeURL @"/sms"
+//验证验证码
+#define kCodeVerifyURL @"/smsVerify"
+//登录
+#define kLogInURL @"/login"
+//退出登录
+#define kLogoutURL @"/logout"
 
 
 

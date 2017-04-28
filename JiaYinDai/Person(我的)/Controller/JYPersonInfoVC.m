@@ -10,7 +10,8 @@
 #import "JYLogInCell.h"
 #import "JYPersonInfoCell.h"
 #import "JYSecureSettingVC.h"
-
+#import "JYLogInViewController.h"
+#import "JYTabBarController.h"
 
 @interface JYPersonInfoVC ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *rTitlesArray ;
@@ -164,6 +165,28 @@
     return 45 ;
 }
 
+#pragma mark -action
+
+-(void)pvt_logOut {
+
+    [[AFHTTPSessionManager jy_sharedManager]POST:kLogoutURL parameters:@{@"customerId":[JYSingtonCenter shareCenter].rUserModel.id} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        
+        if ([responseObject[@"code"] integerValue] == 0) {
+            [JYSingtonCenter shareCenter].rUserModel = nil ;
+            
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            
+            JYTabBarController *tab= (JYTabBarController*)[[[UIApplication sharedApplication]keyWindow ]rootViewController] ;
+            [tab setSelectedIndex:0] ;
+            
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+}
+
 
 #pragma  mark- getter
 
@@ -188,6 +211,13 @@
         _rTableFootView = [[JYLogFootView alloc]initWithType:JYLogFootViewTypeRegister ];
         _rTableFootView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 90) ;
         [_rTableFootView.rCommitBtn setTitle:@"退出" forState:UIControlStateNormal] ;
+        _rTableFootView.rCommitBtn.enabled = YES ;
+        @weakify(self)
+        [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self)
+            
+            [self pvt_logOut] ;
+        }] ;
     }
     
     return _rTableFootView ;

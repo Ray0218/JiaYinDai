@@ -10,7 +10,6 @@
 #import "JYPersonCell.h"
 #import "JYPersonHeaderView.h"
 #import "JYPersonInfoVC.h"
-#import "JYMyFinanceVC.h"
 #import "JYImproveInfoController.h"
 #import "JYLoanApplyController.h"
 #import "JYBillViewController.h"
@@ -42,29 +41,27 @@
     
     
     rDataArray = @[
-                   @[ @{  keyTitle    : @"我的理财",
-                          keyImage    : @"per_finance",
-                          }
-                      ],
+                   
                    @[
                        
                        @{  keyTitle    : @"借款申请记录",
                            keyImage    : @"per_record",
+                           },
+                       @{  keyTitle    : @"我的福利",
+                           keyImage    : @"per_welf",
                            }
                        ],
-                   @[ @{  keyTitle    : @"我的福利",
-                          keyImage    : @"per_welf",
-                          },
-                      @{  keyTitle    : @"邀请好友",
-                          keyImage    : @"per_friend",
-                          },
-                      @{  keyTitle    : @"人人推（赚佣金）",
-                          keyImage    : @"per_recommend",
-                          },
-                      @{  keyTitle    : @"活动中心",
-                          keyImage    : @"per_active",
-                          }
-                      ],
+                   @[
+                       @{  keyTitle    : @"邀请好友",
+                           keyImage    : @"per_friend",
+                           },
+                       @{  keyTitle    : @"人人推（赚佣金）",
+                           keyImage    : @"per_recommend",
+                           },
+                       @{  keyTitle    : @"活动中心",
+                           keyImage    : @"per_active",
+                           }
+                       ],
                    @[ @{  keyTitle    : @"更多",
                           keyImage    : @"per_more",
                           }                                                                             ],
@@ -141,12 +138,15 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         
-        JYMyFinanceVC *financeVC = [[JYMyFinanceVC alloc]init];
-        [self.navigationController pushViewController:financeVC animated:YES];
+        if (indexPath.row == 0) {
+            
+            JYLoanApplyController *recordVC = [[JYLoanApplyController alloc]init];
+            [self.navigationController pushViewController:recordVC animated:YES];
+        }
+        
     }else if (indexPath.section == 1){
         
-        JYLoanApplyController *recordVC = [[JYLoanApplyController alloc]init];
-        [self.navigationController pushViewController:recordVC animated:YES];
+        
     }
 }
 

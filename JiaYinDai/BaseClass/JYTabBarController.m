@@ -83,14 +83,14 @@
 }
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
 
-    if (tabBarController.selectedIndex == 1) {
-        
-        JYLogInViewController *logVC =[[JYLogInViewController alloc]initWithLogType:JYLogFootViewTypeLogIn];
-        UINavigationController *nvc =[[UINavigationController alloc]initWithRootViewController:logVC] ;
-
-        [self presentViewController:nvc animated:YES completion:^{
-        }] ;
-    }
+//    if ( ![JYSingtonCenter shareCenter].rUserModel && tabBarController.selectedIndex != 0) {
+//        
+//        JYLogInViewController *logVC =[[JYLogInViewController alloc]initWithLogType:JYLogFootViewTypeLogIn];
+//        UINavigationController *nvc =[[UINavigationController alloc]initWithRootViewController:logVC] ;
+//
+//        [self presentViewController:nvc animated:NO completion:^{
+//        }] ;
+//    }
     
     
 }

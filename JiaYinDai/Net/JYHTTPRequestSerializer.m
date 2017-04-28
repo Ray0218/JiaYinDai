@@ -82,8 +82,7 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
     
     NSString *preSignStr = [ self getPreSignStringWithDic:jsonDict signKey:signKey];
 
-    
-    
+     
     [jsonDict setObject:preSignStr forKey:@"sign" ] ;
     
     

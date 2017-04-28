@@ -12,6 +12,6 @@ pod 'ReactiveCocoa' ,'~> 2.5'
 pod 'JSONModel', '~> 1.7.0'
 pod 'IQKeyboardManager', '~> 4.0.9'
 pod 'SDCycleScrollView', '~> 1.3'
-
-
+pod 'MBProgressHUD', '~> 0.9.2'
+pod 'NullSafe', '~> 1.2.2'
 end
