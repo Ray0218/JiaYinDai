@@ -13,9 +13,8 @@
 #import "JYImproveInfoController.h"
 #import "JYLoanApplyController.h"
 #import "JYBillViewController.h"
-
-
-
+#import "JYBankCardController.h"
+#import "JYBalanceController.h"
 
 
 
@@ -194,8 +193,21 @@
         
         
         [[_rTableHeaderView.rFinishButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
-            
+            @strongify(self)
+
             JYImproveInfoController *vc = [[JYImproveInfoController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }] ;
+        
+        [[_rTableHeaderView.rMoneyButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self)
+            JYBalanceController *vc = [[JYBalanceController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }] ;
+        
+        [[_rTableHeaderView.rBankCardButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self)
+            JYBankCardController *vc = [[JYBankCardController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }] ;
     }

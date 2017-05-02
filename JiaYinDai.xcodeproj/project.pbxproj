@@ -96,6 +96,10 @@
 		71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D05F361E827B6D004CBE04 /* JYDateFormatter.m */; };
 		71DA76491E84F613001C3995 /* JYTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DA76481E84F613001C3995 /* JYTabBar.m */; };
 		71DA764C1E850EF5001C3995 /* JYMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DA764B1E850EF5001C3995 /* JYMessageModel.m */; };
+		71E004E81EB8121D00FF86A3 /* JYBalanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E004E71EB8121D00FF86A3 /* JYBalanceController.m */; };
+		71E004EB1EB829BA00FF86A3 /* JYChargeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E004EA1EB829BA00FF86A3 /* JYChargeController.m */; };
+		71E004EE1EB85C2F00FF86A3 /* JYDrawController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E004ED1EB85C2F00FF86A3 /* JYDrawController.m */; };
+		71E004F11EB8706F00FF86A3 /* JYSupportBankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E004F01EB8706F00FF86A3 /* JYSupportBankController.m */; };
 		71F432091E8358AB009AA864 /* JYFatherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432081E8358AB009AA864 /* JYFatherController.m */; };
 		71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432181E83710F009AA864 /* UIImage+Addition.m */; };
 		71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432231E8392AF009AA864 /* JYFinanceViewController.m */; };
@@ -312,6 +316,14 @@
 		71DA76481E84F613001C3995 /* JYTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYTabBar.m; sourceTree = "<group>"; };
 		71DA764A1E850EF5001C3995 /* JYMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYMessageModel.h; sourceTree = "<group>"; };
 		71DA764B1E850EF5001C3995 /* JYMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYMessageModel.m; sourceTree = "<group>"; };
+		71E004E61EB8121D00FF86A3 /* JYBalanceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBalanceController.h; sourceTree = "<group>"; };
+		71E004E71EB8121D00FF86A3 /* JYBalanceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBalanceController.m; sourceTree = "<group>"; };
+		71E004E91EB829BA00FF86A3 /* JYChargeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYChargeController.h; sourceTree = "<group>"; };
+		71E004EA1EB829BA00FF86A3 /* JYChargeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYChargeController.m; sourceTree = "<group>"; };
+		71E004EC1EB85C2F00FF86A3 /* JYDrawController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYDrawController.h; sourceTree = "<group>"; };
+		71E004ED1EB85C2F00FF86A3 /* JYDrawController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYDrawController.m; sourceTree = "<group>"; };
+		71E004EF1EB8706F00FF86A3 /* JYSupportBankController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSupportBankController.h; sourceTree = "<group>"; };
+		71E004F01EB8706F00FF86A3 /* JYSupportBankController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSupportBankController.m; sourceTree = "<group>"; };
 		71F432071E8358AB009AA864 /* JYFatherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFatherController.h; sourceTree = "<group>"; };
 		71F432081E8358AB009AA864 /* JYFatherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFatherController.m; sourceTree = "<group>"; };
 		71F432151E8368C9009AA864 /* PreHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreHeader.pch; sourceTree = "<group>"; };
@@ -844,6 +856,8 @@
 				71492D981E9B5A3A008C5799 /* JYBankCardController.m */,
 				71405F651EA9D2B800119535 /* JYAddBankController.h */,
 				71405F661EA9D2B800119535 /* JYAddBankController.m */,
+				71E004EF1EB8706F00FF86A3 /* JYSupportBankController.h */,
+				71E004F01EB8706F00FF86A3 /* JYSupportBankController.m */,
 				71492D9A1E9B7249008C5799 /* JYLoanUsedController.h */,
 				71492D9B1E9B7249008C5799 /* JYLoanUsedController.m */,
 				7145892C1E9CBC8C005C8216 /* JYImageAddController.h */,
@@ -857,6 +871,12 @@
 			children = (
 				71F4322F1E839337009AA864 /* JYPersonViewController.h */,
 				71F432301E839337009AA864 /* JYPersonViewController.m */,
+				71E004E61EB8121D00FF86A3 /* JYBalanceController.h */,
+				71E004E71EB8121D00FF86A3 /* JYBalanceController.m */,
+				71E004EC1EB85C2F00FF86A3 /* JYDrawController.h */,
+				71E004ED1EB85C2F00FF86A3 /* JYDrawController.m */,
+				71E004E91EB829BA00FF86A3 /* JYChargeController.h */,
+				71E004EA1EB829BA00FF86A3 /* JYChargeController.m */,
 				714B03761E9621B600574C56 /* JYPersonInfoVC.h */,
 				714B03771E9621B600574C56 /* JYPersonInfoVC.m */,
 				7132F5F61E97779A009B22EA /* JYSecureSettingVC.h */,
@@ -1093,6 +1113,7 @@
 				71D05F2F1E826EAD004CBE04 /* UINavigationController+swizzle.m in Sources */,
 				7135E40C1EB08B93001E57B9 /* JYPayRecordController.m in Sources */,
 				7135E4731EB095FF001E57B9 /* JYLogInCell.m in Sources */,
+				71E004E81EB8121D00FF86A3 /* JYBalanceController.m in Sources */,
 				7135C8A01EB17A330044A83B /* JYTelCodelAlterView.m in Sources */,
 				71492D991E9B5A3A008C5799 /* JYBankCardController.m in Sources */,
 				71F432391E83A4CA009AA864 /* JYNoNetworkManager.m in Sources */,
@@ -1130,6 +1151,7 @@
 				71405F641EA9CD3C00119535 /* JYApplyDetailController.m in Sources */,
 				71492D8D1E9B2496008C5799 /* JYLoanInfoController.m in Sources */,
 				713DBA411E8A6370001C65D2 /* JYDebtController.m in Sources */,
+				71E004F11EB8706F00FF86A3 /* JYSupportBankController.m in Sources */,
 				7135C8AD1EB189100044A83B /* JYMyFinanceVC.m in Sources */,
 				7135C89F1EB17A330044A83B /* JYPhoneIndetyfyController.m in Sources */,
 				7123DDB71E88A172007C094A /* JYMessageCell.m in Sources */,
@@ -1142,6 +1164,7 @@
 				7132F5F81E97779A009B22EA /* JYSecureSettingVC.m in Sources */,
 				710AC91C1E8E5D3100428AE8 /* JYSuccessAlterController.m in Sources */,
 				7135E4601EB09103001E57B9 /* JYRedGiftCell.m in Sources */,
+				71E004EB1EB829BA00FF86A3 /* JYChargeController.m in Sources */,
 				71F8C6061E8B655200609DB5 /* JYEstimateController.m in Sources */,
 				71405F671EA9D2B800119535 /* JYAddBankController.m in Sources */,
 				7135C89B1EB17A330044A83B /* JYGJJIdentifyController.m in Sources */,
@@ -1153,6 +1176,7 @@
 				71F4322D1E83932E009AA864 /* JYLoanViewController.m in Sources */,
 				7135C8A11EB17A330044A83B /* JYTelPhoneAlterView.m in Sources */,
 				7135E4571EB09103001E57B9 /* JYLoanApplyCell.m in Sources */,
+				71E004EE1EB85C2F00FF86A3 /* JYDrawController.m in Sources */,
 				71D05F371E827B6D004CBE04 /* JYDateFormatter.m in Sources */,
 				7135E4061EB08AF6001E57B9 /* JYLoanRecordController.m in Sources */,
 				71A2461C1E8F7CB000049B79 /* JYPasswordView.m in Sources */,

@@ -11,7 +11,7 @@
 @interface JYBankCardCell ()
 
 
-@property (nonatomic ,strong) UILabel *rTitleLabel ;
+@property (nonatomic ,strong) UILabel *rBankName ;
 @property (nonatomic ,strong) UIImageView *rBankImg ;
 @property (nonatomic ,strong) UILabel *rCardTypeLabel ;
 @property (nonatomic ,strong) UILabel *rCardNumberLabel ;
@@ -51,7 +51,7 @@
     [self.contentView addSubview:self.rNormalBackView];
     [self.contentView addSubview:self.rBlueBackView] ;
     [self.contentView addSubview:self.rBankImg];
-    [self.contentView addSubview:self.rTitleLabel ];
+    [self.contentView addSubview:self.rBankName ];
     [self.contentView addSubview:self.rCardTypeLabel];
     [self.contentView addSubview:self.rCardNumberLabel];
     
@@ -77,14 +77,14 @@
         make.centerY.equalTo(self.rBlueBackView);
     }] ;
     
-    [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.rBankName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.rBankImg.mas_right).offset(15) ;
         make.bottom.equalTo(self.rBankImg.mas_centerY).offset(-5) ;
     }];
     
     [self.rCardTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.rTitleLabel) ;
-        make.top.equalTo(self.rTitleLabel.mas_bottom).offset(10) ;
+        make.left.equalTo(self.rBankName) ;
+        make.top.equalTo(self.rBankName.mas_bottom).offset(10) ;
     }] ;
     
     [self.rCardNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -145,12 +145,12 @@
     return _rBankImg ;
 }
 
--(UILabel*)rTitleLabel {
+-(UILabel*)rBankName {
 
-    if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"农业银行" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+    if (_rBankName == nil) {
+        _rBankName = [self jyCreateLabelWithTitle:@"农业银行" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
-    return _rTitleLabel ;
+    return _rBankName ;
 }
 
 -(UILabel*)rCardTypeLabel {

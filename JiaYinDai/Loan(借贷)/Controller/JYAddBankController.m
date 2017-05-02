@@ -10,14 +10,42 @@
 #import "JYPasswordCell.h"
 #import "JYLogInCell.h"
 
+#import "JYSupportBankController.h"
+
 @interface JYAddBankController ()
 @property (nonatomic ,strong)NSArray *rDataArray ;
 
 @property (nonatomic ,strong) JYLogFootView *rTableFootView ;
 
+@property (nonatomic ,strong) UITextField *rNameTextfield ;
+@property (nonatomic ,strong) UITextField *rBankNameField ;
+@property (nonatomic ,strong) UITextField *rBankCardField ;
+
+
 @end
 
 @implementation JYAddBankController
+
+-(void)viewDidAppear:(BOOL)animated  {
+    [super viewDidAppear:animated];
+    
+        [[RACSignal  combineLatest:@[
+                                     self.rNameTextfield.rac_textSignal,
+                                     self.rBankNameField.rac_textSignal,
+                                     self.rBankCardField.rac_textSignal,
+    
+                                     ]
+                            reduce:^(NSString *username,NSString *bankName,NSString *bankCard) {
+                                return @(username.length && bankName.length && bankCard.length );
+                            }] subscribeNext:^(NSNumber* x) {
+    
+                                self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
+                            }];
+    
+    
+        
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -73,6 +101,7 @@
         if (cell  == nil) {
             
             cell = [[JYPasswordCell alloc] initWithCellType:JYPassCellTypeArrow reuseIdentifier:identifier];
+            self.rBankNameField = cell.rTextField ;
         }
         
         [cell setDataModel:model];
@@ -88,6 +117,13 @@
         
         cell = [[JYPasswordCell alloc] initWithCellType:JYPassCellTypeNormal reuseIdentifier:identifier];
     }
+    if (indexPath.section == 0) {
+        self.rNameTextfield = cell.rTextField ;
+    }else{
+        
+        self.rBankCardField = cell.rTextField ;
+    }
+    
     
     [cell setDataModel:model];
     
@@ -97,6 +133,14 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+   __block JYPasswordCell *cell = [self.tableView cellForRowAtIndexPath:indexPath] ;
+    JYSupportBankController *vc = [[JYSupportBankController alloc]init];
+    vc.rSelectBlock = ^(NSString *bankName) {
+        cell.rTextField.text = bankName ;
+    } ;
+    
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
@@ -126,7 +170,7 @@
 
 
 -(JYLogFootView*)rTableFootView{
-
+    
     if (_rTableFootView == nil) {
         _rTableFootView = [[JYLogFootView alloc]initWithType:JYLogFootViewTypeRegister] ;
         _rTableFootView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100) ;
@@ -162,14 +206,37 @@
 
 @interface JYAddBankCodeController (){
     NSArray *rTitleArray ;
-
+    
 }
 @property (nonatomic,strong) JYLogFootView *rTableFootView ;
+
+@property (nonatomic,strong) UITextField *rTelTextField ;
+@property (nonatomic,strong) UITextField *rCodeTextField ;
+
+
 
 @end
 
 
 @implementation JYAddBankCodeController
+
+-(void)viewDidAppear:(BOOL)animated  {
+    [super viewDidAppear:animated];
+    
+    [[RACSignal  combineLatest:@[
+                                 self.rTelTextField.rac_textSignal,
+                                 self.rCodeTextField.rac_textSignal,
+                                 ]
+                        reduce:^(NSString *telString,NSString *codeString) {
+                            return @( telString.length && codeString.length );
+                        }] subscribeNext:^(NSNumber* x) {
+                            
+                            self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
+                        }];
+    
+    
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -177,12 +244,12 @@
     
     self.title = @"添加银行卡";
     
-     rTitleArray = [NSArray arrayWithObjects:  [[JYPasswordSetModel alloc]initWithTitle:@"手机号码" fieldText:@"" placeHolder:@"银行预留手机号" hasCode:NO] , [[JYPasswordSetModel alloc]initWithTitle:@"验证码" fieldText:@"" placeHolder:@"请输入验证码" hasCode:YES] , nil] ;
+    rTitleArray = [NSArray arrayWithObjects:  [[JYPasswordSetModel alloc]initWithTitle:@"手机号码" fieldText:@"" placeHolder:@"银行预留手机号" hasCode:NO] , [[JYPasswordSetModel alloc]initWithTitle:@"验证码" fieldText:@"" placeHolder:@"请输入验证码" hasCode:YES] , nil] ;
     
     
     [self initializeTableView] ;
     
-
+    
 }
 
 -(void)initializeTableView {
@@ -215,7 +282,8 @@
         
         if (cell  == nil) {
             
-            cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeCode    reuseIdentifier:identifier];
+            cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeCode  reuseIdentifier:identifier];
+            self.rCodeTextField = cell.rTextField ;
         }
         [cell setDataModel:model];
         return cell ;
@@ -230,6 +298,7 @@
     if (cell  == nil) {
         
         cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeNormal    reuseIdentifier:identifier];
+        self.rTelTextField = cell.rTextField ;
     }
     
     [cell setDataModel:model];
@@ -260,6 +329,8 @@
     return headerView ;
     
 }
+
+ 
 
 
 #pragma mark- getter

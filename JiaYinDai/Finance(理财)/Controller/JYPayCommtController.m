@@ -7,9 +7,9 @@
 //
 
 #import "JYPayCommtController.h"
-
-#import "JYSuccessAlterController.h"
+ #import "JYSuccessAlterController.h"
  #import "JYPasswordView.h"
+#import "JYPasswodSettingVC.h"
 
 
 @interface JYPayCommtController (){
@@ -83,6 +83,13 @@
         [_rForgetBtn setTitle:@"找回交易密码?" forState:UIControlStateNormal];
         [_rForgetBtn setTitleColor:kBlueColor forState:UIControlStateNormal];
         _rForgetBtn.titleLabel.font = [UIFont systemFontOfSize:14] ;
+        @weakify(self)
+        [[_rForgetBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self)
+            JYPasswodSettingVC *pasVC = [[JYPasswodSettingVC alloc]initWithVCType:JYPassVCTypeChangePass]
+            ;
+            [self.navigationController pushViewController:pasVC animated:YES];
+        }] ;
     }
     
     return _rForgetBtn ;

@@ -8,7 +8,7 @@
 
 #import "JYPayStyleController.h"
 #import "JYBankCardCell.h"
-
+#import "JYAddBankController.h"
 
 @interface JYPayStyleController ()
 
@@ -22,6 +22,9 @@
     
     self.title = @"选取支付方式" ;
     
+    [self setNavRightButtonWithImage:nil title:@"限额说明"] ;
+
+    
     [self initializeTableView] ;
 }
 
@@ -29,12 +32,15 @@
     
     self.tableView.rowHeight = 95 ;
     
-    //    self.tableView.tableFooterView = self.rTableFootView ;
+        self.tableView.tableFooterView = [UIView new] ;
     self.tableView.separatorInset = UIEdgeInsetsZero ;
     
 }
 
+-(void)pvt_clickButtonNavRight {
 
+
+}
 
 #pragma mark- UITableViewDataSource/UITableViewDelegate
 
@@ -76,7 +82,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == [tableView numberOfRowsInSection:0] - 1) {
-        
+        JYAddBankController *vc =[[JYAddBankController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES] ;
+
     }else{
         
         JYBankCardCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
