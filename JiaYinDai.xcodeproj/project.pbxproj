@@ -100,6 +100,12 @@
 		71E004EB1EB829BA00FF86A3 /* JYChargeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E004EA1EB829BA00FF86A3 /* JYChargeController.m */; };
 		71E004EE1EB85C2F00FF86A3 /* JYDrawController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E004ED1EB85C2F00FF86A3 /* JYDrawController.m */; };
 		71E004F11EB8706F00FF86A3 /* JYSupportBankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E004F01EB8706F00FF86A3 /* JYSupportBankController.m */; };
+		71E005031EB8A48B00FF86A3 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 71E004FE1EB8A48B00FF86A3 /* CHANGELOG.md */; };
+		71E005041EB8A48B00FF86A3 /* libLLPaySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71E004FF1EB8A48B00FF86A3 /* libLLPaySDK.a */; };
+		71E005051EB8A48B00FF86A3 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 71E005011EB8A48B00FF86A3 /* README.md */; };
+		71E005061EB8A48B00FF86A3 /* walletResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 71E005021EB8A48B00FF86A3 /* walletResources.bundle */; };
+		71E005091EB8B2BA00FF86A3 /* JYLLPayMamager.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E005081EB8B2BA00FF86A3 /* JYLLPayMamager.m */; };
+		71E0050C1EB8B8EE00FF86A3 /* JYSignHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E0050B1EB8B8EE00FF86A3 /* JYSignHelper.m */; };
 		71F432091E8358AB009AA864 /* JYFatherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432081E8358AB009AA864 /* JYFatherController.m */; };
 		71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432181E83710F009AA864 /* UIImage+Addition.m */; };
 		71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F432231E8392AF009AA864 /* JYFinanceViewController.m */; };
@@ -324,6 +330,15 @@
 		71E004ED1EB85C2F00FF86A3 /* JYDrawController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYDrawController.m; sourceTree = "<group>"; };
 		71E004EF1EB8706F00FF86A3 /* JYSupportBankController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSupportBankController.h; sourceTree = "<group>"; };
 		71E004F01EB8706F00FF86A3 /* JYSupportBankController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSupportBankController.m; sourceTree = "<group>"; };
+		71E004FE1EB8A48B00FF86A3 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		71E004FF1EB8A48B00FF86A3 /* libLLPaySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLLPaySDK.a; sourceTree = "<group>"; };
+		71E005001EB8A48B00FF86A3 /* LLPaySdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLPaySdk.h; sourceTree = "<group>"; };
+		71E005011EB8A48B00FF86A3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		71E005021EB8A48B00FF86A3 /* walletResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = walletResources.bundle; sourceTree = "<group>"; };
+		71E005071EB8B2BA00FF86A3 /* JYLLPayMamager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYLLPayMamager.h; sourceTree = "<group>"; };
+		71E005081EB8B2BA00FF86A3 /* JYLLPayMamager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYLLPayMamager.m; sourceTree = "<group>"; };
+		71E0050A1EB8B8EE00FF86A3 /* JYSignHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSignHelper.h; sourceTree = "<group>"; };
+		71E0050B1EB8B8EE00FF86A3 /* JYSignHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSignHelper.m; sourceTree = "<group>"; };
 		71F432071E8358AB009AA864 /* JYFatherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFatherController.h; sourceTree = "<group>"; };
 		71F432081E8358AB009AA864 /* JYFatherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFatherController.m; sourceTree = "<group>"; };
 		71F432151E8368C9009AA864 /* PreHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreHeader.pch; sourceTree = "<group>"; };
@@ -374,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AA86B09433753128AE13DB7 /* libPods-JiaYinDai.a in Frameworks */,
+				71E005041EB8A48B00FF86A3 /* libLLPaySDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +645,7 @@
 		71D05EE91E826134004CBE04 /* JiaYinDai */ = {
 			isa = PBXGroup;
 			children = (
+				71E004F21EB8A01D00FF86A3 /* ThirdSDK */,
 				7135C8861EB17A330044A83B /* Improve(完善信息) */,
 				7135E4681EB094BB001E57B9 /* Login(登录) */,
 				7135E4001EB089C8001E57B9 /* PayBack(还款) */,
@@ -728,8 +745,32 @@
 				713CA72B1EA5FD7900E9AA5A /* JYPickerView.m */,
 				716AF2FC1EB32D650029EBA1 /* JYSingtonCenter.h */,
 				716AF2FD1EB32D650029EBA1 /* JYSingtonCenter.m */,
+				71E005071EB8B2BA00FF86A3 /* JYLLPayMamager.h */,
+				71E005081EB8B2BA00FF86A3 /* JYLLPayMamager.m */,
+				71E0050A1EB8B8EE00FF86A3 /* JYSignHelper.h */,
+				71E0050B1EB8B8EE00FF86A3 /* JYSignHelper.m */,
 			);
 			path = "Tools(工具类)";
+			sourceTree = "<group>";
+		};
+		71E004F21EB8A01D00FF86A3 /* ThirdSDK */ = {
+			isa = PBXGroup;
+			children = (
+				71E004FD1EB8A48B00FF86A3 /* LLPaySDK */,
+			);
+			path = ThirdSDK;
+			sourceTree = "<group>";
+		};
+		71E004FD1EB8A48B00FF86A3 /* LLPaySDK */ = {
+			isa = PBXGroup;
+			children = (
+				71E004FE1EB8A48B00FF86A3 /* CHANGELOG.md */,
+				71E004FF1EB8A48B00FF86A3 /* libLLPaySDK.a */,
+				71E005001EB8A48B00FF86A3 /* LLPaySdk.h */,
+				71E005011EB8A48B00FF86A3 /* README.md */,
+				71E005021EB8A48B00FF86A3 /* walletResources.bundle */,
+			);
+			path = LLPaySDK;
 			sourceTree = "<group>";
 		};
 		71F432041E835833009AA864 /* Finance(理财) */ = {
@@ -1026,6 +1067,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71D05EFA1E826134004CBE04 /* LaunchScreen.storyboard in Resources */,
+				71E005061EB8A48B00FF86A3 /* walletResources.bundle in Resources */,
 				71D05EF71E826134004CBE04 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1112,6 +1154,7 @@
 				71F432331E839337009AA864 /* JYPersonViewController.m in Sources */,
 				71D05F2F1E826EAD004CBE04 /* UINavigationController+swizzle.m in Sources */,
 				7135E40C1EB08B93001E57B9 /* JYPayRecordController.m in Sources */,
+				71E0050C1EB8B8EE00FF86A3 /* JYSignHelper.m in Sources */,
 				7135E4731EB095FF001E57B9 /* JYLogInCell.m in Sources */,
 				71E004E81EB8121D00FF86A3 /* JYBalanceController.m in Sources */,
 				7135C8A01EB17A330044A83B /* JYTelCodelAlterView.m in Sources */,
@@ -1141,6 +1184,7 @@
 				7123DDBD1E891948007C094A /* JYFinanceDetailController.m in Sources */,
 				713DBA381E8A155E001C65D2 /* UILabel+swizzle.m in Sources */,
 				71405F5E1EA9ABB100119535 /* JYLoanApplyController.m in Sources */,
+				71E005051EB8A48B00FF86A3 /* README.md in Sources */,
 				71D05EEC1E826134004CBE04 /* main.m in Sources */,
 				7135E4331EB08EAF001E57B9 /* JYLoanInfoModel.m in Sources */,
 				714BBA7A1E9F7249008C7E21 /* JYPayBackController.m in Sources */,
@@ -1156,10 +1200,12 @@
 				7135C89F1EB17A330044A83B /* JYPhoneIndetyfyController.m in Sources */,
 				7123DDB71E88A172007C094A /* JYMessageCell.m in Sources */,
 				7135E4701EB095BE001E57B9 /* JYPasswordSetController.m in Sources */,
+				71E005091EB8B2BA00FF86A3 /* JYLLPayMamager.m in Sources */,
 				712D12C21EB319D400246D89 /* JYProgressManager.m in Sources */,
 				71F432191E83710F009AA864 /* UIImage+Addition.m in Sources */,
 				71F432401E83CFB8009AA864 /* NSDate+Extern.m in Sources */,
 				7135E4541EB09103001E57B9 /* JYBillCell.m in Sources */,
+				71E005031EB8A48B00FF86A3 /* CHANGELOG.md in Sources */,
 				71F432261E8392AF009AA864 /* JYFinanceViewController.m in Sources */,
 				7132F5F81E97779A009B22EA /* JYSecureSettingVC.m in Sources */,
 				710AC91C1E8E5D3100428AE8 /* JYSuccessAlterController.m in Sources */,
@@ -1350,6 +1396,11 @@
 				INFOPLIST_FILE = JiaYinDai/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JiaYinDai/LLPaySDK",
+					"$(PROJECT_DIR)/JiaYinDai/ThirdSDK/LLPaySDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiayindai.JiaYinDai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1366,6 +1417,11 @@
 				INFOPLIST_FILE = JiaYinDai/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JiaYinDai/LLPaySDK",
+					"$(PROJECT_DIR)/JiaYinDai/ThirdSDK/LLPaySDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiayindai.JiaYinDai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

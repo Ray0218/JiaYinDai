@@ -12,7 +12,20 @@
 
 #define kSignKey @"65846b8c29154b3ef911e913f9e2205d"
 
+
+
+#ifdef DEBUG
+
 #define kServiceURL  @"http://192.168.1.156:8080"
+
+#else
+#define kServiceURL  @"http://192.168.1.156:8080"
+
+
+#endif
+
+
+
 
 //注册
 #define kRegisterURL @"/register"
