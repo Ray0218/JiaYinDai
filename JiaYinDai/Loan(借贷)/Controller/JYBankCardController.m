@@ -28,29 +28,28 @@
 
 -(void)initializeTableView {
     
-     self.tableView.rowHeight = 95 ;
-    
-//    self.tableView.tableFooterView = self.rTableFootView ;
+    self.tableView.rowHeight = 95 ;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone ;
+    self.tableView.tableFooterView =  [UIView new] ;
     self.tableView.separatorInset = UIEdgeInsetsZero ;
     
 }
 
 -(void)pvt_clickButtonNavRight {
-
+    
 }
 
 
 #pragma mark- UITableViewDataSource/UITableViewDelegate
 
- 
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-        return 3 ;
+    return 3 ;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//
     
     if (indexPath.row == [tableView numberOfRowsInSection:0]-1) {
         static NSString *identifier = @"identifierLoan" ;
@@ -74,9 +73,9 @@
         cell = [[JYBankCardCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-     return cell ;
+    return cell ;
     
- }
+}
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -85,9 +84,9 @@
         JYAddBankController *vc =[[JYAddBankController alloc]init];
         [self.navigationController pushViewController:vc animated:YES] ;
     }else{
-    
-    JYBankCardCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
-    cell.selected = YES ;
+        
+        JYBankCardCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
+        cell.selected = YES ;
     }
 }
 
@@ -98,13 +97,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

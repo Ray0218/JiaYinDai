@@ -41,7 +41,7 @@ static JYNoNetworkManager *_manager = nil ;
         _rNoNetLabel.text=@"暂无网络连接，请检查您的网络设置！";
         _rNoNetLabel.textColor=[UIColor colorWithRed:((Byte)(0x6d6d6d >> 16))/255.0 green:((Byte)(0x6d6d6d >> 8))/255.0 blue:((Byte)0x6d6d6d)/255.0 alpha:1];
         _rNoNetLabel.font=[UIFont systemFontOfSize:12];
-        _rNoNetLabel.backgroundColor = [UIColor yellowColor] ;
+        _rNoNetLabel.backgroundColor =  [UIColor colorWithRed:1.00 green:0.99 blue:0.27 alpha:0.6] ;//[UIColor yellowColor] ;
     }
     return _rNoNetLabel ;
 }

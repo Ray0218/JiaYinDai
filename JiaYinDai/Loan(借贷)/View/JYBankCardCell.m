@@ -47,7 +47,7 @@
 
 -(void)buildSubViewsUI {
     
- 
+    
     [self.contentView addSubview:self.rNormalBackView];
     [self.contentView addSubview:self.rBlueBackView] ;
     [self.contentView addSubview:self.rBankImg];
@@ -69,7 +69,7 @@
         make.top.equalTo(self.contentView).offset(15) ;
         make.height.mas_equalTo(80) ;
     }] ;
-
+    
     
     [self.rBankImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.rBlueBackView).offset(15) ;
@@ -136,17 +136,18 @@
 }
 
 -(UIImageView*)rBankImg {
-
+    
     if (_rBankImg == nil) {
         _rBankImg = [[UIImageView alloc]init];
-        _rBankImg.backgroundColor = [UIColor lightGrayColor] ;
+        _rBankImg.backgroundColor = [UIColor clearColor] ;
+        _rBankImg.image = [UIImage imageNamed:@"01030000"] ;
         
     }
     return _rBankImg ;
 }
 
 -(UILabel*)rBankName {
-
+    
     if (_rBankName == nil) {
         _rBankName = [self jyCreateLabelWithTitle:@"农业银行" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
@@ -199,7 +200,7 @@
 
 -(void)buildSubViewsUI {
     
-    UILabel *label = [self jyCreateLabelWithTitle:@"+添加卡片" font:18 color:kBlueColor align:NSTextAlignmentCenter];
+    UILabel *label = [self jyCreateLabelWithTitle:@"＋添加卡片" font:18 color:kBlueColor align:NSTextAlignmentCenter];
     
     [self.contentView addSubview:label];
     

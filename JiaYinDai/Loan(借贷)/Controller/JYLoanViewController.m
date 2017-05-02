@@ -11,7 +11,7 @@
 #import "JYLoanAlterVC.h"
 #import "JYLoanInfoController.h"
 #import <SDCycleScrollView.h>
-
+#import "JYMessageVController.h"
 
 @interface JYLoanFootVew : UIView
 
@@ -41,7 +41,7 @@
     
     
     
-     
+    
 }
 
 -(void)layoutSubviews {
@@ -58,8 +58,8 @@
         make.top.equalTo(self.rCommitBtn.mas_bottom).offset(10) ;
     }] ;
     
-
-
+    
+    
 }
 
 -(UIButton*)rCommitBtn {
@@ -91,7 +91,7 @@
 
 @property(nonatomic ,strong) UILabel *rTitleLabel ;
 @property(nonatomic ,strong) UIView *rTitleView ;
-
+@property (nonatomic ,strong) UIButton *rMessageButton ;
 
 
 @end
@@ -102,23 +102,23 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
 @implementation JYLoanViewController
 
 -(void)viewWillAppear:(BOOL)animated {
-
+    
     [super viewWillAppear:animated] ;
     
     self.navigationController.navigationBar.barTintColor = [UIColor clearColor];
-//    [[self.navigationController.navigationBar subviews] objectAtIndex:0].alpha = 0;
-
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsCompact];
-
+    //    [[self.navigationController.navigationBar subviews] objectAtIndex:0].alpha = 0;
+    
+    //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsCompact];
+    
     
     self.navigationController.navigationBarHidden = YES ;
- 
+    
     
     [self.rTableHeaderView adjustWhenControllerViewWillAppera] ;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-
+    
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = NO ;
 }
@@ -134,7 +134,7 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
     
     self.rTableHeaderView.imageURLStringsGroup = @[@"https://oss.aliyuncs.com/jiayuanbank-image/2017-03/68d23c1374324bbb9fe9d078301ca858.jpg",@"https://oss.aliyuncs.com/jiayuanbank-image/2017-03/79f9e182eda4495f877a5b84f191607b.jpg",@"https://oss.aliyuncs.com/jiayuanbank-image/2017-03/1f0f355b9a2f4f3685e9e80555495ecb.jpg",@"https://oss.aliyuncs.com/jiayuanbank-image/2017-04/c99676624a4a40cbbba032a6f9702f89.jpg"] ;
     
- }
+}
 
 
 #pragma mark - builUI
@@ -147,9 +147,14 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
     
     
     [self.view addSubview:self.rTitleView];
+    [self.view addSubview:self.rMessageButton];
     
-    
-    
+    [self.rMessageButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-15) ;
+        make.top.equalTo(self.view).offset(20) ;
+        make.height.mas_equalTo(44) ;
+        make.width.mas_equalTo(NAV_BUTTON_WIDTH) ;
+    }] ;
 }
 
 
@@ -180,17 +185,17 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
     
     if (indexPath.row == 1) {
         
-     
-    static NSString *identifier = @"identifierdd" ;
-    
-    JYLoanTimeCell *cellTime = [tableView dequeueReusableCellWithIdentifier:identifier] ;
-    if (cellTime == nil) {
         
+        static NSString *identifier = @"identifierdd" ;
         
-        cellTime = [[JYLoanTimeCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    }
-    return cellTime ;
-    
+        JYLoanTimeCell *cellTime = [tableView dequeueReusableCellWithIdentifier:identifier] ;
+        if (cellTime == nil) {
+            
+            
+            cellTime = [[JYLoanTimeCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        return cellTime ;
+        
     }
     
     
@@ -216,7 +221,7 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
     cellTime.detailTextLabel.text = @"XXXX" ;
     return cellTime ;
     
-
+    
     
     
 }
@@ -248,8 +253,8 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-
-     
+    
+    
     self.rTitleView.alpha =  (scrollView.contentOffset.y/44.);
     
 }
@@ -257,7 +262,7 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
 #pragma mark- SDCycleScrollViewDelegate
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
-
+    
     NSLog(@"dddd === %zd",index) ;
 }
 
@@ -295,36 +300,36 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
 }
 
 -(JYLoanFootVew*)rTableFootView {
-
+    
     if (_rTableFootView == nil) {
         _rTableFootView = [[JYLoanFootVew alloc]init];
         _rTableFootView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 130) ;
         _rTableFootView.backgroundColor = [UIColor clearColor] ;
         
         @weakify(self)
-    [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self)
-        JYLoanInfoController *infoVC = [[JYLoanInfoController alloc]init];
-        [self.navigationController pushViewController:infoVC animated:YES] ;
-    }] ;
+        [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self)
+            JYLoanInfoController *infoVC = [[JYLoanInfoController alloc]init];
+            [self.navigationController pushViewController:infoVC animated:YES] ;
+        }] ;
     }
     
     return _rTableFootView ;
-
+    
 }
 
 -(UILabel*)rTitleLabel {
-
+    
     if (_rTitleLabel == nil) {
         _rTitleLabel = [self jyCreateLabelWithTitle:@"首页" font:18 color:[UIColor whiteColor] align:NSTextAlignmentCenter] ;
-
+        
         _rTitleLabel.backgroundColor = [UIColor clearColor] ;
     }
     return _rTitleLabel ;
 }
 
 -(UIView*)rTitleView {
-
+    
     if (_rTitleView == nil) {
         _rTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
         _rTitleView.backgroundColor = kBlueColor ;
@@ -335,9 +340,35 @@ static NSString *rCellTitles[] = {@"每月最低还款（元）",@"此次申请�
             make.left.right.bottom.equalTo(_rTitleView) ;
             make.height.mas_equalTo(44) ;
         }] ;
-     }
+    }
     
     return _rTitleView ;
+}
+
+-(UIButton*)rMessageButton {
+    
+    if (_rMessageButton == nil) {
+        _rMessageButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+        _rMessageButton.backgroundColor = [UIColor clearColor] ;
+        
+        _rMessageButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter ;
+        [_rMessageButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight] ;
+        
+        [_rMessageButton setImage:[UIImage imageNamed:@"nav_message"] forState:UIControlStateNormal] ;
+        [_rMessageButton setImage:[[UIImage imageNamed:@"nav_message"] jy_imageWithTintColor:UIColorFromRGB(0xe5e5e5)] forState:UIControlStateHighlighted];
+        
+        @weakify(self)
+        [[_rMessageButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self)
+            
+            JYMessageVController *message = [[JYMessageVController alloc]init];
+            [self.navigationController pushViewController:message animated:YES];
+            
+        }] ;
+        
+    }
+    
+    return _rMessageButton ;
 }
 
 

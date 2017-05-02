@@ -273,7 +273,9 @@
     
     if (_rBankImg == nil) {
         _rBankImg = [[UIImageView alloc]init];
-        _rBankImg.backgroundColor = [UIColor lightGrayColor] ;
+        _rBankImg.backgroundColor = [UIColor clearColor] ;
+        _rBankImg.image = [UIImage imageNamed:@"01030000"] ;
+;
         
     }
     return _rBankImg ;

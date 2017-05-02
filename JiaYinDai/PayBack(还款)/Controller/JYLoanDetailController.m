@@ -11,9 +11,7 @@
 #import "JYPayBackController.h"
 #import "JYRecordPayController.h"
 
-
-
-
+ 
 @interface JYLoanDetailController ()<UITableViewDelegate,UITableViewDataSource>{
     
     BOOL rIsOver ;
@@ -39,7 +37,9 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.barTintColor = kBlueColor;
+    //    self.navigationController.navigationBar.barTintColor = kBlueColor;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forBarMetrics:UIBarMetricsDefault];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -48,15 +48,14 @@
     
     if (rIsOver) {
         
-        self.navigationController.navigationBar.barTintColor = kOrangewColor;
+        //        self.navigationController.navigationBar.barTintColor = kOrangewColor;
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage jy_imageWithColor:kOrangewColor] forBarMetrics:UIBarMetricsDefault];
+        
     }else{
-        self.navigationController.navigationBar.barTintColor = kBlueColor;
+        //        self.navigationController.navigationBar.barTintColor = kBlueColor;
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forBarMetrics:UIBarMetricsDefault];
         
     }
-    //    self.navigationController.navigationBar.tintColor = [UIColor redColor];
-    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-    
-    
     
 }
 

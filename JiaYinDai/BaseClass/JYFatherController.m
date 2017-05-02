@@ -8,17 +8,6 @@
 
 #import "JYFatherController.h"
 
-/************************* 导航栏宏定义 *************************/
-#define NAV_TITLE_COLOR [UIColor whiteColor]
-#define NAV_TITLE_FONT [UIFont systemFontOfSize:18.0]
-#define NAV_BACKGROUND_COLOR  [UIColor whiteColor]
-#define NAV_BUTTON_WIDTH 80.0
-#define NAV_BUTTON_HEIGHT 44.0
-#define NAV_BUTTON_FONT [UIFont systemFontOfSize:15.0]
-#define NAV_BUTTON_COLOR [UIColor whiteColor]
-#define NAV_LEFTBUTTON_ICON [UIImage imageNamed:@"return"]
-#define NAV_HEIGHT 64.0
-
 
 @interface JYFatherController ()
 
@@ -45,11 +34,11 @@
     //    //导航栏标题颜色和字体大小
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18], NSFontAttributeName,nil]];
     //    //导航栏背景颜色设置
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage jy_imageWithColor:kBlueColor] forBarMetrics:UIBarMetricsDefault];
     
-    self.navigationController.navigationBar.barTintColor = kBlueColor;
+//    self.navigationController.navigationBar.barTintColor = kBlueColor;
 
-    self.navigationController.navigationBar.shadowImage = [UIImage jy_imageWithColor:[UIColor clearColor]];
+    self.navigationController.navigationBar.shadowImage = [UIImage new] ;// [UIImage jy_imageWithColor:kBlueColor];
     
     
     [self setNavLeftButtonWithImage:NAV_LEFTBUTTON_ICON title:@""];
