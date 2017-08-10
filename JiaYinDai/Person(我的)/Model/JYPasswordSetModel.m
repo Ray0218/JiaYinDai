@@ -28,4 +28,23 @@
     return self;
 }
 
+
+- (instancetype)initWithTitle:(NSString*)title fieldText:(NSString*)text placeHolder:(NSString*)place hasCode:(BOOL)hasCode pickerArr:(NSArray*)pickerArr{
+
+
+    self = [super init];
+    if (self) {
+        
+        self.rTitle = title ;
+        self.rTFTitle =text ;
+        self.rTFPlaceholder = place ;
+        self.rHasCode = hasCode ;
+        
+        self.rPickerArray = [NSArray arrayWithArray:pickerArr] ;
+    }
+    return self;
+
+}
+
+
 @end

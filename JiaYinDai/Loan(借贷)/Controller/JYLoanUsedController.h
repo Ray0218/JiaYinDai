@@ -8,6 +8,15 @@
 
 #import "JYFatherController.h"
 
+
+typedef void(^JYLoanUsedBlock)(NSString *rTitle,NSString *rDetail);
+
 @interface JYLoanUsedController : JYFatherController
+
+@property (nonatomic ,copy) JYLoanUsedBlock rUsedBlock ;
+
+@property (nonatomic ,strong) NSString *rTitleStr ;
+@property (nonatomic ,strong) NSString *rDetailStr ;
+
 
 @end

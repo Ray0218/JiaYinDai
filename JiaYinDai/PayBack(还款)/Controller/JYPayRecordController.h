@@ -6,14 +6,18 @@
 //  Copyright © 2017年 嘉远控股. All rights reserved.
 //
 
-#import "JYFatherTableController.h"
-
-@interface JYPayRecordController : JYFatherTableController
+#import "JYFatherController.h"
+#import "JYDGetRepaybillModel.h"
+@interface JYPayRecordController : JYFatherController
 
 @end
 
 
 
 @interface JYPayRecordCell : UITableViewCell
+
+
+
+@property (nonatomic ,strong)JYDGetRepaybillModel *rGetRepaybillModel ;
 
 @end

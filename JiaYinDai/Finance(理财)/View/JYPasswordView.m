@@ -50,7 +50,7 @@
     //生成中间的点
     for (int i = 0; i < kDotCount; i++) {
         UIView *dotView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.textField.frame) + (width - kDotCount) / 2 + i * width, CGRectGetMinY(self.textField.frame) + (K_Field_Height - kDotSize.height) / 2, kDotSize.width, kDotSize.height)];
-        dotView.backgroundColor = [UIColor blackColor];
+        dotView.backgroundColor = kBlackColor;
         dotView.layer.cornerRadius = kDotSize.width / 2.0f;
         dotView.clipsToBounds = YES;
         dotView.hidden = YES; //先隐藏
@@ -62,8 +62,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    NSLog(@"变化%@", string);
-    if([string isEqualToString:@"\n"]) {
+     if([string isEqualToString:@"\n"]) {
         //按回车关闭键盘
         [textField resignFirstResponder];
         return NO;
@@ -73,7 +72,7 @@
     }
     else if(textField.text.length >= kDotCount) {
         //输入的字符个数大于6，则无法继续输入，返回NO表示禁止输入
-        NSLog(@"输入的字符个数大于6，忽略输入");
+//        NSLog(@"输入的字符个数大于6，忽略输入");
         return NO;
     } else {
         return YES;
@@ -94,7 +93,7 @@
  */
 - (void)textFieldDidChange:(UITextField *)textField
 {
-    NSLog(@"%@", textField.text);
+//    NSLog(@"%@", textField.text);
     for (UIView *dotView in self.dotArray) {
         dotView.hidden = YES;
     }

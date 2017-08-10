@@ -28,7 +28,7 @@
         
         self.backgroundColor = [UIColor whiteColor] ;
         [self builSubViewsUI];
-        
+        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pvt_back)]] ;
      }
     return self;
 }
@@ -41,7 +41,12 @@
 }
 
 
-
+-(void)pvt_back {
+    
+     if (self.rReturnBlock) {
+        self.rReturnBlock() ;
+    }
+}
 
 -(void)builSubViewsUI {
     
@@ -96,10 +101,6 @@
 }
 
 
-
-
-
-
 - (void)startTimeGCD
 {
  
@@ -130,12 +131,10 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                
-                if (self.rReturnBlock) {
+                 if (self.rReturnBlock) {
                     self.rReturnBlock() ;
                 }
-                
-                
+                 
             });
             
         }else{

@@ -51,6 +51,40 @@
     return self ;
 }
 
+-(void)setRDataModel:(JYBillListModel *)rDataModel {
+
+    _rDataModel = [rDataModel copy] ;
+    
+    self.rTitleLabel.text = rDataModel.type ;
+    self.rStateLabel.text = rDataModel.status ;
+    self.rTimeLabel.text = TTTimeString(rDataModel.createTime) ;
+    
+    
+    if ([rDataModel.accountType isEqualToString:@"1"] || [rDataModel.accountType isEqualToString:@"4"] || [rDataModel.accountType isEqualToString:@"5"]) {
+        self.rMoneyLabel.text = [NSString stringWithFormat:@"+%.2f", [rDataModel.amount doubleValue]] ;
+    }else{
+        
+        self.rMoneyLabel.text = [NSString stringWithFormat:@"-%.2f", [rDataModel.amount doubleValue]] ;
+    }
+    
+    
+    
+    self.rLeftImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"bill_state%zd",[rDataModel.accountType intValue]+1]] ;
+    
+     
+    if ([rDataModel.state containsString:@"2"]) {
+        [self setCellColor:kTextBlackColor] ;
+
+    }else if ([rDataModel.accountType isEqualToString:@"1"] || [rDataModel.accountType isEqualToString:@"4"] || [rDataModel.accountType isEqualToString:@"5"]) {
+        [self setCellColor:kBlueColor] ;
+    }else{
+    
+        [self setCellColor:kOrangewColor];
+     }
+
+
+}
+
 -(void)setCellColor:(UIColor*) colorStyle {
     
     self.rStateLabel.textColor =
@@ -265,8 +299,9 @@
     for (int i = 0; i < 3; i ++) {
         UIButton *bt =[UIButton buttonWithType:UIButtonTypeCustom] ;
         bt.backgroundColor = [UIColor clearColor] ;
-        [bt setTitleColor:kTextBlackColor forState:UIControlStateNormal];
-        [bt setTitle:@"ddd" forState:UIControlStateNormal] ;
+        [bt setTitleColor:kBlackColor forState:UIControlStateNormal];
+        [bt setTitle:@"" forState:UIControlStateNormal] ;
+        bt.titleLabel.font = [UIFont systemFontOfSize:16] ;
         [self.contentView addSubview:bt];
         bt.tag = 999+ i ;
         [bt addTarget:self action:@selector(pvt_select:) forControlEvents:UIControlEventTouchUpInside] ;

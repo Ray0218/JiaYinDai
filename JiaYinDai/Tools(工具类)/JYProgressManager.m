@@ -15,20 +15,20 @@
 
 #define kDefaultView [[UIApplication sharedApplication] keyWindow]
 
-#define kGloomyBlackColor  [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65]
+#define kGloomyBlackColor  [UIColor clearColor]
+
 #define kGloomyClearCloler  [UIColor colorWithRed:1 green:1 blue:1 alpha:0]
 
 /* 默认网络提示，可在这统一修改 */
-static NSString *const kLoadingMessage = @"加载中";
+static NSString *const kLoadingMessage = @"加载中...";
 
-/* 默认简短提示语显示的时间，在这统一修改 */
-static CGFloat const   kShowTime  = 2.0f;
 
 /* 默认超时时间，30s后自动去除提示框 */
 static NSTimeInterval const interval = 30.0f;
 
 /* 手势是否可用，默认yes，轻触屏幕提示框隐藏 */
 static BOOL isAvalibleTouch = YES;
+
 
 
 
@@ -50,16 +50,29 @@ BOOL isShowGloomy;//是否显示深色背景
     gloomyView.backgroundColor = kGloomyBlackColor;
     gloomyView.hidden = YES;
     isShowGloomy = YES;
+    
+    gloomyView.userInteractionEnabled = YES ;
 }
 + (void)showGloomy:(BOOL)isShow {
     isShowGloomy = isShow;
 }
 #pragma mark - 简短提示语
 + (void) showBriefAlert:(NSString *) message inView:(UIView *) view{
+    
+    if (message.length <= 0) {
+        return ;
+    }
+    
+    [self hideAlert] ;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         prestrainView = view;
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view ?:kDefaultView animated:YES];
-        hud.labelText = message;
+        //        hud.labelText = message;
+        
+        hud.detailsLabelText = message;
+        hud.detailsLabelFont = [UIFont systemFontOfSize:16] ;
+        
         hud.animationType = MBProgressHUDAnimationZoom;
         hud.mode = MBProgressHUDModeText;
         hud.margin = 15.f;
@@ -87,6 +100,9 @@ BOOL isShowGloomy;//是否显示深色背景
 }
 #pragma mark - 网络加载提示用
 + (void) showLoadingInView:(UIView *) view{
+    
+    [self hideAlert] ;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         prestrainView = view;
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:gloomyView];
@@ -105,10 +121,16 @@ BOOL isShowGloomy;//是否显示深色背景
     });
 }
 + (void)showWaitingWithTitle:(NSString *)title inView:(UIView *)view {
+    
+    
+    [self hideAlert] ;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         prestrainView = view;
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:gloomyView];
         hud.labelText = title;
+        
+         hud.userInteractionEnabled = NO ;
         hud.removeFromSuperViewOnHide = YES;
         gloomyView.frame = view ? CGRectMake(0, 0, view.frame.size.width, view.frame.size.height):
         kDefaultRect;
@@ -184,22 +206,31 @@ BOOL isShowGloomy;//是否显示深色背景
 +(void)hideAlert{
     dispatch_async(dispatch_get_main_queue(), ^{
         MBProgressHUD *hud = [JYProgressManager HUDForView:gloomyView];
-        [UIView animateWithDuration:0.5 animations:^{
-            gloomyView.frame = CGRectZero;
-            gloomyView.center = prestrainView ? prestrainView.center: [UIApplication sharedApplication].keyWindow.center;
-            gloomyView.alpha = 0;
-            hud.alpha = 0;
-        } completion:^(BOOL finished) {
-            [hud removeFromSuperview];
-        }];
+        
+        gloomyView.frame = CGRectZero;
+        gloomyView.center = prestrainView ? prestrainView.center: [UIApplication sharedApplication].keyWindow.center;
+        gloomyView.alpha = 0;
+        hud.alpha = 0;
+        [hud removeFromSuperview];
+        
     });
     
 }
+
+
++(BOOL)isShowingHUD {
+    
+    MBProgressHUD *hud = [JYProgressManager HUDForView:gloomyView];
+    
+    return  hud ;
+    
+}
+
 #pragma mark -   超时后（默认30s）自动隐藏加载提示
 + (void)hideAlertDelay {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self hideAlert];
-    });
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        [self hideAlert];
+    //    });
 }
 #pragma mark -   获取view上的hud
 + (MBProgressHUD *)HUDForView:(UIView *)view {
@@ -216,10 +247,31 @@ BOOL isShowGloomy;//是否显示深色背景
 
 @implementation GloomyView
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (isAvalibleTouch) {
-        [JYProgressManager hideAlert];
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
     }
+    return self;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    //    if (isAvalibleTouch) {
+    //        [JYProgressManager hideAlert];
+    //    }
+}
+
+
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    
+    return  NO ;
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    
+    return  NO ;
 }
 
 @end

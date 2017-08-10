@@ -41,6 +41,27 @@
     
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pvt_dissMiss)]] ;
     
+    
+    
+    
+    [[rTextField.rac_textSignal filter:^BOOL(NSString *value) { //验证码
+        
+        return value.length > 6 ;
+        
+    }]subscribeNext:^(NSString* x) {
+        rTextField.text = [x substringToIndex:6] ;
+    }] ;
+    
+    
+    [[RACSignal combineLatest:@[rTextField.rac_textSignal] reduce:^(NSString* servicePass){
+        
+        return @(servicePass.length > 0 );
+    }] subscribeNext:^(NSNumber* x) {
+        
+        rCommitBtn.enabled = [x boolValue] ;
+    }];
+
+    
 }
 
 -(void)builSubViewsUI {
@@ -60,9 +81,9 @@
     
     
     if (rType == JYCodeAlterTypeNormal) {
-        rDescLabel = [self jyCreateLabelWithTitle:@"请输入验证码" font:14 color:kTextBlackColor align:NSTextAlignmentCenter] ;
+        rDescLabel = [self jyCreateLabelWithTitle:@"请输入验证码或密码" font:14 color:kTextBlackColor align:NSTextAlignmentCenter] ;
     }else{
-        rDescLabel = [self jyCreateLabelWithTitle:@"请再次输入验证码" font:14 color:kTextBlackColor align:NSTextAlignmentCenter] ;
+        rDescLabel = [self jyCreateLabelWithTitle:@"请再次输入验证码或密码" font:14 color:kTextBlackColor align:NSTextAlignmentCenter] ;
         
     }
     [self.view addSubview:rDescLabel];
@@ -71,13 +92,14 @@
     rTextField = [[UITextField alloc]init];
     
     if (rType == JYCodeAlterTypeNormal) {
-        rTextField.placeholder = @"请输入验证码" ;
+        rTextField.placeholder = @"请输入验证码或密码" ;
         
     }else{
-        rTextField.placeholder = @"请再次输入验证码" ;
+        rTextField.placeholder = @"请再次输入验证码或密码" ;
         
     }
     rTextField.font = [UIFont systemFontOfSize:16] ;
+    rTextField.keyboardType = UIKeyboardTypeNumberPad ;
     rTextField.layer.borderColor = kLineColor.CGColor ;
     rTextField.layer.borderWidth = 1 ;
     rTextField.leftViewMode= UITextFieldViewModeAlways ;
@@ -91,7 +113,8 @@
     
     
     rCommitBtn = [self jyCreateButtonWithTitle:@"确认"] ;
-    [rCommitBtn addTarget:self action:@selector(pvt_dissMiss) forControlEvents:UIControlEventTouchUpInside] ;
+    rCommitBtn.enabled = NO ;
+    [rCommitBtn addTarget:self action:@selector(pvt_commit) forControlEvents:UIControlEventTouchUpInside] ;
     [self.view addSubview:rCommitBtn];
     
     
@@ -145,8 +168,17 @@
 
 -(void)pvt_dissMiss{
     
+     
     [self dismissViewControllerAnimated:YES completion:nil];
     
+}
+
+-(void)pvt_commit {
+
+    if (self.rCodeBlock) {
+        self.rCodeBlock(rTextField.text) ;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,8 +8,37 @@
 
 #import "JYUserModel.h"
 
+@implementation JYFundInfoModel
+
+ 
+
+@end
+
+/*
+@implementation JYCustomer
+
+ 
+
+@end
+ */
+
 @implementation JYUserModel
 
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+
+    return  YES ;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _rBankModelArr = [NSMutableArray array] ;
+        
+     }
+    return self;
+}
 
 
+ 
 @end

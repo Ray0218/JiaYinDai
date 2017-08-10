@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, JYPernfoCellType) {
-    JYPernfoCellTypeNormal , //
+    JYPernfoCellTypeNormal , // 有右侧箭头
 
-    JYPernfoCellTypeHeader,
-    JYPernfoCellTypeCode,
-    JYPernfoCellTypeName,
+    JYPernfoCellTypeHeader, //头像
+    JYPernfoCellTypeCode, //二维码
+    JYPernfoCellTypeName, //姓名
 };
 
 @interface JYPersonInfoCell : UITableViewCell

@@ -8,8 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JYFatherController : UIViewController
+typedef NS_ENUM(NSUInteger, JYMaskPosition) {
+    JYMaskPositionTopRight,
+    JYMaskPositionTopCenter,
+    JYMaskPositionCenter,
+};
 
+
+
+@interface JYFatherController : UIViewController<UIGestureRecognizerDelegate>
+
+
+
+@property (nonatomic ,strong,readonly) UIButton *rQuestButton ; //常见问题
+
+@property (nonatomic ,strong,readonly) UIButton *rTelButton ;//联系客服
+
+
+ 
+ 
  
 - (void)setNavRightButtonWithImage:(UIImage *)image title:(NSString *)title  ;
 
@@ -20,7 +37,21 @@
 - (void)pvt_clickButtonNavLeft ;
 //点击导航栏右按钮
 - (void)pvt_clickButtonNavRight  ;
+
+//停止刷新
+-(void)pvt_endRefresh ;
+
+
+-(void)pvt_quest  ;
+
+
+ -(void)pvt_dismissGuideView:(UIGestureRecognizer*)gesture  ;
  
+- (void)pvt_addGuideView:(NSString*) imageName  View:(UIView*)view Position:(JYMaskPosition) position ;
+
+
+
+-(void)pvt_loadData ;
 
 @end
 

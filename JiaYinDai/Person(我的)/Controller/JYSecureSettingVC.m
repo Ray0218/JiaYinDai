@@ -28,7 +28,11 @@
     self.title = @"安全设置" ;
     [self buildSubViewUI];
     
-    rTitlesArray = [NSArray arrayWithObjects:@[@"修改登录密码",@"修改交易密码",@"更换手机"],@[@"修改公积金账户"], nil] ;
+//    rTitlesArray = [NSArray arrayWithObjects:@[@"修改登录密码",@"修改交易密码",@"更换手机"],
+    rTitlesArray = [NSArray arrayWithObjects:@[@"修改登录密码",@"修改交易密码"],
+
+//  @[@"修改公积金账户"],
+                    nil] ;
     
 }
 
@@ -72,7 +76,12 @@
     cell.rTitleLabel.text = title ;
     
     if (indexPath.section == 0 && indexPath.row == 2) {
-        cell.rDetailLabel.text = @"138****0798" ;
+        
+        
+        JYUserModel *user = [JYSingtonCenter shareCenter].rUserModel ;
+        if (user.cellphone.length >=11) {
+            cell.rDetailLabel.text = [user.cellphone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"] ;
+        }
     }else{
         cell.rDetailLabel.text = @"" ;
     }

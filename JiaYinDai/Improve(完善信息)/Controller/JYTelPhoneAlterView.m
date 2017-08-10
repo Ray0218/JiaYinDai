@@ -42,7 +42,7 @@
     [_backgroundView addSubview:rCommitBtn];
     
     
-    rDescLabel = [self jyCreateLabelWithTitle:@"服务密码是本人手机号预留在（移动、联通、电信）等运营商中的一种密码，用来查询办理业务。如已忘记请联系运营商客服。" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+    rDescLabel = [self jyCreateLabelWithTitle:@"服务密码是本人手机号码预留在运营商中的一种密码，用来查询办理业务。重置方式：\n浙江电信发送\"503\"至10001。\n浙江移动发送\"2010\"至10086；\n浙江联通编辑\"MMCZ#6位新密码#证件号后6位\"发送至10010；\n(备注：各归属地运营商重置方式或有不同，如有疑义请致电归属地客服。" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     rDescLabel.numberOfLines = 0 ;
     [UILabel changeLineSpaceForLabel:rDescLabel WithSpace:10] ;
     
@@ -79,6 +79,9 @@
 #pragma mark- action
 
 -(void)pvt_dissMiss{
+    
+    
+     
     
     [self dismissViewControllerAnimated:YES completion:nil];
     

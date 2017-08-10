@@ -26,8 +26,7 @@
     self.title = @"收益记录" ;
     [self buildSubViewUI];
     
-     
-}
+ }
 
 
 #pragma mark - builUI

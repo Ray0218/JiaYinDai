@@ -15,4 +15,12 @@
 
 @property (nonatomic ,strong) JYUserModel *rUserModel ;
 
-@end
+
+
+-(void)pvt_autoLoginSuccess:(void (^)())logsuccess failure:(void (^)( ))logfailure ;
+
+
++ (NSString *)getDeviceName ;
+
+
+ @end

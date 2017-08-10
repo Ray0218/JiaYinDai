@@ -6,8 +6,8 @@
 //  Copyright © 2017年 嘉远控股. All rights reserved.
 //
 
-#import "JYFatherTableController.h"
+#import "JYFatherController.h"
 
-@interface JYLoanApplyController : JYFatherTableController
+@interface JYLoanApplyController : JYFatherController
 
 @end

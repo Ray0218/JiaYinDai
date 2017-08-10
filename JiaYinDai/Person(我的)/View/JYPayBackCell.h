@@ -29,6 +29,9 @@ typedef NS_ENUM(NSUInteger, JYPayBackCellType) {
 @property (nonatomic, strong,readonly) UITextField*rTextField  ;
 
 
+@property (nonatomic, strong,readonly) UISwitch *rSwitch ;
+
+
 
 -(instancetype)initWithCellType:(JYPayBackCellType)type reuseIdentifier:(NSString *)reuseIdentifier  ;
 

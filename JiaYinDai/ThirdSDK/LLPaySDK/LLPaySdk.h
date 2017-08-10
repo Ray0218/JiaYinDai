@@ -77,12 +77,23 @@ typedef NS_ENUM(NSUInteger, LLPayType) {
  *  连连支付 支付接口
  *
  *  @param viewController 推出连连支付支付界面的ViewController
- *  @param payType        连连支付类型:LLPayType
+ *  @param payType        连连支付类型:LLPayType （快捷支付、认证支付、预授权支付、游易付、实名快捷支付、车易付）
  *  @param traderInfo     交易信息
  */
 - (void)presentLLPaySDKInViewController: (UIViewController *)viewController
                             withPayType: (LLPayType)payType
                           andTraderInfo: (NSDictionary *)traderInfo;
+
+/**
+ *  连连支付 签约接口
+ *
+ *  @param viewController 推出连连支付签约界面的ViewController
+ *  @param payType        连连支付类型:LLPayType（签约支持快捷签约、认证签约、实名快捷签约）
+ *  @param traderInfo     交易信息
+ */
+- (void)presentLLPaySignInViewController: (UIViewController *)viewController
+                             withPayType: (LLPayType)payType
+                           andTraderInfo: (NSDictionary *)traderInfo;
 
 
 /**

@@ -8,8 +8,13 @@
 
 #import "JYSupportBankController.h"
 
+
 @interface JYSupportBankController ()<UITableViewDelegate,UITableViewDataSource>
+
 @property (nonatomic ,strong) UITableView *rTableView ;
+
+@property (nonatomic ,strong) NSMutableArray *rDataArray ;
+
 
 
 @end
@@ -20,7 +25,29 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"支持银行" ;
+    
+    self.rDataArray = [NSMutableArray array] ;
     [self buildSubViewUI];
+    
+    [self loadBankData];
+}
+
+-(void)loadBankData {
+    
+    
+    [[AFHTTPSessionManager jy_sharedManager]POST:kBankSupportURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSArray *bankList = responseObject[@"payBankList"] ;
+        
+        
+        [self.rDataArray  addObjectsFromArray:[JYBankModel arrayOfModelsFromDictionaries:bankList error:nil]] ;
+        [self.rTableView reloadData];
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+    
 }
 
 
@@ -38,7 +65,7 @@
 #pragma mark- UITableViewDataSource/UITableViewDelegate
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20 ;
+    return self.rDataArray.count ;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -54,14 +81,19 @@
     }
     
     
+    JYBankModel *mode = self.rDataArray[indexPath.row] ;
+    cell.rBankModel = mode ;
+    
     return cell ;
     
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
+    
+    JYBankModel *model = self.rDataArray[indexPath.row] ;
     if (self.rSelectBlock  ) {
-        self.rSelectBlock(@"农业银行") ;
+        self.rSelectBlock(model) ;
     }
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -78,7 +110,7 @@
         _rTableView.rowHeight = UITableViewAutomaticDimension;
         _rTableView.delegate = self ;
         _rTableView.dataSource = self ;
-         _rTableView.separatorInset = UIEdgeInsetsZero ;
+        _rTableView.separatorInset = UIEdgeInsetsZero ;
         _rTableView.tableFooterView = [UIView new];
         
     }
@@ -92,14 +124,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
 
@@ -116,7 +148,7 @@
 @implementation JYSupportBankCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-
+    
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier] ;
     
     if (self) {
@@ -127,11 +159,22 @@
     return self ;
 }
 
+-(void)setRBankModel:(JYBankModel *)rBankModel {
+    _rBankModel = [rBankModel copy] ;
+    
+    self.rBankImg.image = [UIImage imageNamed:rBankModel.bankNo] ;
+    
+    self.rBankName.text = rBankModel.bankName ;
+    
+    self.rOneMaxLabel.text = [NSString stringWithFormat:@"单笔限额：%@",rBankModel.singleLimit] ;
+    self.rDayMaxLabel.text = [NSString stringWithFormat:@"单日限额：%@",rBankModel.dayLimit] ;
+}
+
 
 -(void)buildSubViewsUI {
     
     
-     [self.contentView addSubview:self.rBankImg];
+    [self.contentView addSubview:self.rBankImg];
     [self.contentView addSubview:self.rBankName ];
     [self.contentView addSubview:self.rOneMaxLabel];
     [self.contentView addSubview:self.rDayMaxLabel];

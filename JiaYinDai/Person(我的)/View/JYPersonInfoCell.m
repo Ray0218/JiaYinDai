@@ -74,6 +74,7 @@
     [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(15) ;
         make.centerY.equalTo(self.contentView) ;
+        make.width.mas_greaterThanOrEqualTo(60) ;
     }] ;
     
     if (rCellType == JYPernfoCellTypeHeader) {
@@ -96,6 +97,7 @@
         [self.rDetailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(-15) ;
             make.centerY.equalTo(self.contentView) ;
+            make.left.equalTo(self.rTitleLabel.mas_right).offset(5) ;
             
         }] ;
     }else{
@@ -120,14 +122,14 @@
 -(UILabel*)rTitleLabel {
     
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"头像" font:18 color:[UIColor blackColor] align:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"头像" font:16 color:kBlackColor align:NSTextAlignmentLeft] ;
     }
     return _rTitleLabel ;
 }
 
 -(UILabel*)rDetailLabel {
     if (_rDetailLabel == nil) {
-        _rDetailLabel = [self jyCreateLabelWithTitle:@"男" font:16 color:kTextBlackColor align:NSTextAlignmentRight] ;
+        _rDetailLabel = [self jyCreateLabelWithTitle:@"" font:14 color:kTextBlackColor align:NSTextAlignmentRight] ;
     }
     
     return _rDetailLabel ;
@@ -137,7 +139,7 @@
     
     if (_rRightImgView == nil) {
         _rRightImgView = [[UIImageView alloc]init];
-        _rRightImgView.backgroundColor = [UIColor lightGrayColor] ;
+        _rRightImgView.backgroundColor = [UIColor clearColor] ;
     }
     
     return _rRightImgView ;
@@ -146,7 +148,7 @@
 -(UIImageView*)rArrowView {
     
     if (_rArrowView == nil) {
-        _rArrowView = [[UIImageView alloc]initWithImage:[[UIImage imageNamed:@"more"] jy_imageWithTintColor:[UIColor blackColor]]] ;
+        _rArrowView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"more"] ] ;
     }
     
     return _rArrowView ;

@@ -15,6 +15,11 @@
  @property (nonatomic,strong) NSString *rTFPlaceholder ; //输入框默认文字
 @property (nonatomic,assign) BOOL  rHasCode ; //是否有验证码按钮
 
+@property (nonatomic ,strong) NSArray *rPickerArray ;
+
 - (instancetype)initWithTitle:(NSString*)title fieldText:(NSString*)text placeHolder:(NSString*)place hasCode:(BOOL)hasCode ;
+
+- (instancetype)initWithTitle:(NSString*)title fieldText:(NSString*)text placeHolder:(NSString*)place hasCode:(BOOL)hasCode pickerArr:(NSArray*)pickerArr;
+
 
 @end

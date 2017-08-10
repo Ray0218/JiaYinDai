@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JYApplyRecordModel.h"
+
+ 
 
 @interface JYLoanApplyCell : UITableViewCell
+
+
+@property (nonatomic ,strong) JYApplyRecordModel *rDataModel ;
+
 
 @end

@@ -9,7 +9,8 @@
 #import "JYBalanceController.h"
 #import "JYChargeController.h"
 #import "JYDrawController.h"
-
+#import "JYBankIdentifyController.h"
+#import "JYBankModel.h"
 
 @interface JYBalanceController (){
     
@@ -29,7 +30,7 @@
 
 @property (nonatomic, strong)UILabel *rDescLabel ;
 
- @property (nonatomic, strong)UILabel *rRightLabel ;
+@property (nonatomic, strong)UILabel *rRightLabel ;
 
 
 @property (nonatomic, strong)UIButton *rDrawButton ; //提现
@@ -48,6 +49,45 @@
     // Do any additional setup after loading the view.
     self.title = @"我的余额" ;
     [self buildSubViewUI];
+    
+    [self rLoadData];
+    
+    [self pvt_loadData];
+}
+
+
+-(void)pvt_loadData {
+    
+    @weakify(self)
+    [[AFHTTPSessionManager jy_sharedManager]POST:kGetMyAccountURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        @strongify(self)
+        NSDictionary *dataDic = responseObject[@"data"] ;
+        
+        if (dataDic) {
+            
+            JYUserModel *user = [JYSingtonCenter shareCenter].rUserModel ;
+            [user.fundInfo mergeFromDictionary:dataDic useKeyMapping:NO error:nil];
+            
+            [self rLoadData];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+    
+}
+
+
+
+
+-(void)rLoadData {
+    
+    JYUserModel *user = [JYSingtonCenter shareCenter].rUserModel ;
+    
+    self.rMoneyLabel.text = [NSString stringWithFormat:@"%.2f",[user.fundInfo.currentAmount doubleValue]] ;
+    self.rRightLabel.text = [NSString stringWithFormat:@"%.2f", [user.fundInfo.usableAmount doubleValue]] ;
+    
+    
 }
 
 -(void)buildSubViewUI {
@@ -63,7 +103,7 @@
     
     [self.rContentView addSubview:self.rHeaderBgView];
     
-    rTitleLabel = [self jyCreateLabelWithTitle:@"账户余额(元)" font:16 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
+    rTitleLabel = [self jyCreateLabelWithTitle:@"账户余额(元)" font:14 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
     [self.rContentView addSubview:rTitleLabel];
     
     [self.rContentView addSubview:self.rMoneyLabel];
@@ -131,7 +171,7 @@
         make.centerY.equalTo(rBgView) ;
         make.width.mas_equalTo(25) ;
         make.height.mas_equalTo(20) ;
-
+        
     }] ;
     
     [self.rDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -162,7 +202,73 @@
     
     
     [super updateViewConstraints];
+    
+}
 
+#pragma mark- action
+
+-(void)pvt_chargeAction {
+    
+    JYUserModel *user = [JYSingtonCenter shareCenter].rUserModel ;
+    
+    NSArray *auditItem = [user.auditItem componentsSeparatedByString:@","] ;
+    
+    if ([auditItem containsObject:@"1"]) {
+        
+        JYChargeController *vc = [[JYChargeController alloc]init];
+        [self.navigationController pushViewController:vc
+                                             animated:YES] ;
+    } else{
+        
+        [self gotToIdentify];
+    }
+    
+    
+    
+}
+
+-(void)pvt_drawAction {
+    
+    
+    
+    JYUserModel *user = [JYSingtonCenter shareCenter].rUserModel ;
+    NSArray *auditItem = [user.auditItem componentsSeparatedByString:@","] ;
+    
+    if ([auditItem containsObject:@"1"]) {
+        
+        
+        JYDrawController *vc = [[JYDrawController alloc]init];
+        [self.navigationController pushViewController:vc
+                                             animated:YES] ;
+    }else {
+        [self gotToIdentify] ;
+        
+    }
+    
+}
+
+-(void)gotToIdentify {
+    
+    JYUserModel *user = [JYSingtonCenter shareCenter].rUserModel ;
+    
+    NSArray *auditItem = [user.auditItem componentsSeparatedByString:@","] ;
+    
+    if ([auditItem containsObject:@"1B"]){
+        JYBankIdentifyController *identifyVC = [[JYBankIdentifyController  alloc]initWithHeaderType:JYIdentifyTypePassword] ;
+        [self.navigationController pushViewController:identifyVC animated:YES];
+        
+    }else if ([auditItem containsObject:@"1A"]){
+        JYBankIdentifyController *identifyVC = [[JYBankIdentifyController  alloc]initWithHeaderType:JYIdentifyTypeBank] ;
+        [self.navigationController pushViewController:identifyVC animated:YES];
+        
+    }else{
+        
+        JYBankIdentifyController *identifyVC = [[JYBankIdentifyController  alloc]initWithHeaderType:JYIdentifyTypeName] ;
+        [self.navigationController pushViewController:identifyVC animated:YES];
+    }
+    
+    
+    
 }
 
 #pragma mark- getter
@@ -198,7 +304,7 @@
 
 
 -(UIImageView*)rLeftImage {
-
+    
     if (_rLeftImage == nil) {
         _rLeftImage = [[UIImageView alloc]init];
         _rLeftImage.backgroundColor = [UIColor clearColor] ;
@@ -209,9 +315,9 @@
 }
 
 -(UILabel*)rDescLabel {
-
+    
     if (_rDescLabel == nil) {
-        _rDescLabel = [self jyCreateLabelWithTitle:@"可提现额度(元)" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rDescLabel = [self jyCreateLabelWithTitle:@"可提现额度(元)" font:16 color:kBlackColor align:NSTextAlignmentLeft] ;
     }
     
     return _rDescLabel ;
@@ -219,25 +325,25 @@
 
 
 -(UILabel*)rRightLabel {
-
+    
     if (_rRightLabel == nil) {
         _rRightLabel = [self jyCreateLabelWithTitle:@"1.25" font:14 color:kTextBlackColor align:NSTextAlignmentRight] ;
     }
     
-     return _rRightLabel ;
+    return _rRightLabel ;
 }
 
 -(UIButton*)rDrawButton {
     if (_rDrawButton == nil) {
         _rDrawButton = [self jyCreateButtonWithTitle:@"提现"] ;
-        _rDrawButton.backgroundColor = kOrangewColor ;
+        [_rDrawButton setBackgroundImage:[UIImage jy_imageWithColor:kOrangewColor] forState:UIControlStateNormal];
         @weakify(self)
-
+        
         [[_rDrawButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
             @strongify(self)
-            JYDrawController *vc = [[JYDrawController alloc]init];
-            [self.navigationController pushViewController:vc
-                                                 animated:YES] ;
+            
+            [self pvt_drawAction] ;
+            
         }] ;
     }
     
@@ -251,9 +357,7 @@
         @weakify(self)
         [[_rChargeButton rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
             @strongify(self)
-            JYChargeController *vc = [[JYChargeController alloc]init];
-            [self.navigationController pushViewController:vc
-                                                 animated:YES] ;
+            [self pvt_chargeAction] ;
         }] ;
     }
     

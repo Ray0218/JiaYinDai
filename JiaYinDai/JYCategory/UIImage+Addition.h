@@ -12,6 +12,10 @@
 
 + (UIImage *)jy_imageWithColor:(UIColor *)color  ;
 - (UIImage *)jy_imageWithTintColor:(UIColor *)tintColor  ;
+- (UIImage *)jy_resizedImageToSize:(CGSize)dstSize  ;
 
+
+
++(UIImage*)jy_logoQrCodeWithString:(NSString *) titleStr logo:(UIImage*)logo ;
 
 @end

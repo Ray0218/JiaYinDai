@@ -9,17 +9,23 @@
 #import "JYAddBankController.h"
 #import "JYPasswordCell.h"
 #import "JYLogInCell.h"
-
+#import "LLPaySdk.h"
 #import "JYSupportBankController.h"
+#import "JYLLPayMamager.h"
+#import "JYHTTPRequestSerializer.h"
 
-@interface JYAddBankController ()
+@interface JYAddBankController ()<LLPaySdkDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic ,strong)NSArray *rDataArray ;
 
 @property (nonatomic ,strong) JYLogFootView *rTableFootView ;
 
-@property (nonatomic ,strong) UITextField *rNameTextfield ;
+@property (nonatomic ,strong) UITableView *rTableView ;
+
+
 @property (nonatomic ,strong) UITextField *rBankNameField ;
 @property (nonatomic ,strong) UITextField *rBankCardField ;
+
+@property (nonatomic ,strong) JYBankModel *rBankModel ;
 
 
 @end
@@ -28,22 +34,24 @@
 
 -(void)viewDidAppear:(BOOL)animated  {
     [super viewDidAppear:animated];
+     
     
-        [[RACSignal  combineLatest:@[
-                                     self.rNameTextfield.rac_textSignal,
-                                     self.rBankNameField.rac_textSignal,
-                                     self.rBankCardField.rac_textSignal,
+    [[RACSignal  combineLatest:@[
+                                 self.rBankNameField.rac_textSignal,
+                                 self.rBankCardField.rac_textSignal,
+                                 
+                                 ]
+                        reduce:^(NSString *bankName,NSString *bankCard) {
+                            return @( bankName.length && bankCard.length );
+                            
+                        }] subscribeNext:^(NSNumber* x) {
+                            
+                            self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
+                        }];
     
-                                     ]
-                            reduce:^(NSString *username,NSString *bankName,NSString *bankCard) {
-                                return @(username.length && bankName.length && bankCard.length );
-                            }] subscribeNext:^(NSNumber* x) {
-    
-                                self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
-                            }];
     
     
-        
+    
 }
 
 
@@ -63,17 +71,18 @@
                        
                        nil];
     
+    
 }
 
 -(void)initializeTableView {
     
-    self.tableView.estimatedRowHeight = 45 ;
-    self.tableView.sectionHeaderHeight = 45 ;
-    self.tableView.rowHeight = UITableViewAutomaticDimension ;
-    self.tableView.tableFooterView =  self.rTableFootView ;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone ;
-    
+    [self.view addSubview:self.rTableView];
+    [self.rTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.insets(UIEdgeInsetsZero) ;
+    }] ;
 }
+
+
 
 
 #pragma mark- UITableViewDataSource/UITableViewDelegate
@@ -102,6 +111,7 @@
             
             cell = [[JYPasswordCell alloc] initWithCellType:JYPassCellTypeArrow reuseIdentifier:identifier];
             self.rBankNameField = cell.rTextField ;
+            cell.rRightArrow.enabled = NO ;
         }
         
         [cell setDataModel:model];
@@ -116,16 +126,25 @@
     if (cell  == nil) {
         
         cell = [[JYPasswordCell alloc] initWithCellType:JYPassCellTypeNormal reuseIdentifier:identifier];
+        cell.rTextField.keyboardType = UIKeyboardTypeNumberPad ;
     }
+    
+    
+    [cell setDataModel:model];
+    
     if (indexPath.section == 0) {
-        self.rNameTextfield = cell.rTextField ;
+        
+        JYUserModel *user = [JYSingtonCenter shareCenter].rUserModel ;
+        cell.rTextField.text = user.realName  ;
+        cell.rTextField.enabled = NO ;
+        
     }else{
+        cell.rTextField.enabled = YES ;
         
         self.rBankCardField = cell.rTextField ;
     }
     
     
-    [cell setDataModel:model];
     
     return cell ;
     
@@ -134,10 +153,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-   __block JYPasswordCell *cell = [self.tableView cellForRowAtIndexPath:indexPath] ;
+    __block JYPasswordCell *cell = [self.rTableView cellForRowAtIndexPath:indexPath] ;
+    
+    if (cell.rCellType != JYPassCellTypeArrow) {
+        return ;
+    }
+    @weakify(self)
     JYSupportBankController *vc = [[JYSupportBankController alloc]init];
-    vc.rSelectBlock = ^(NSString *bankName) {
-        cell.rTextField.text = bankName ;
+    vc.rSelectBlock = ^(JYBankModel *model) {
+        @strongify(self)
+        cell.rTextField.text = model.bankName ;
+        self.rBankModel = model ;
     } ;
     
     [self.navigationController pushViewController:vc animated:YES];
@@ -152,7 +178,7 @@
     UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
     if (headerView == nil) {
         headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
-        headerView.contentView.backgroundColor = [UIColor clearColor];
+        headerView.contentView.backgroundColor =  kBackGroundColor;
         headerView.backgroundView = ({
             UIView *view = [[UIView alloc]init] ;
             view.backgroundColor = [UIColor clearColor] ;
@@ -160,14 +186,191 @@
         });
     }
     if (section == 0) {
-        headerView.textLabel.text = @"持卡人信息" ;
+        headerView.textLabel.text = @"    持卡人信息" ;
     }else{
-        headerView.textLabel.text = @"请填写本人的储蓄卡信息" ;
+        headerView.textLabel.text = @"    请填写本人的储蓄卡信息" ;
     }
     return headerView ;
     
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+
+    return  0.01 ;
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 45 ;
+}
+
+#pragma mark- action
+
+-(void)pvt_checkBankNum {
+    
+     
+    
+     NSMutableDictionary *dic = [NSMutableDictionary dictionary] ;
+    
+    [dic setValue:self.rBankCardField.text forKey:@"cardNO"] ;
+    [dic setValue:self.rBankModel.bankNo forKey:@"bankNO"] ;
+
+    [dic setValue:self.rBankModel.bankName forKey:@"bankName"] ;
+
+    
+
+    [[AFHTTPSessionManager jy_sharedManager]POST:kBankCardVertifyURL parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+         
+        [self pvt_getBankcardbindlist] ;
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+
+
+}
+
+-(void)pvt_getBankcardbindlist {
+    
+      
+    [[AFHTTPSessionManager jy_sharedManager]POST:kBankBinListURL parameters:@{@"cardNo":self.rBankCardField.text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        
+        NSArray *agreementList = responseObject[@"data"] ;
+        
+        if (agreementList.count) {
+            
+            NSDictionary *dic = [agreementList firstObject];
+            
+            [self submitPayResult:dic];
+            
+        }else{
+            
+            [self pvt_LLPayBank] ;
+            
+        }
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+
+    
+ 
+}
+
+
+-(void)pvt_LLPayBank {
+    
+    
+    
+    [[LLPaySdk sharedSdk] setSdkDelegate:self] ;
+    
+    JYUserModel *user = [JYSingtonCenter shareCenter].rUserModel ;
+    
+    NSDictionary *resultDic = [JYLLPayMamager jyBankServiceWithUserName:user.realName  userIdNO:user.idcard bankCardNO:self.rBankCardField.text sig:kPay_md5_key] ;
+    NSLog(@"resultDic=======%@",resultDic);
+    
+    [[LLPaySdk sharedSdk] presentLLPaySignInViewController: self withPayType:LLPayTypeInstalments
+                                             andTraderInfo:resultDic] ;
+    
+}
+
+
+ 
+#pragma -mark 支付结果 LLPaySdkDelegate
+-(void)paymentEnd:(LLPayResult)resultCode withResultDic:(NSDictionary *)dic{
+    NSLog(@"绑卡结果==dic======%@",dic);
+    NSString *msg = @"";
+    
+    //  NSString *code = @"";
+    switch (resultCode) {
+        case kLLPayResultSuccess:
+        {
+            // 返回充值结果
+            [self submitPayResult:dic];
+        }
+            break;
+        case kLLPayResultFail:
+        {
+            msg = @"支付失败";
+        }
+            break;
+        case kLLPayResultCancel:
+        {
+            msg = @"支付取消";
+        }
+            break;
+        case kLLPayResultInitError:
+        {
+            msg = @"sdk初始化异常";
+        }
+            break;
+        case kLLPayResultInitParamError:
+        {
+            NSLog(@"参数错误==%@",dic[@"rnet_msg"]);
+            msg = dic[@"ret_msg"];
+            //[self submitPayResult:dic];
+            
+        }
+            break;
+        default:
+            break;
+    }
+    if (![msg isEqualToString:@""]) {
+        NSLog(@"msg=======%@",msg);
+        
+        
+        [JYProgressManager showBriefAlert:msg] ;
+        
+    }
+}
+
+//返回充值结果///
+- (void)submitPayResult:(NSDictionary *)dic {
+    NSLog(@"充值支付结果=%@",dic);
+    
+    NSMutableDictionary *paraDic = [[NSMutableDictionary alloc]init];
+    [paraDic setValue:self.rBankModel.bankNo forKey:@"bankNo"] ;
+    [paraDic setValue:dic[@"no_agree"] forKey:@"bindId"] ;
+    [paraDic setValue:self.rBankModel.bankName forKey:@"bankName"] ;
+    [paraDic setValue:self.rBankModel.cardNo forKey:@"cardNo"] ;
+    
+    
+    [[AFHTTPSessionManager jy_sharedManager]POST:kSaveBankCardURL parameters:paraDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [JYProgressManager showBriefAlert:@"添加银行卡成功"] ;
+        
+        [self.navigationController popToRootViewControllerAnimated:YES] ;
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+}
+
+
+
+
+#pragma  mark- getter
+
+-(UITableView*)rTableView {
+    
+    if (_rTableView == nil) {
+        _rTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _rTableView.delegate = self ;
+        _rTableView.dataSource = self ;
+        _rTableView.backgroundColor = kBackGroundColor ;
+        _rTableView.estimatedRowHeight = 45 ;
+        _rTableView.rowHeight = UITableViewAutomaticDimension;
+        
+        _rTableView.separatorInset = UIEdgeInsetsZero ;
+        _rTableView.tableFooterView = self.rTableFootView ;
+        
+    }
+    return _rTableView ;
+}
 
 -(JYLogFootView*)rTableFootView{
     
@@ -178,8 +381,12 @@
         @weakify(self)
         [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
             @strongify(self)
-            JYAddBankCodeController *vc = [[JYAddBankCodeController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+            
+            
+            self.rBankModel.cardNo = self.rBankCardField.text ;
+            
+            [self pvt_checkBankNum] ;
+            
         }] ;
     }
     
@@ -204,160 +411,4 @@
 @end
 
 
-@interface JYAddBankCodeController (){
-    NSArray *rTitleArray ;
-    
-}
-@property (nonatomic,strong) JYLogFootView *rTableFootView ;
-
-@property (nonatomic,strong) UITextField *rTelTextField ;
-@property (nonatomic,strong) UITextField *rCodeTextField ;
-
-
-
-@end
-
-
-@implementation JYAddBankCodeController
-
--(void)viewDidAppear:(BOOL)animated  {
-    [super viewDidAppear:animated];
-    
-    [[RACSignal  combineLatest:@[
-                                 self.rTelTextField.rac_textSignal,
-                                 self.rCodeTextField.rac_textSignal,
-                                 ]
-                        reduce:^(NSString *telString,NSString *codeString) {
-                            return @( telString.length && codeString.length );
-                        }] subscribeNext:^(NSNumber* x) {
-                            
-                            self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
-                        }];
-    
-    
-    
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    self.title = @"添加银行卡";
-    
-    rTitleArray = [NSArray arrayWithObjects:  [[JYPasswordSetModel alloc]initWithTitle:@"手机号码" fieldText:@"" placeHolder:@"银行预留手机号" hasCode:NO] , [[JYPasswordSetModel alloc]initWithTitle:@"验证码" fieldText:@"" placeHolder:@"请输入验证码" hasCode:YES] , nil] ;
-    
-    
-    [self initializeTableView] ;
-    
-    
-}
-
--(void)initializeTableView {
-    
-    self.tableView.estimatedRowHeight = 45 ;
-    self.tableView.rowHeight = UITableViewAutomaticDimension ;
-    
-    self.tableView.tableFooterView = self.rTableFootView ;
-    self.tableView.separatorInset = UIEdgeInsetsZero ;
-    
-    self.tableView.sectionHeaderHeight = 15 ;
-}
-
-#pragma mark- UITableViewDataSource/UITableViewDelegate
-
-
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [rTitleArray  count] ;
-}
-
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    JYPasswordSetModel *model = rTitleArray[indexPath.row] ;
-    
-    if (model.rHasCode) {
-        static NSString *identifier = @"identifierNormal" ;
-        
-        JYPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
-        
-        if (cell  == nil) {
-            
-            cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeCode  reuseIdentifier:identifier];
-            self.rCodeTextField = cell.rTextField ;
-        }
-        [cell setDataModel:model];
-        return cell ;
-        
-    }
-    
-    
-    static NSString *identifier = @"identifierNormal" ;
-    
-    JYPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
-    
-    if (cell  == nil) {
-        
-        cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeNormal    reuseIdentifier:identifier];
-        self.rTelTextField = cell.rTextField ;
-    }
-    
-    [cell setDataModel:model];
-    
-    
-    return cell ;
-    
-    
-}
-
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    
-    static NSString *headerIdentifier = @"headerIdentifier" ;
-    
-    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
-    if (headerView == nil) {
-        headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
-        headerView.backgroundView = ({
-            
-            UIView *view = [[UIView alloc]init];
-            view.backgroundColor = [UIColor clearColor] ;
-            view;
-        }) ;
-        headerView.contentView.backgroundColor = [UIColor clearColor];
-    }
-    
-    return headerView ;
-    
-}
-
  
-
-
-#pragma mark- getter
--(JYLogFootView*)rTableFootView {
-    
-    if (_rTableFootView == nil) {
-        _rTableFootView = [[JYLogFootView alloc]initWithType:JYLogFootViewTypeGetBackPass] ;
-        _rTableFootView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100) ;
-        
-        @weakify(self)
-        [[_rTableFootView.rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-            @strongify(self)
-            
-            
-            NSLog(@"点击") ;
-            
-        }] ;
-        
-    }
-    
-    return _rTableFootView ;
-}
-
-
-@end
-
-
-
-
-

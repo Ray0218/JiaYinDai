@@ -11,11 +11,24 @@
 
 typedef NS_ENUM(NSUInteger, JYIdentifyType) {
     JYIdentifyTypeName,
+    JYIdentifyTypeNameOnly, //没有顶部进度
+
     JYIdentifyTypeBank,
     JYIdentifyTypePassword,
 };
 
+
+typedef void(^JYIndentifyImageBlok)(JYAddImgView* addImageView);
+
 @interface JYIdentifyHeader : UIView
+
+
+@property (nonatomic ,strong,readonly) NSMutableArray  *rImageArray  ;
+
+
+@property (nonatomic ,copy) JYIndentifyImageBlok  rAddImageBlock  ;
+
+
 
 - (instancetype)initWithType:(JYIdentifyType)type ;
 

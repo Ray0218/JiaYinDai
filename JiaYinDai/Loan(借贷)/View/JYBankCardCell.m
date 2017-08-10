@@ -45,6 +45,7 @@
     return self ;
 }
 
+
 -(void)buildSubViewsUI {
     
     
@@ -91,9 +92,35 @@
         make.left.equalTo(self.rCardTypeLabel.mas_right).offset(20) ;
         make.centerY.equalTo(self.rCardTypeLabel) ;
         make.right.equalTo(self.rBlueBackView).offset(-15) ;
+        make.width.mas_greaterThanOrEqualTo(100) ;
     }] ;
     
 }
+
+#pragma mark- setter
+
+-(void)setRBankModel:(JYBankModel *)rBankModel{
+    
+    _rBankModel = [rBankModel copy] ;
+    
+    self.rBankImg.image = [UIImage imageNamed:rBankModel.bankNo] ;
+    self.rBankName.text = rBankModel.bankName ;
+    
+    if (rBankModel.cardNo.length >4 && ![rBankModel.bankName isEqualToString:@"账户余额"]) {
+       self.rCardNumberLabel.text = [NSString stringWithFormat:@"**** **** **** %@",[rBankModel.cardNo substringFromIndex:rBankModel.cardNo.length-4]] ;
+    }else{
+       self.rCardNumberLabel.text =  rBankModel.cardNo ;
+    }
+    
+    
+    if (rBankModel.rBankType.length) {
+        self.rCardTypeLabel.text = rBankModel.rBankType ;
+    }else{
+        self.rCardTypeLabel.text =  @"储蓄卡" ;
+        
+    }
+}
+
 
 
 #pragma mark- getter
@@ -149,7 +176,7 @@
 -(UILabel*)rBankName {
     
     if (_rBankName == nil) {
-        _rBankName = [self jyCreateLabelWithTitle:@"农业银行" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rBankName = [self jyCreateLabelWithTitle:@"农业银行" font:18 color:kBlackColor align:NSTextAlignmentLeft] ;
     }
     return _rBankName ;
 }
@@ -157,7 +184,7 @@
 -(UILabel*)rCardTypeLabel {
     
     if (_rCardTypeLabel == nil) {
-        _rCardTypeLabel = [self jyCreateLabelWithTitle:@"储蓄卡" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rCardTypeLabel = [self jyCreateLabelWithTitle:@"储蓄卡" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
     return _rCardTypeLabel ;
 }
@@ -165,7 +192,7 @@
 -(UILabel*)rCardNumberLabel {
     
     if (_rCardNumberLabel == nil) {
-        _rCardNumberLabel = [self jyCreateLabelWithTitle:@"**** **** **** 0798" font:18 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rCardNumberLabel = [self jyCreateLabelWithTitle:@"**** **** **** 0798" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
     return _rCardNumberLabel ;
 }

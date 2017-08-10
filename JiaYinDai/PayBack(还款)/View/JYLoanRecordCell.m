@@ -84,7 +84,7 @@
     
     [self.contentView addSubview:self.rThirLabel ];
     
-    UILabel *rMonTitle = [self jyCreateLabelWithTitle:@"应还金额" font:12 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
+    UILabel *rMonTitle = [self jyCreateLabelWithTitle:@"应还金额" font:10 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
     [self.contentView addSubview:rMonTitle];
     
     
@@ -96,9 +96,12 @@
     
     
     [rBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.top.equalTo(self.contentView).offset(15) ;
+        make.left.equalTo(self.contentView).offset(15) ;
         make.right.equalTo(self.contentView).offset(-15) ;
-        make.bottom.equalTo(self.contentView) ;
+        make.bottom.equalTo(self.contentView).offset(-15) ;
+        make.top.equalTo(self.contentView) ;
+        make.height.mas_equalTo(115) ;
+        
     }];
     
     
@@ -108,13 +111,15 @@
     }] ;
     
     [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.rLeftImg.mas_right).offset(10) ;
+        make.left.equalTo(self.rLeftImg.mas_right).offset(6) ;
         make.centerY.equalTo(self.rLeftImg) ;
+        make.width.mas_equalTo(50);
+        
     }] ;
-
+    
     
     [self.rOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.rTitleLabel.mas_right).offset(15) ;
+        make.left.equalTo(self.rTitleLabel.mas_right).offset(6) ;
         make.centerY.equalTo(self.rLeftImg) ;
         make.right.equalTo(rBgView).offset(-15) ;
     }] ;
@@ -152,10 +157,9 @@
     }] ;
     
     [self.rMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.rSecLabel.mas_bottom).offset(10) ;
         make.right.equalTo(rBgView).offset(-10) ;
         make.height.mas_equalTo(45) ;
-        make.bottom.equalTo(self.contentView) ;
+        make.centerY.equalTo(rBottomView) ;
         
     }] ;
     
@@ -165,14 +169,32 @@
     }] ;
     
     
+}
+
+#pragma mark- setter
+
+-(void)setRDataModel:(JYOrderModel *)rDataModel {
+    _rDataModel = [rDataModel copy] ;
     
+    
+    self.rOrderLabel.text =  rDataModel.creditOrder.applyNo ;
+    
+    
+    self.rFirLabel.text =  [NSString stringWithFormat:@"计息时间 %@", TTTimeString(rDataModel.creditOrder.lendTime)] ;
+    
+    self.rSecLabel.text = [NSString stringWithFormat:@"已还期数 %@/%@期",rDataModel.haveRepayPeriod, rDataModel.creditOrder.repayPeriod] ;
+    
+    self.rThirLabel.text = [NSString stringWithFormat:@"本期还款日 %@",rDataModel.recentDate] ;
+    self.rMoneyLabel.text = [NSString stringWithFormat:@"¥%.02f",[rDataModel.creditOrder.repayPerAmount doubleValue]];
     
 }
+
+
 
 #pragma mark- getter
 -(UILabel*)rOrderLabel {
     if (_rOrderLabel == nil) {
-        _rOrderLabel = [self jyCreateLabelWithTitle:@"JYD20163333333333333333" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rOrderLabel = [self jyCreateLabelWithTitle:@"JYD20163333333333333333" font:15 color:kBlackColor align:NSTextAlignmentLeft] ;
     }
     
     return _rOrderLabel ;
@@ -180,7 +202,7 @@
 
 -(UILabel*)rMoneyLabel {
     if (_rMoneyLabel == nil) {
-        _rMoneyLabel = [self jyCreateLabelWithTitle:@"10000.00"  font:18 color:[UIColor whiteColor] align:NSTextAlignmentRight] ;
+        _rMoneyLabel = [self jyCreateLabelWithTitle:@"10000.00"  font:20 color:[UIColor whiteColor] align:NSTextAlignmentRight] ;
     }
     
     return _rMoneyLabel ;
@@ -189,7 +211,7 @@
 -(UILabel*)rFirLabel {
     
     if (_rFirLabel == nil) {
-        _rFirLabel = [self jyCreateLabelWithTitle:@"计息时间 YY-MM-DD" font:12 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rFirLabel = [self jyCreateLabelWithTitle:@"计息时间 YY-MM-DD" font:10 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
     return _rFirLabel ;
 }
@@ -197,7 +219,7 @@
 -(UILabel*)rSecLabel {
     
     if (_rSecLabel == nil) {
-        _rSecLabel = [self jyCreateLabelWithTitle:@"已还期数 1期" font:12 color:kTextBlackColor align:NSTextAlignmentCenter] ;
+        _rSecLabel = [self jyCreateLabelWithTitle:@"已还期数 1期" font:10 color:kTextBlackColor align:NSTextAlignmentCenter] ;
     }
     return _rSecLabel ;
 }
@@ -205,14 +227,14 @@
 -(UILabel*)rThirLabel {
     
     if (_rThirLabel == nil) {
-        _rThirLabel = [self jyCreateLabelWithTitle:@"本期还款日 YY-MM-DD" font:12 color:kTextBlackColor align:NSTextAlignmentRight] ;
+        _rThirLabel = [self jyCreateLabelWithTitle:@"本期还款日 YY-MM-DD" font:10 color:kTextBlackColor align:NSTextAlignmentRight] ;
     }
     return _rThirLabel ;
 }
 
 -(UILabel*)rTitleLabel {
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"订单号" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"订单号" font:15 color:kBlueColor align:NSTextAlignmentLeft] ;
     }
     
     return _rTitleLabel ;

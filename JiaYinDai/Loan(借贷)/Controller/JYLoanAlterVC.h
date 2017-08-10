@@ -10,4 +10,8 @@
 
 @interface JYLoanAlterVC : UIViewController
 
+@property (nonatomic ,strong) NSString *rServiceRate ; //服务费
+@property (nonatomic ,strong) NSString *rManageRate ;//管理费
+@property (nonatomic ,strong) NSString *rYearInterest ; //年化率
+ 
 @end

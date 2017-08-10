@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JiaYinDai/Person(&#x6211;&#x7684;)/Controller/JYLogInViewController.m"
-            timestampString = "514877856.971891"
+            filePath = "JiaYinDai/Improve(&#x5b8c;&#x5584;&#x4fe1;&#x606f;)/Controller/JYGJJIdentifyController.m"
+            timestampString = "522062456.804277"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
-            landmarkName = "-rTableFootView"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "-pvt_loadData"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JiaYinDai/Login(&#x767b;&#x5f55;)/Controller/JYLogInViewController.m"
-            timestampString = "515063949.050506"
+            filePath = "JiaYinDai/Improve(&#x5b8c;&#x5584;&#x4fe1;&#x606f;)/Controller/JYGJJIdentifyController.m"
+            timestampString = "522062458.466906"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "-pvt_login"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
+            landmarkName = "-pvt_loadData"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +51,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JiaYinDai/Login(&#x767b;&#x5f55;)/Controller/JYLogInViewController.m"
-            timestampString = "515063964.225538"
+            filePath = "JiaYinDai/Loan(&#x501f;&#x8d37;)/Controller/JYLoanViewController.m"
+            timestampString = "524051560.606112"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "-pvt_login"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
+            landmarkName = "-jumpTheWebInterface:index:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JiaYinDai/Loan(&#x501f;&#x8d37;)/Controller/JYAddBankController.m"
+            timestampString = "522832223.341168"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "-paymentEnd:withResultDic:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

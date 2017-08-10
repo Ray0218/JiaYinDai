@@ -42,7 +42,7 @@
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.font = [UIFont systemFontOfSize:14];
     _titleLabel.textColor = [UIColor colorWithRed:0.49 green:0.44 blue:0.4 alpha:1];
-    _titleLabel.highlightedTextColor = [UIColor  blueColor];
+    _titleLabel.highlightedTextColor = kBlueColor;
     
     _badgeLabel = [[UILabel alloc] init];
     _badgeLabel.backgroundColor = [UIColor colorWithRed:0.9 green:0.24 blue:0.22 alpha:1];
@@ -251,7 +251,7 @@
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor blueColor];
+        _lineView.backgroundColor = kBlueColor;
     }
     return _lineView;
 }

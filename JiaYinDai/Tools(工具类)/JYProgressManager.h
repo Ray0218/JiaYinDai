@@ -10,6 +10,10 @@
 #import "MBProgressHUD.h"
 
 
+/* 默认简短提示语显示的时间，在这统一修改 */
+static CGFloat const   kShowTime  = 2.0f;
+
+ 
 @interface JYProgressManager : NSObject
 
 
@@ -103,6 +107,9 @@
  *  @param view 要把提示框添加到的view
  */
 +(void)showAlertWithCustomImage:(NSString *)imageName title:(NSString *)title inView:(UIView *)view;
+
+
++(BOOL)isShowingHUD  ;
 
 @end
 

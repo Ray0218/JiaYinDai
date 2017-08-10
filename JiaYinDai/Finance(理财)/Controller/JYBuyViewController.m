@@ -10,6 +10,7 @@
 #import "JYEstimateHeaderView.h"
 #import "JYPayStyleView.h"
 #import "JYPayCommtController.h"
+#import "JYWebViewController.h"
 
 
 
@@ -226,7 +227,17 @@
         _rAgreeBtn.titleLabel.font = [UIFont systemFontOfSize:18] ;
         [_rAgreeBtn setTitleColor:kTextBlackColor forState:UIControlStateNormal];
         
-        _rAgreeBtn.imageView.image = [UIImage imageNamed:@""] ;
+        [_rAgreeBtn setImage:[UIImage imageNamed:@"comm_normal"] forState:UIControlStateNormal];
+        [_rAgreeBtn setImage:[UIImage imageNamed:@"comm_agree"] forState:UIControlStateSelected] ;
+    
+        @weakify(self)
+    [[_rAgreeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self)
+        JYWebViewController *webVC = [[JYWebViewController alloc]initWithUrl:[NSURL URLWithString:[NSString stringWithFormat:@"%@/borrowAgree",kServiceURL ]]] ;
+        [self.navigationController pushViewController:webVC animated:YES];
+
+    }] ;
+    
     }
     return _rAgreeBtn ;
 }

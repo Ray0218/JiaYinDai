@@ -9,16 +9,16 @@
 #import "JYFatherController.h"
 
 
-typedef NS_ENUM(NSUInteger, JYImageAddType) {
-    JYImageAddTypeJob,
-    JYImageAddTypeBank,
- };
+ 
+typedef void(^JYImageAddBlock)(NSString* imageURLs);
 
 
 @interface JYImageAddController : JYFatherController
 
 
+@property (nonatomic ,strong) NSString*rLastImges ; //已选择的图片
 
-- (instancetype)initWithType:(JYImageAddType) type ;
+@property (nonatomic ,copy) JYImageAddBlock rFinishBlock ;
 
+ 
 @end

@@ -196,7 +196,7 @@
 -(UILabel*)rTitleLabel {
     
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"全部还款" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"本期应还款" font:14 color:kBlackColor align:NSTextAlignmentLeft] ;
     }
     
     return _rTitleLabel ;
@@ -204,7 +204,7 @@
 
 -(UILabel*)rRightLabel {
     if (_rRightLabel == nil) {
-        _rRightLabel = [self jyCreateLabelWithTitle:@"" font:16 color:kTextBlackColor align:NSTextAlignmentRight] ;
+        _rRightLabel = [self jyCreateLabelWithTitle:@"" font:14 color:kTextBlackColor align:NSTextAlignmentRight] ;
     }
     
     return _rRightLabel ;
@@ -212,7 +212,7 @@
 
 -(UILabel*)rMiddleLabel {
     if (_rMiddleLabel == nil) {
-        _rMiddleLabel = [self jyCreateLabelWithTitle:@"XXXX.00" font:18 color:kBlueColor align:NSTextAlignmentLeft] ;
+        _rMiddleLabel = [self jyCreateLabelWithTitle:@"XXXX.00" font:19 color:kBlueColor align:NSTextAlignmentLeft] ;
     }
     
     return _rMiddleLabel ;
@@ -223,7 +223,7 @@
     if (_rTextField == nil) {
         _rTextField = [[UITextField alloc]init];
         _rTextField.backgroundColor =[ UIColor clearColor] ;
-        _rTextField.font = [UIFont systemFontOfSize:16] ;
+        _rTextField.font = [UIFont systemFontOfSize:13] ;
         _rTextField.placeholder  = @"选择余额" ;
         
         
@@ -236,7 +236,7 @@
 -(UIImageView*)rArrowView {
     
     if (_rArrowView == nil) {
-        _rArrowView = [[UIImageView alloc]initWithImage:[[UIImage imageNamed:@"more"] jy_imageWithTintColor:[UIColor blackColor]]] ;
+        _rArrowView = [[UIImageView alloc]initWithImage:[[UIImage imageNamed:@"more"] jy_imageWithTintColor:kBlackColor]] ;
     }
     
     return _rArrowView ;
@@ -247,8 +247,8 @@
     if (_rRightButton == nil) {
         _rRightButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
         [_rRightButton setTitle:@"全部还款" forState:UIControlStateNormal] ;
-        [_rRightButton setTitleColor:kTextBlackColor forState:UIControlStateNormal] ;
-        _rRightButton.titleLabel.font = [UIFont systemFontOfSize:14] ;
+        [_rRightButton setTitleColor:kBlackColor forState:UIControlStateNormal] ;
+        _rRightButton.titleLabel.font = [UIFont systemFontOfSize:16] ;
     }
     
     return _rRightButton ;

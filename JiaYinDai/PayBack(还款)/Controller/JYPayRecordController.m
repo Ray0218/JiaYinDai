@@ -9,8 +9,11 @@
 #import "JYPayRecordController.h"
 #import "JYPayRecordDetailController.h"
 
+@interface JYPayRecordController ()<UITableViewDelegate,UITableViewDataSource>
 
-@interface JYPayRecordController ()
+@property (nonatomic ,strong) UITableView *rTableView ;
+
+@property (nonatomic ,strong) NSMutableArray *rDataArray ;
 
 @end
 
@@ -20,15 +23,79 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"还款记录" ;
+    self.rDataArray = [NSMutableArray array];
     [self initializeTableView] ;
+    [self pvt_loadData];
 }
+
+
+- (void)pvt_loadData
+{
+    
+    [[AFHTTPSessionManager jy_sharedManager ] POST:kgetRepaybillURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         
+        [self.rDataArray removeAllObjects];
+        
+        NSArray *data = responseObject[@"data"] ;
+        [self.rDataArray  addObjectsFromArray:[JYDGetRepaybillModel arrayOfModelsFromDictionaries:data error:nil]] ;
+        
+        [self.rTableView reloadData];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }] ;
+    
+    
+    
+    
+}
+
 
 -(void)initializeTableView {
     
-    self.tableView.rowHeight = 95 ;
+    [self.view addSubview:self.rTableView];
+    [self.rTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.insets(UIEdgeInsetsZero) ;
+    }] ;
+}
+
+#pragma  mark- getter
+
+-(UITableView*)rTableView {
     
-    self.tableView.sectionFooterHeight = 15 ;
-    self.tableView.separatorInset = UIEdgeInsetsZero ;
+    if (_rTableView == nil) {
+        _rTableView = [[UITableView alloc]init];
+        _rTableView.backgroundColor = kBackGroundColor ;
+        _rTableView.delegate = self ;
+        _rTableView.dataSource = self ;
+        
+        _rTableView.rowHeight = 95 ;
+        _rTableView.sectionHeaderHeight = 15 ;
+        
+        _rTableView.separatorInset = UIEdgeInsetsZero ;
+        _rTableView.tableFooterView = [UIView new];
+        
+        
+        @weakify(self)
+        [_rTableView addLegendHeaderWithRefreshingBlock:^{
+            @strongify(self)
+            [self pvt_loadData] ;
+        }] ;
+        
+        
+        _rTableView.emptyDataView = [DZNEmptyDataView emptyDataView];
+        _rTableView.emptyDataView.imageForNoData = [UIImage imageNamed:@"comm_noData"] ;
+        _rTableView.emptyDataView.showButtonForNoData = NO;
+        _rTableView.emptyDataView.requestSuccess = YES;
+
+    }
+    return _rTableView ;
+}
+
+
+-(void)pvt_endRefresh {
+    
+    [self.rTableView.header endRefreshing];
+    [self.rTableView.footer endRefreshing];
     
 }
 
@@ -38,7 +105,8 @@
 
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3 ;
+     
+    return self.rDataArray.count ;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -59,7 +127,8 @@
         cell = [[JYPayRecordCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-
+    cell.rGetRepaybillModel = self.rDataArray[indexPath.section] ;
+    
     
     return cell ;
     
@@ -87,12 +156,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    JYDGetRepaybillModel *model = self.rDataArray[indexPath.section] ;
     
     JYPayRecordDetailController *vc =[[JYPayRecordDetailController alloc]init];
+    vc.billId = model.id;
     [self.navigationController pushViewController:vc animated:YES];
-
     
- }
+    
+}
+
 
 
 
@@ -102,14 +174,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
 
@@ -120,6 +192,9 @@
 @property (nonatomic ,strong) UILabel *rTimeLabel ;
 @property (nonatomic ,strong) UILabel *rPayTimeLab;
 @property (nonatomic ,strong) UILabel *rMoneyLabel ;
+
+@property (nonatomic ,strong) UILabel *rOrderNoLabel ;
+
 
 @property (nonatomic ,strong) UIImageView *rArrowView ;
 
@@ -144,11 +219,13 @@
 }
 
 -(void)buildSubViewsUI {
-
+    
     
     [self.contentView addSubview:self.rTimeLabel];
     [self.contentView addSubview:self.rTitleLabel];
     [self.contentView addSubview:self.rPayTimeLab];
+    
+    [self.contentView addSubview:self.rOrderNoLabel];
     [self.contentView addSubview:self.rMoneyLabel];
     [self.contentView addSubview:self.rArrowView];
     
@@ -157,20 +234,25 @@
         make.left.top.equalTo(self.contentView).offset(15);
     }] ;
     
+    [self.rOrderNoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(15) ;
+        make.top.equalTo(self.rTitleLabel.mas_bottom).offset(10) ;
+    }] ;
+    
     [self.rTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.rTitleLabel) ;
+        make.centerY.equalTo(self.rTitleLabel) ;
         make.right.equalTo(self.rArrowView.mas_left).offset(-15) ;
     }] ;
     
     
     [self.rPayTimeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.rTitleLabel.mas_bottom).offset(10) ;
+        make.top.equalTo(self.rOrderNoLabel.mas_bottom).offset(10) ;
         make.left.equalTo(self.contentView).offset(15) ;
         make.bottom.equalTo(self.contentView).offset(-15) ;
     }] ;
     
     [self.rMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.rTitleLabel.mas_bottom).offset(10) ;
+        make.top.equalTo(self.rOrderNoLabel.mas_bottom).offset(10) ;
         make.right.equalTo(self.rArrowView.mas_left).offset(-15) ;
         make.bottom.equalTo(self.contentView).offset(-15) ;
     }] ;
@@ -181,10 +263,10 @@
     }] ;
 }
 
-#pragma mark- getter 
+#pragma mark- getter
 
 -(UILabel*)rTitleLabel {
-
+    
     if (_rTitleLabel == nil) {
         _rTitleLabel = [self jyCreateLabelWithTitle:@"（工薪贷订单号XXXX）第X期" font:16 color:kBlueColor align:NSTextAlignmentLeft] ;
     }
@@ -217,8 +299,19 @@
     return _rMoneyLabel ;
 }
 
--(UIImageView*)rArrowView {
+-(UILabel*)rOrderNoLabel {
 
+    if (_rOrderNoLabel == nil) {
+        _rOrderNoLabel = [self jyCreateLabelWithTitle:@"" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+    }
+    
+    
+    return _rOrderNoLabel ;
+    
+}
+
+-(UIImageView*)rArrowView {
+    
     if (_rArrowView == nil) {
         _rArrowView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"more"]] ;
     }
@@ -226,6 +319,29 @@
     return _rArrowView ;
 }
 
+#pragma mark- setter
+
+
+-(void)setRGetRepaybillModel:(JYDGetRepaybillModel *)rGetRepaybillModel{
+    
+    _rGetRepaybillModel = [rGetRepaybillModel copy] ;
+    
+//    NSString *rOrderStr = rGetRepaybillModel.applyNo ;
+//    
+//    
+//    if (rOrderStr.length >= 7) {
+//        rOrderStr = [rOrderStr substringFromIndex:rOrderStr.length - 7] ;
+//    }
+    
+    
+    _rTitleLabel.text = [NSString stringWithFormat:@"%@ 第%@期",rGetRepaybillModel.productName,rGetRepaybillModel.period];
+    self.rOrderNoLabel.text = [NSString stringWithFormat:@"订单号 %@",rGetRepaybillModel.applyNo ];
+    _rPayTimeLab.text = [NSString stringWithFormat:@"到期还款日：%@",rGetRepaybillModel.endDate];
+    _rMoneyLabel.text = [NSString stringWithFormat:@"-%.2f",[rGetRepaybillModel.amount doubleValue]];
+    
+    _rTimeLabel.text = TTTimeString(rGetRepaybillModel.createTime);;
+    
+}
 @end
 
 

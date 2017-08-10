@@ -9,6 +9,7 @@
 #import "JYWelcomController.h"
 #import "JYTabBarController.h"
 
+
 @interface JYWelcomController ()<UIScrollViewDelegate>
 
 @end
@@ -86,7 +87,9 @@
     
     JYTabBarController *mainList=[[ JYTabBarController alloc]init];
     
-    [self presentViewController:mainList animated:NO completion:nil];
+    [UIApplication sharedApplication].keyWindow.rootViewController = mainList ;
+    
+//    [self presentViewController:mainList animated:NO completion:nil];
     
 }
 

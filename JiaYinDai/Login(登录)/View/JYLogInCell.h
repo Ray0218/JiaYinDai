@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JYAgreeView.h"
+
 
 typedef NS_ENUM(NSUInteger, JYLogCellType) {
     JYLogCellTypeNormal,
@@ -25,7 +27,7 @@ typedef NS_ENUM(NSUInteger, JYLogCellType) {
 @property (nonatomic,strong,readonly) UIButton *rRightBtn ;
 
 
-
+-(void)startTimeGCD ;
 -(instancetype)initWithCellType:(JYLogCellType)type reuseIdentifier:(NSString *)reuseIdentifier ;
 
 
@@ -33,10 +35,16 @@ typedef NS_ENUM(NSUInteger, JYLogCellType) {
 
 
 typedef NS_ENUM(NSUInteger, JYLogFootViewType) {
-    JYLogFootViewTypeLogIn, //登录
+    
+    
+    JYLogFootViewTypeNormal, //只有文字
+
+    JYLogFootViewTypeLogIn, //登录 有两个安妞
     JYLogFootViewTypeRegister, //注册
     
-    JYLogFootViewTypeSetPassword, //设置密码
+    JYLogFootViewTypeSetPassword, //设置登录密码 有同意协议
+    JYLogFootViewTypeReSetPassword, //重置登录设置密码
+
     JYLogFootViewTypeGetBackPass, //找回密码
 
 };
@@ -48,7 +56,13 @@ typedef NS_ENUM(NSUInteger, JYLogFootViewType) {
 @property (nonatomic ,strong,readonly) UIButton *rCommitBtn ;
 @property (nonatomic ,strong,readonly) UIButton *rForgetBtn ;
 @property (nonatomic ,strong,readonly) UIButton *rRegisterBtn;
-@property (nonatomic ,strong,readonly) UIButton *rAgreeBtn;
+ 
+
+@property (nonatomic ,strong,readonly) UILabel *rDescLabel;
+
+
+@property (nonatomic ,strong,readonly) JYAgreeView *rAgreeView ;
+
 
 
 - (instancetype)initWithType:(JYLogFootViewType)type ;

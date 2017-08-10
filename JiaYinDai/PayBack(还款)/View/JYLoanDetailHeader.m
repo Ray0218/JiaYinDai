@@ -10,7 +10,7 @@
 
 @interface JYLoanDetailHeader (){
     
-    NSMutableArray *rTitlesArray ;
+    
     
     NSMutableArray *rLinesArray ;
     
@@ -25,10 +25,11 @@
 
 @property (nonatomic,strong) UIView *rBgView ;
 
+@property (nonatomic ,strong) NSMutableArray *rTitlesArray ;
+
 @end
 
 
-static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"最低还款金额（元）"} ;
 
 @implementation JYLoanDetailHeader
 
@@ -54,13 +55,14 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
     [self addSubview:self.rTitleLabel];
     [self addSubview:self.rLeftImg];
     
-    rTitlesArray = [NSMutableArray arrayWithCapacity:3] ;
+    self.rTitlesArray = [NSMutableArray arrayWithCapacity:3] ;
     
     for (int i= 0; i< 3; i++) {
-        UILabel *label = [self jyCreateLabelWithTitle:kTitles[i] font:14 color:kTextBlackColor  align:NSTextAlignmentCenter] ;
+        UILabel *label = [self jyCreateLabelWithTitle:kTitles[i] font:12 color:kTextBlackColor  align:NSTextAlignmentCenter] ;
         label.numberOfLines = 0 ;
+        label.tag = 1000 + i ;
         [self addSubview:label];
-        [rTitlesArray addObject:label];
+        [self.rTitlesArray addObject:label];
     }
     
     
@@ -107,12 +109,14 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
     [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.rLeftImg.mas_right).offset(10) ;
         make.bottom.equalTo(self.rLeftImg) ;
+        make.width.mas_greaterThanOrEqualTo(70) ;
     }];
     
     
     [self.rMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-15) ;
         make.bottom.equalTo(self.rTitleLabel).offset(4) ;
+        make.left.equalTo(self.rTitleLabel.mas_right).offset(5) ;
     }] ;
     
     [rLinesArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedItemLength:1 leadSpacing:0 tailSpacing:0] ;
@@ -122,9 +126,9 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
     }] ;
     
     
-    [rTitlesArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:1 leadSpacing:0 tailSpacing:0];
+    [self.rTitlesArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:1 leadSpacing:0 tailSpacing:0];
     
-    [rTitlesArray mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.rTitlesArray mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.rLeftImg.mas_bottom).offset(15) ;
         make.height.mas_equalTo(50) ;
         make.bottom.equalTo(self) ;
@@ -177,7 +181,7 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
 
 -(UILabel*)rTitleLabel {
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"应还款总金额（元）" font:16 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"应还款总金额（元）" font:14 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
     }
     
     return _rTitleLabel ;
@@ -186,7 +190,7 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
 -(UILabel*)rMoneyLabel {
     
     if (_rMoneyLabel == nil) {
-        _rMoneyLabel = [self jyCreateLabelWithTitle:@"10000.00" font:24 color:[UIColor whiteColor] align:NSTextAlignmentRight] ;
+        _rMoneyLabel = [self jyCreateLabelWithTitle:@"10000.00" font:30 color:[UIColor whiteColor] align:NSTextAlignmentRight] ;
     }
     
     return _rMoneyLabel ;
@@ -216,9 +220,9 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
 
 @property (nonatomic ,strong) UILabel *rTimesLabel; //期数
 
-@property (nonatomic ,strong) UIButton *rOrderButton ; //预约
-
-@property (nonatomic ,strong) UILabel *rOrderLabel ; //预约
+//@property (nonatomic ,strong) UIButton *rOrderButton ; //预约
+//
+//@property (nonatomic ,strong) UILabel *rOrderLabel ; //预约
 
 @property (nonatomic ,strong) UILabel *rOverLabel  ; //滞纳金额
 
@@ -257,16 +261,18 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
     if (rType == JYLoanDetailCellTypeButton) {
         
         self.rcommitButton.backgroundColor = kBlueColor ;
-        [self.rOrderButton setTitleColor:kBlueColor forState:UIControlStateNormal];
-        self.rOrderButton.layer.borderColor = kBlueColor.CGColor ;
+        
+        
         
         
         [self.contentView addSubview:self.rcommitButton];
         
-        
-        [self.contentView addSubview:self.rOrderButton];
-        [self.contentView addSubview:self.rOrderLabel];
-        
+        /*
+         [self.rOrderButton setTitleColor:kBlueColor forState:UIControlStateNormal];
+         self.rOrderButton.layer.borderColor = kBlueColor.CGColor ;
+         [self.contentView addSubview:self.rOrderButton];
+         [self.contentView addSubview:self.rOrderLabel];
+         */
         
         [self.rMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             
@@ -284,44 +290,52 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
             make.right.equalTo(self.contentView).offset(-15) ;
             make.height.mas_equalTo(45) ;
             make.top.equalTo(self.rTimesLabel.mas_bottom).offset(15) ;
-        }] ;
-        
-        
-        [self.rOrderButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.rcommitButton.mas_bottom).offset(10) ;
-            make.right.equalTo(self.contentView).offset(-15) ;
-            make.width.mas_greaterThanOrEqualTo(80) ;
             make.bottom.equalTo(self.contentView).offset(-15) ;
+            
         }] ;
         
-        
-        [self.rOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.rOrderButton.mas_left) ;
-            make.centerY.equalTo(self.rOrderButton) ;
-        }] ;
+        /*
+         
+         [self.rOrderButton mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.top.equalTo(self.rcommitButton.mas_bottom).offset(10) ;
+         make.right.equalTo(self.contentView).offset(-15) ;
+         make.width.mas_greaterThanOrEqualTo(80) ;
+         make.bottom.equalTo(self.contentView).offset(-15) ;
+         }] ;
+         
+         
+         [self.rOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.right.equalTo(self.rOrderButton.mas_left) ;
+         make.centerY.equalTo(self.rOrderButton) ;
+         }] ;
+         */
         
     }else if(rType == JYLoanDetailCellTypeOverButton){
         
-        self.rcommitButton.backgroundColor = kOrangewColor ;
         
-        [self.rOrderButton setTitleColor:kTextBlackColor forState:UIControlStateNormal];
-        self.rOrderButton.layer.borderColor = kLineColor.CGColor ;
+        [self.rcommitButton setBackgroundImage:[UIImage jy_imageWithColor: kOrangewColor] forState:UIControlStateNormal] ;
+        
+        
         
         
         [self.contentView addSubview:self.rOverLabel] ;
         
-        
         [self.contentView addSubview:self.rcommitButton];
         
-        [self.contentView addSubview:self.rOrderButton];
-        [self.contentView addSubview:self.rOrderLabel];
-        
+        /*
+         
+         [self.rOrderButton setTitleColor:kTextBlackColor forState:UIControlStateNormal];
+         self.rOrderButton.layer.borderColor = kLineColor.CGColor ;
+         
+         [self.contentView addSubview:self.rOrderButton];
+         [self.contentView addSubview:self.rOrderLabel];
+         */
         
         [self.rMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.left.equalTo(self.contentView).offset(15) ;
             make.top.equalTo(self.contentView).offset(15) ;
-        }] ;
+         }] ;
         
         
         [self.rOverLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -339,21 +353,26 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
             make.right.equalTo(self.contentView).offset(-15) ;
             make.height.mas_equalTo(45) ;
             make.top.equalTo(self.rOverLabel.mas_bottom).offset(15) ;
-        }] ;
-        
-        
-        [self.rOrderButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.rcommitButton.mas_bottom).offset(10) ;
-            make.right.equalTo(self.contentView).offset(-15) ;
-            make.width.mas_greaterThanOrEqualTo(80) ;
+            
             make.bottom.equalTo(self.contentView).offset(-15) ;
+            
         }] ;
         
-        
-        [self.rOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.rOrderButton.mas_left) ;
-            make.centerY.equalTo(self.rOrderButton) ;
-        }] ;
+        /*
+         [self.rOrderButton mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.top.equalTo(self.rcommitButton.mas_bottom).offset(10) ;
+         make.right.equalTo(self.contentView).offset(-15) ;
+         make.width.mas_greaterThanOrEqualTo(80) ;
+         make.bottom.equalTo(self.contentView).offset(-15) ;
+         }] ;
+         
+         
+         [self.rOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.right.equalTo(self.rOrderButton.mas_left) ;
+         make.centerY.equalTo(self.rOrderButton) ;
+         }] ;
+         
+         */
         
         
     } else{
@@ -387,7 +406,7 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
 -(UILabel*)rMoneyLabel {
     
     if (_rMoneyLabel == nil) {
-        _rMoneyLabel = [self jyCreateLabelWithTitle:@"本期应还款" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rMoneyLabel = [self jyCreateLabelWithTitle:@"本期应还款" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
     
     return _rMoneyLabel ;
@@ -396,7 +415,7 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
 -(UILabel*)rOverLabel {
     
     if (_rOverLabel == nil) {
-        _rOverLabel = [self jyCreateLabelWithTitle:@"滞纳金（元）" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rOverLabel = [self jyCreateLabelWithTitle:@"滞纳金（元）" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     }
     
     return _rOverLabel ;
@@ -405,33 +424,33 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
 -(UILabel*)rTimesLabel {
     
     if (_rTimesLabel == nil) {
-        _rTimesLabel = [self jyCreateLabelWithTitle:@"已还款期数" font:16 color:kTextBlackColor align:NSTextAlignmentRight] ;
+        _rTimesLabel = [self jyCreateLabelWithTitle:@"已还款期数" font:14 color:kBlackColor align:NSTextAlignmentRight] ;
     }
     
     return _rTimesLabel ;
 }
 
--(UIButton*)rOrderButton {
-    if (_rOrderButton == nil) {
-        _rOrderButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-        _rOrderButton.layer.cornerRadius = 4 ;
-        _rOrderButton.layer.borderWidth = 1 ;
-        _rOrderButton.layer.borderColor = kBlueColor.CGColor ;
-        [_rOrderButton setTitle:@"预约还款" forState:UIControlStateNormal] ;
-        [_rOrderButton  setTitleColor:kBlueColor forState:UIControlStateNormal];
-        _rOrderButton.titleLabel.font = [UIFont systemFontOfSize:16] ;
-    }
-    
-    return _rOrderButton ;
-}
-
--(UILabel*)rOrderLabel {
-    if (_rOrderLabel == nil) {
-        _rOrderLabel = [self jyCreateLabelWithTitle:@"现在还不想还款？可以" font:16 color:kTextBlackColor align:NSTextAlignmentRight] ;
-    }
-    
-    return _rOrderLabel ;
-}
+//-(UIButton*)rOrderButton {
+//    if (_rOrderButton == nil) {
+//        _rOrderButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+//        _rOrderButton.layer.cornerRadius = 4 ;
+//        _rOrderButton.layer.borderWidth = 1 ;
+//        _rOrderButton.layer.borderColor = kBlueColor.CGColor ;
+//        [_rOrderButton setTitle:@"预约还款" forState:UIControlStateNormal] ;
+//        [_rOrderButton  setTitleColor:kBlueColor forState:UIControlStateNormal];
+//        _rOrderButton.titleLabel.font = [UIFont systemFontOfSize:16] ;
+//    }
+//
+//    return _rOrderButton ;
+//}
+//
+//-(UILabel*)rOrderLabel {
+//    if (_rOrderLabel == nil) {
+//        _rOrderLabel = [self jyCreateLabelWithTitle:@"现在还不想还款？可以" font:16 color:kTextBlackColor align:NSTextAlignmentRight] ;
+//    }
+//
+//    return _rOrderLabel ;
+//}
 
 @end
 
@@ -447,7 +466,7 @@ static NSString *kTitles[] = {@"借款期限（月）",@"借款利率（%）",@"
 
 @end
 
-static NSString *kHeaderTitles[] = {@"期数",@"还款日期",@"应还本金",@"应还利息",@"还款状态"} ;
+static NSString *kHeaderTitles[] = {@"期数",@"还款日期",@"应还本金",@"相关费用",@"还款状态"} ;
 
 @implementation JYLoanTimesCell
 
@@ -475,16 +494,40 @@ static NSString *kHeaderTitles[] = {@"期数",@"还款日期",@"应还本金",@"
     rLabelsArray = [NSMutableArray arrayWithCapacity:5] ;
     
     
-    CGFloat font = 14 ;
+    CGFloat font = 13 ;
+    
+    UIColor *color = kTextBlackColor ;
     if (rType == JYLoanCllTypeHeader) {
-        font = 16 ;
+        font = 14 ;
+        color = kBlackColor ;
     }
     
     for (int i = 0; i < 5; i++) {
-        UILabel *label = [self jyCreateLabelWithTitle:kHeaderTitles[i] font:font color:kTextBlackColor align:NSTextAlignmentCenter] ;
         
-        [self.contentView addSubview:label];
-        [rLabelsArray addObject:label ] ;
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
+        btn.titleLabel.font = [UIFont systemFontOfSize:font] ;
+        [btn setTitleColor:color forState:UIControlStateNormal];
+        
+        if (rType == JYLoanCllTypeHeader) {
+            
+            [btn setTitle:kHeaderTitles[i] forState:UIControlStateNormal] ;
+            
+        }else{
+            
+            if (i == 4) {
+                [btn setImage:[UIImage imageNamed:@"loan_finish"]  forState:UIControlStateSelected];
+                [btn setImage:[UIImage imageNamed:@"loan_wait"]  forState:UIControlStateNormal];
+                
+            }else{
+                [btn setTitle:kHeaderTitles[i] forState:UIControlStateNormal] ;
+                
+            }
+        }
+        
+        
+        [self.contentView addSubview:btn];
+        [rLabelsArray addObject:btn ] ;
     }
     
     
@@ -493,6 +536,42 @@ static NSString *kHeaderTitles[] = {@"期数",@"还款日期",@"应还本金",@"
     [rLabelsArray mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView) ;
     }] ;
+    
+}
+
+-(void)rSetDataModel:(JYRepayModel *)rRepyModel {
+    _rRepyModel = [rRepyModel copy];
+    
+    
+    NSString *firstStr = [NSString stringWithFormat:@"第%@期",rRepyModel.repayPeriod] ;
+    NSString *secondtStr = [NSString stringWithFormat:@"%@",rRepyModel.repayDate] ;
+    NSString *thirdtStr = [NSString stringWithFormat:@"%.2f",[rRepyModel.perPrincple doubleValue]] ;
+    
+    
+    NSString *fourStr = [NSString stringWithFormat:@"%.2f",[rRepyModel.correlativeFee doubleValue]] ;
+    NSString *fiveStr = [NSString stringWithFormat:@"%@",rRepyModel.repayState] ;
+    
+    
+    NSArray *titlesArr = @[firstStr,secondtStr,thirdtStr,fourStr,fiveStr] ;
+    for (int i = 0; i< rLabelsArray.count; i++) {
+        
+        UIButton *bt = rLabelsArray[i] ;
+        if (i == 4) {
+            
+            if ([titlesArr[i] isEqualToString:@"2"]) {
+                bt.selected =  YES ;
+                
+            }else{
+                bt.selected =  NO ;
+                
+            }
+            
+        }else {
+            [bt setTitle:titlesArr[i] forState:UIControlStateNormal];
+        }
+        
+        
+    }
     
 }
 

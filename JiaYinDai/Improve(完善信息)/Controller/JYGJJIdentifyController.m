@@ -20,11 +20,44 @@
 
 @property(nonatomic ,strong) UIView *rTableFootView ;
 
+@property(nonatomic ,strong) UIButton *rCommitBtn ;
+
+
+@property (nonatomic ,strong) UITextField *rFirstTextField ;
+
+@property (nonatomic ,strong) UITextField *rSecondTextField ;
+
+
+@property (nonatomic ,assign) int rType ;
+@property (nonatomic ,assign) int rAccount_type ;
+
+
+
 
 
 @end
 
 @implementation JYGJJIdentifyController
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    self.rSecondTextField.keyboardType = UIKeyboardTypeAlphabet ;
+    
+    
+    [[RACSignal  combineLatest:@[
+                                 self.rFirstTextField.rac_textSignal,
+                                 self.rSecondTextField.rac_textSignal,
+                                 ]
+                        reduce:^(NSString *username,NSString *password) {
+                            return @([username length]  && [password length]);
+                        }] subscribeNext:^(NSNumber* x) {
+                            
+                            self.rCommitBtn.enabled = [x boolValue] ;
+                        }];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,48 +76,8 @@
                    
                    ] ;
     
-//    [self registerForKeyboardNotifications] ;
 }
 
-/*
-
-//先添加两个通知监听
-- (void) registerForKeyboardNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasHidden:) name:UIKeyboardWillHideNotification object:nil];
-}
-//显示键盘后
-- (void) keyboardWasShown:(NSNotification *) notif{
-    NSDictionary* userInfo = [notif userInfo];
-    NSTimeInterval animationDuration;
-    UIViewAnimationCurve animationCurve;
-    CGRect keyboardFrame;
-    [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
-    [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
-    [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboardFrame];
-
-     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    [UIView setAnimationCurve:animationCurve];
-    [self.view setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - keyboardFrame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
-    [UIView commitAnimations];
-}
-//隐藏键盘后
-- (void) keyboardWasHidden:(NSNotification *) notif{
-    NSDictionary* userInfo = [notif userInfo];
-    NSTimeInterval animationDuration;
-    UIViewAnimationCurve animationCurve;
-    CGRect keyboardFrame;
-    [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
-    [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
-    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    [UIView setAnimationCurve:animationCurve];
-    [self.view setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + keyboardFrame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
-    [UIView commitAnimations];
-}
-*/
 
 #pragma mark - builUI
 -(void)buildSubViewUI {
@@ -95,6 +88,21 @@
     [self.rTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.insets(UIEdgeInsetsZero) ;
     }];
+    
+    [self.view addSubview:self.rQuestButton];
+    [self.view addSubview:self.rTelButton];
+    
+    [self.rQuestButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-15) ;
+        make.right.equalTo(self.view.mas_centerX).offset(-15) ;
+    }] ;
+    
+    
+    [self.rTelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-15) ;
+        make.left.equalTo(self.view.mas_centerX).offset(15) ;
+    }] ;
+
     
 }
 
@@ -119,7 +127,7 @@
     
     if (indexPath.section == 0 && indexPath.row == 0) {
         
-         static NSString *identifier = @"identifierButton" ;
+        static NSString *identifier = @"identifierButton" ;
         
         JYPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier] ;
         
@@ -128,6 +136,18 @@
             cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeTwoBtn reuseIdentifier:identifier ];
             [cell.rManButton setTitle:@" 省级" forState:UIControlStateNormal];
             [cell.rWomenButton setTitle:@" 市级" forState:UIControlStateNormal];
+            
+            [RACObserve(cell.rManButton, selected)subscribeNext:^(id x) {
+                
+                if ([x boolValue]) {
+                    self.rType = 1 ;
+                }else{
+                    
+                    self.rType = 2 ;
+                }
+                
+                
+            }] ;
         }
         
         
@@ -146,9 +166,28 @@
         
         cell = [[JYPasswordCell alloc]initWithCellType:JYPassCellTypeNormal reuseIdentifier:identifier ];
         
+        [[cell.rTextField rac_signalForControlEvents:UIControlEventEditingDidEnd]subscribeNext:^(UITextField* textField) {
+            
+            NSInteger rowIndex = textField.tag - 1000 ;
+            
+            JYPasswordSetModel *mode = rDataArray[1][rowIndex] ;
+            
+            mode.rTFTitle = textField.text ;
+            
+            
+        }] ;
     }
-    [cell setDataModel:model] ;
+    cell.rTextField.tag =  1000 + indexPath.row ;
 
+    [cell setDataModel:model] ;
+    
+    if (indexPath.row == 0) {
+        self.rFirstTextField = cell.rTextField ;
+    }else{
+        
+        self.rSecondTextField = cell.rTextField ;
+    }
+    
     
     return cell ;
     
@@ -156,50 +195,60 @@
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+
+    UIView *view = [[UIView alloc]init];
+    view.backgroundColor = [UIColor clearColor] ;
+    return view ;
+
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    if (section == 1) {
+    if (section == 0) {
         
-     static NSString *headerIdentifier = @"headerIdentifier" ;
-    
-    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
-    if (headerView == nil) {
-        headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
-        headerView.contentView.backgroundColor = [UIColor clearColor];
+        static NSString *headerIdentifier = @"headerIdentifier" ;
         
-        
-        NSString *titles[] = {@" 客户号",@" 用户名",@" 市民邮箱"} ;
-        NSMutableArray *arr = [NSMutableArray arrayWithCapacity:3] ;
-        for (int i = 0; i < 3; i++) {
-            UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
-            [btn setTitle:titles[i] forState:UIControlStateNormal];
-            btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
-            [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal];
-            [headerView.contentView addSubview:btn];
+        UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier] ;
+        if (headerView == nil) {
+            headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:headerIdentifier];
+            headerView.contentView.backgroundColor = [UIColor clearColor];
             
-            [btn setImage:[UIImage imageNamed:@"imp_unselect"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"imp_select"] forState:UIControlStateSelected];
-             btn.tag = 1000+i ;
-            [arr addObject:btn];
-            btn.selected = NO ;
             
-            if (i == 0) {
-                btn.selected = YES ;
+            NSString *titles[] = {@" 客户号",@" 用户名",@" 市民邮箱"} ;
+            NSMutableArray *arr = [NSMutableArray arrayWithCapacity:3] ;
+            for (int i = 0; i < 3; i++) {
+                UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
+                [btn setTitle:titles[i] forState:UIControlStateNormal];
+                btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
+                [btn setTitleColor:kTextBlackColor forState:UIControlStateNormal];
+                [headerView.contentView addSubview:btn];
+                
+                [btn setImage:[UIImage imageNamed:@"imp_unselect"] forState:UIControlStateNormal];
+                [btn setImage:[UIImage imageNamed:@"imp_select"] forState:UIControlStateSelected];
+                btn.tag = 1000+i ;
+                [arr addObject:btn];
+                btn.selected = NO ;
+                
+                if (i == 0) {
+                    btn.selected = YES ;
+                    self.rAccount_type = 1 ;
+                }
+                
+                [btn addTarget:self action:@selector(pvt_selectBtn:) forControlEvents:UIControlEventTouchUpInside] ;
+                
             }
             
-            [btn addTarget:self action:@selector(pvt_selectBtn:) forControlEvents:UIControlEventTouchUpInside] ;
+            
+            [arr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:15 leadSpacing:25 tailSpacing:25] ;
+            [arr mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(headerView.contentView) ;
+            }] ;
+            
+            
             
         }
         
-        [arr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:15 leadSpacing:25 tailSpacing:110] ;
-        [arr mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(headerView.contentView) ;
-        }] ;
-        
-        
-        
-    }
-    
-    return headerView ;
+        return headerView ;
     }
     
     UIView *view = [[UIView alloc]init];
@@ -211,7 +260,7 @@
 -(void)pvt_selectBtn:(UIButton*) button {
     
     
-    UITableViewHeaderFooterView *headerView = [self.rTableView headerViewForSection:1] ;
+    UITableViewHeaderFooterView *headerView = [self.rTableView footerViewForSection:0] ;
     UIButton *btn0 = [headerView.contentView viewWithTag:1000] ;
     UIButton *btn1 = [headerView.contentView viewWithTag:1001] ;
     UIButton *btn2 = [headerView.contentView viewWithTag:1002] ;
@@ -220,10 +269,11 @@
     
     
     button.selected = YES ;
-
+    self.rAccount_type = (int)(button.tag - 999) ;
     
-
-
+    
+    
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -232,8 +282,19 @@
     }
     
     
-    return 50 ;
+    return 0 ;
 }
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return 50 ;
+    }
+    
+    
+    return 0 ;
+}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -241,6 +302,38 @@
 }
 
 #pragma mark- action
+
+
+-(void)pvt_commit {
+
+    [self pvt_loadData];
+}
+
+-(void)pvt_loadData {
+
+  
+    NSMutableDictionary *dic= [NSMutableDictionary dictionary] ;
+    [dic setValue:self.rFirstTextField.text forKey:@"userName"];
+    
+    [dic setValue:self.rSecondTextField.text forKey:@"password"] ;
+    
+    [dic setValue:[NSNumber numberWithInt:self.rType] forKey:@"type"];
+    
+    [dic setValue:[NSNumber numberWithInt:self.rAccount_type] forKey:@"accountType"] ;
+    
+    
+    [[AFHTTPSessionManager jy_sharedManager]POST:kGJJinURL parameters:dic  progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [JYProgressManager showBriefAlert:@"公积金认证成功"] ;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+    
+}
 
 
 #pragma  mark- getter
@@ -262,15 +355,23 @@
 
 
 -(UIView*)rTableFootView {
-
+    
     if (_rTableFootView == nil) {
         _rTableFootView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, 120)];
         
         
         UIButton *commitBtn = [self jyCreateButtonWithTitle:@"确认"] ;
+        commitBtn.enabled = NO ;
         commitBtn.frame = CGRectMake(15, 30, SCREEN_WIDTH-30, 45);
         [_rTableFootView addSubview:commitBtn];
-
+        self.rCommitBtn = commitBtn ;
+        
+        @weakify(self)
+        [[commitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            
+            @strongify(self)
+            [self pvt_commit] ;
+        }] ;
         
         UILabel *descLabe = [self jyCreateLabelWithTitle:@"如担心信息安全可在绑定之后到公积金网就该密码" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
         descLabe.frame = CGRectMake(15, CGRectGetMaxY(commitBtn.frame)+15, SCREEN_WIDTH-30, 16) ;

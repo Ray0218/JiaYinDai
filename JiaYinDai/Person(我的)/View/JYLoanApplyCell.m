@@ -21,7 +21,7 @@
 
 @property(nonatomic,strong) NSMutableArray *rStateTitlesArr ;
 
-@property(nonatomic,strong) NSArray *rTitlesArr ;
+@property(nonatomic,strong) NSMutableArray *rTitlesArr ;
 
 
 @end
@@ -42,7 +42,7 @@
         self.backgroundColor =
         self.contentView.backgroundColor = [UIColor clearColor] ;
         
-        self.rTitlesArr = [NSArray arrayWithObjects:@"已受理",@"审核通过",@"筹款中",@"打款中", nil] ;
+        self.rTitlesArr = [NSMutableArray arrayWithObjects:@"已受理",@"审核通过",@"筹款中",@"打款中", nil] ;
         
         [self buildSubViewsUI] ;
     }
@@ -83,7 +83,7 @@
     
     self.rStateTitlesArr = [NSMutableArray arrayWithCapacity:4] ;
     for (int i=0; i<4; i++) {
-        UILabel *lab = [self jyCreateLabelWithTitle:self.rTitlesArr[i] font:12 color:kTextBlackColor align:NSTextAlignmentCenter] ;
+        UILabel *lab = [self jyCreateLabelWithTitle:self.rTitlesArr[i] font:10 color:kBlackColor align:NSTextAlignmentCenter] ;
         
         [self.contentView addSubview:lab];
         [self.rStateTitlesArr addObject:lab];
@@ -127,7 +127,7 @@
         make.top.equalTo(self.rMoneyLabel.mas_bottom).offset(15) ;
         make.left.equalTo(rBgView).offset(30) ;
         make.right.equalTo(rBgView).offset(-30) ;
-        make.height.mas_equalTo(25) ;
+        make.height.mas_equalTo(20) ;
     }] ;
     
     
@@ -141,6 +141,101 @@
     }] ;
     
 }
+
+-(void)setRDataModel:(JYApplyRecordModel *)rDataModel {
+    
+    _rDataModel = [rDataModel copy] ;
+    
+    NSTimeInterval times = [rDataModel.applyTime longLongValue]/1000.0 ;
+    
+    NSDate *dateS = [NSDate dateWithTimeIntervalSince1970:times] ;
+    
+    NSString* timString = [[[JYDateFormatter shareFormatter]jy_getFormatterWithType:JYDateFormatTypeYMD] stringFromDate:dateS] ;
+    
+    self.rTimeLabel.text = timString ;
+    
+    
+    NSString* moneyStr  = [NSString stringWithFormat:@"%.2f元",[rDataModel.principal doubleValue]] ;
+    
+    self.rMoneyLabel.attributedText = TTFormateNumString(moneyStr, 28, 16, 3) ;
+    
+    
+    self.rTitleLabel.text = [NSString stringWithFormat:@"申请单号 %@",rDataModel.applyNo] ;
+    
+    
+    if (([rDataModel.refuseType isEqualToString:@"1"])) { //需补录
+        
+        self.rBottomView.image = [UIImage imageNamed:@"apply_state7"] ;
+        
+        [self.rTitlesArr replaceObjectAtIndex:1 withObject:@"补录信息" ];
+        
+        
+    }else{
+        
+        NSInteger status = [rDataModel.auditStatus integerValue] ;
+        
+        switch (status) {
+            case 0:
+            case 1:
+            case 10:
+                
+                
+                self.rBottomView.image = [UIImage imageNamed:@"apply_state2"] ;
+                
+                
+                [self.rTitlesArr replaceObjectAtIndex:1 withObject:@"审核中" ];
+                
+                break;
+            case 2:
+            case 5:
+                
+                self.rBottomView.image = [UIImage imageNamed:@"apply_state3"] ;
+                [self.rTitlesArr replaceObjectAtIndex:2 withObject:@"筹款中" ];
+                
+                
+                break;
+            case 3:
+            case 4:
+            case 11:
+                
+                
+                [self.rTitlesArr replaceObjectAtIndex:1 withObject:@"申请拒绝" ];
+                
+                self.rBottomView.image = [UIImage imageNamed:@"apply_state1"] ;
+                
+                break;
+            case 6:
+            case 7:
+                
+                self.rBottomView.image = [UIImage imageNamed:@"apply_state5"] ;
+                [self.rTitlesArr replaceObjectAtIndex:3 withObject:@"打款成功" ];
+                
+                
+                break;
+            case 9:
+                
+                self.rBottomView.image = [UIImage imageNamed:@"apply_state6"] ;
+                
+                [self.rTitlesArr replaceObjectAtIndex:3 withObject:@"放款失败" ];
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }
+    
+ 
+    for (int i = 0; i <self.rStateTitlesArr.count; i++) {
+        UILabel *label = self.rStateTitlesArr[i] ;
+        
+        label.text = self.rTitlesArr[i] ;
+    }
+    
+    
+}
+
 
 #pragma mark- getter
 -(UILabel*)rTimeLabel {
@@ -156,7 +251,7 @@
 -(UILabel*)rMoneyLabel {
     
     if (_rMoneyLabel == nil) {
-        _rMoneyLabel = [self jyCreateLabelWithTitle:@"200000.00元" font:20 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rMoneyLabel = [self jyCreateLabelWithTitle:@"200000.00元" font:28 color:kBlackColor align:NSTextAlignmentLeft] ;
     }
     return _rMoneyLabel ;
 }
@@ -167,7 +262,6 @@
     if (_rBottomView == nil) {
         _rBottomView =  [[UIImageView alloc]init];
         _rBottomView.backgroundColor = [UIColor clearColor] ;
-        //        _rBottomView.contentMode = UIViewContentModeCenter ;
         _rBottomView.image = [UIImage imageNamed:@"apply_state5"] ;
     }
     return _rBottomView ;
@@ -179,7 +273,7 @@
 -(UILabel*)rTitleLabel {
     
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"借款申请单号 8464254" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"借款申请单号 8464254" font:16 color:kBlackColor align:NSTextAlignmentLeft] ;
         
     }
     

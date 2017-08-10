@@ -7,6 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JYRepayModel.h"
+
+
+static NSString *kTitles[] = {@"借款期限（月）",@"综合月利（%）",@"最低还款金额（元）"} ;
+
 
 @interface JYLoanDetailHeader : UIView
 
@@ -15,6 +20,9 @@
 @property (nonatomic ,strong,readonly) UIImageView *rLeftImg  ; //
 
 @property (nonatomic,strong,readonly) UIView *rBgView ;
+
+@property (nonatomic ,strong,readonly) NSMutableArray *rTitlesArray ;
+
 
 
 
@@ -37,7 +45,10 @@ typedef NS_ENUM(NSUInteger, JYLoanDetailCellType) {
 
 @property (nonatomic ,strong,readonly) UILabel *rTimesLabel; //期数
 
-@property (nonatomic ,strong,readonly) UIButton *rOrderButton ; //预约
+//@property (nonatomic ,strong,readonly) UIButton *rOrderButton ; //预约
+
+@property (nonatomic ,strong,readonly) UILabel *rOverLabel  ; //滞纳金额
+
 
 -(instancetype)initWithCellType:(JYLoanDetailCellType)type reuseIdentifier:(NSString *)reuseIdentifier ;
 
@@ -51,7 +62,7 @@ typedef NS_ENUM(NSUInteger, JYLoanCllType) {
 
 @interface JYLoanTimesCell : UITableViewCell
 
-
+@property (nonatomic ,setter=rSetDataModel:)JYRepayModel *rRepyModel ;
 -(instancetype)initWithCellType:(JYLoanCllType)type reuseIdentifier:(NSString *)reuseIdentifier  ;
 
 @end

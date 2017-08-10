@@ -10,4 +10,9 @@
 
 @interface JYMYFinanceHeader : UIView
 
+
+@property(nonatomic ,strong,readonly) UITextField *rTotalIncomeField ;
+@property(nonatomic ,strong,readonly) UILabel *rLeftLabel ;
+@property(nonatomic ,strong,readonly) UILabel *rRightLabel ;
+
 @end

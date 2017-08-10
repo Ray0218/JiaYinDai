@@ -6,8 +6,29 @@
 //  Copyright © 2017年 嘉远控股. All rights reserved.
 //
 
-#import "JYFatherTableController.h"
+#import "JYFatherController.h"
+#import "JYBankModel.h"
 
-@interface JYBankCardController : JYFatherTableController
+
+
+typedef NS_ENUM(NSUInteger, JYBankCardVCType) {
+    JYBankCardVCTypeManager, //银行卡管理
+    JYBankCardVCTypCharge, // 充值
+    JYBankCardVCTypDraw, // 提取
+    JYBankCardVCTypPay, // 支付
+
+
+ };
+
+typedef void(^JYBankSelectBlock)(JYBankModel* bankModel);
+
+
+@interface JYBankCardController : JYFatherController
+
+@property (nonatomic ,copy) JYBankSelectBlock rBankBlock ;
+
+- (instancetype)initWithType:(JYBankCardVCType)type ;
+
+
 
 @end

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JYBillListModel.h"
 
  
 
 @interface JYBillCell : UITableViewCell
+
+@property (nonatomic ,strong) JYBillListModel *rDataModel ;
 
 -(void)setCellColor:(UIColor*) colorStyle ;
 

@@ -11,10 +11,16 @@
 
 @interface JYMYFinanceHeader ()
 
-@property(nonatomic ,strong) UILabel *rTotalIncomeLabel ;
+@property(nonatomic ,strong) UITextField *rTotalIncomeField ;
 @property(nonatomic ,strong) UILabel *rLeftLabel ;
 @property(nonatomic ,strong) UILabel *rRightLabel ;
 @property(nonatomic ,strong) UILabel *rTitleLabel ;
+
+
+@property(nonatomic ,strong) UIImageView *rMoneyImage ;
+
+
+ 
 
 
 @end
@@ -36,7 +42,7 @@
 -(void)buildSubViewsUI {
     
     [self addSubview:self.rTitleLabel];
-    [self addSubview:self.rTotalIncomeLabel];
+    [self addSubview:self.rTotalIncomeField];
     [self addSubview:self.rLeftLabel];
     [self addSubview:self.rRightLabel];
     
@@ -51,9 +57,10 @@
         make.top.equalTo(self).offset(15) ;
     }];
     
-    [self.rTotalIncomeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.rTotalIncomeField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self) ;
         make.top.equalTo(self.rTitleLabel.mas_bottom).offset(10) ;
+        make.width.mas_lessThanOrEqualTo(SCREEN_WIDTH - 30) ;
     }];
     
     
@@ -74,23 +81,37 @@
 
 -(UILabel*)rTitleLabel {
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"累计收益" font:14 color:[UIColor whiteColor] align:NSTextAlignmentCenter] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"应还款总额(元)" font:14 color:[UIColor whiteColor] align:NSTextAlignmentCenter] ;
     }
     
     return _rTitleLabel ;
 }
 
--(UILabel*)rTotalIncomeLabel {
-    if (_rTotalIncomeLabel == nil) {
-        _rTotalIncomeLabel = [self jyCreateLabelWithTitle:@"8.75" font:22 color:[UIColor whiteColor] align:NSTextAlignmentCenter] ;
+-(UITextField*)rTotalIncomeField {
+    if (_rTotalIncomeField == nil) {
+        _rTotalIncomeField = [[UITextField alloc]init];
+        _rTotalIncomeField.leftViewMode = UITextFieldViewModeAlways ;
+        _rTotalIncomeField.leftView = ({
+            UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 20)] ;
+            
+            [view addSubview:self.rMoneyImage];
+            
+            view ;
+        
+         }) ;
+        _rTotalIncomeField.enabled = NO ;
+        _rTotalIncomeField.text = @"0.00" ;
+        _rTotalIncomeField.font = [UIFont systemFontOfSize:39] ;
+        _rTotalIncomeField.textColor = [UIColor whiteColor] ;
+
     }
     
-    return _rTotalIncomeLabel ;
+    return _rTotalIncomeField ;
 }
 
 -(UILabel*)rLeftLabel {
     if (_rLeftLabel == nil) {
-        _rLeftLabel = [self jyCreateLabelWithTitle:@"待收收益XXX元" font:14 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
+        _rLeftLabel = [self jyCreateLabelWithTitle:@"累计借款0元" font:14 color:[UIColor whiteColor] align:NSTextAlignmentLeft] ;
     }
     return _rLeftLabel ;
 }
@@ -98,10 +119,20 @@
 -(UILabel*)rRightLabel {
     
     if (_rRightLabel == nil) {
-        _rRightLabel = [self jyCreateLabelWithTitle:@"待收本金XXX元" font:14 color:[UIColor whiteColor] align:NSTextAlignmentRight] ;
+        _rRightLabel = [self jyCreateLabelWithTitle:@"成功借款0笔" font:14 color:[UIColor whiteColor] align:NSTextAlignmentRight] ;
     }
     
     return _rRightLabel ;
+}
+
+-(UIImageView*)rMoneyImage {
+
+    if (_rMoneyImage == nil) {
+        _rMoneyImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
+        _rMoneyImage.backgroundColor = [UIColor clearColor] ;
+        _rMoneyImage.image = [UIImage imageNamed:@"loan_money"] ;
+    }
+    return _rMoneyImage ;
 }
 
 @end

@@ -13,5 +13,6 @@
 
 -(UIButton*)jyCreateButtonWithTitle:(NSString*)title  ;
 
- 
+-(void)jychangeLineSpaceForLabel:(UILabel *)label baseString:(NSString*)baseString WithSpace:(float)space  ;
+
 @end

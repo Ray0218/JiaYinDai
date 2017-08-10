@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^JYPickerViewBlock)(NSString* selectString);
+typedef void(^JYPickerViewBlock)(NSString* selectString,NSInteger index);
 
 
 @interface JYPickerView : UIView
@@ -16,5 +16,20 @@ typedef void(^JYPickerViewBlock)(NSString* selectString);
 @property(nonatomic,strong)  NSArray *rDataArray ;
 
 @property (nonatomic ,copy) JYPickerViewBlock rSelectBlock ;
+
+@property (nonatomic ,strong,readonly) UIPickerView *rPickerView ;
+
+@property (nonatomic ,assign) NSInteger rSelectRow ;
+
+
+@end
+
+
+typedef void(^JYDatePickerBlock)(NSString* selectString);
+
+@interface JYDatePicker : UIView
+
+@property (nonatomic ,copy) JYDatePickerBlock rSelectBlock ;
+
 
 @end

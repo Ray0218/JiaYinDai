@@ -10,4 +10,12 @@
 
 @interface JYSuccessAlterController : UIViewController
 
+@property (nonatomic,strong,readonly) UIButton *rCommitBtn ;
+
+@property (nonatomic,strong,readonly) UILabel *rTitleLabel ;
+
+@property (nonatomic,strong) NSString *rControlName ;
+
+
+
 @end

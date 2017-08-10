@@ -16,6 +16,9 @@ static JYDateFormatter *_formatter = nil ;
 @property(nonatomic, strong) NSDateFormatter *rYMDHMFormatter ;
 @property(nonatomic, strong) NSDateFormatter *rYMDHMSFormatter ;
 @property(nonatomic, strong) NSDateFormatter *rYMDHMSSFormatter ;
+@property(nonatomic, strong) NSDateFormatter *rHMSFormatter ;
+
+@property(nonatomic, strong) NSDateFormatter *rYMDHMSDetailFormatter ;
 
 
 @end
@@ -50,12 +53,25 @@ static JYDateFormatter *_formatter = nil ;
              
          case JYDateFormatTypeYMDHMSS:
              return self.rYMDHMSSFormatter ;
+             case JYDateFormatTypHMS:
+             
+             return self.rHMSFormatter ;
+             case JYDateFormatTypeYMDHMSDetail:
+             
+             return self.rYMDHMSDetailFormatter ;
         default:
             break;
     }
     return  format ;
     
 }
+
+-(NSString *)jy_getCurrentDateString {
+
+    
+    return [[[JYDateFormatter shareFormatter]jy_getFormatterWithType:JYDateFormatTypeYMDHMSS] stringFromDate:[NSDate date]] ;
+}
+
 
 
 #pragma mark- getter
@@ -96,6 +112,37 @@ static JYDateFormatter *_formatter = nil ;
     return _rYMDHMSSFormatter ;
 }
 
+-(NSDateFormatter*)rHMSFormatter {
+    
+    if (_rHMSFormatter == nil) {
+        _rHMSFormatter = [[NSDateFormatter alloc]init];
+        _rHMSFormatter.dateFormat = @"HHmmss" ;
+    }
+    return _rHMSFormatter ;
+}
+
+
+-(NSDateFormatter*)rYMDHMSDetailFormatter {
+    
+    if (_rYMDHMSDetailFormatter == nil) {
+        _rYMDHMSDetailFormatter = [[NSDateFormatter alloc]init];
+        _rYMDHMSDetailFormatter.dateFormat = @"yyyyMMddHHmmss" ;
+    }
+    return _rYMDHMSDetailFormatter ;
+}
+
+
+//把一个时间戳转换为 年月日时分秒 比较紧凑的 yyyyMMddHHmmss
++ (NSString *)conversionTimeStampToCompactWith:(NSString *)timeStamp {
+    
+    NSDateFormatter *formatter=[[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+    NSDate *rigistTime=[NSDate dateWithTimeIntervalSince1970:[timeStamp longLongValue]/1000];
+    NSString *dateStr=[formatter stringFromDate:rigistTime];
+    
+    return dateStr;
+    
+}
 
 
 @end

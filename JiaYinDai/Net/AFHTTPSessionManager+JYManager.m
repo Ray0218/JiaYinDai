@@ -15,6 +15,10 @@ const CGFloat kTimeoutIntervalForWiFi = 10;
 const CGFloat kTimeoutIntervalForWWAN = 18;
 
 @implementation AFHTTPSessionManager (JYManager)
+
+
+
+
 + (instancetype)jy_sharedManager {
     
     static AFHTTPSessionManager *sharedManager;
@@ -66,22 +70,82 @@ const CGFloat kTimeoutIntervalForWWAN = 18;
                           uploadProgress:uploadProgress
                         downloadProgress:downloadProgress
                        completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
-                           if (error) {
-                               if (failure) {
-                                   NSLog(@"失败  %@",error) ;
+                           
+                           [[NSNotificationCenter defaultCenter]postNotificationName:kEndRefreshNotification object:nil];
+
+                           if ([response.URL.absoluteString containsString:kSaveLogURL] || [response.URL.absoluteString containsString:kRootCountURL] ) { //日志请求/首页统计
+                               
+                               
+                           }else if (error) {
+                                   if (failure) {
+                                       NSLog(@"失败  %@",error) ;
+                                       
+                                       [JYProgressManager showBriefAlert:[error dp_errorMessage]] ;
+                                       
+                                       failure(dataTask, error);
+                                   }
+                               } else {
                                    
-                                   [JYProgressManager showBriefAlert:[error dp_errorMessage]] ;
+                                   
+                                   if ([responseObject[@"status"] integerValue] == 500) {
+                                       [JYProgressManager showBriefAlert:@"服务器出错！"] ;
+                                   }else
+                                       
+                                       if ([responseObject[@"code"] integerValue] == 1000 ) { //去登陆
+                                           
+                                           [JYProgressManager hideAlert] ;
+                                           
+                                           [[NSNotificationCenter defaultCenter]postNotificationName:kLogInNotification object:nil];
+                                           
+                                       }else  if ([response.URL.absoluteString containsString:kPhoneIdentifyURL] || [response.URL.absoluteString containsString:kAuditStatusURL]) {
+                                           if (success) { //手机认证特殊处理 ,能否借款
+                                               //                                               NSLog(@"成功  %@",responseObject) ;
+                                               success(dataTask, responseObject);
+                                           }
+                                       } else{
+                                           [JYProgressManager hideAlert] ;
+                                           
+                                           
+                                           if ([response.URL.absoluteString containsString:kLogInURL]) {
+                                               
+                                               [[NSNotificationCenter defaultCenter]postNotificationName:kAutoLogFinishNotification object:nil];
+                                               
+                                               NSLog(@"#######  掉了登录接口 ########") ;
+                                               
+                                           }
+                                           
+                                           
+                                           if ([responseObject[@"code"] integerValue] == 0) {
+                                               if (success) {
+                                                   NSLog(@"成功  %@",responseObject) ;
+                                                   success(dataTask, responseObject);
+                                               }
+                                           }else{
+                                               
+                                               
+                                               if ([responseObject[@"code"] integerValue] == 2006 || [responseObject[@"code"] integerValue] == 2007) { //手机号或密码错误
+                                                   if (failure) {
+                                                       failure(dataTask, error);
+                                                   }
+                                               }
+                                               
+                                               if ([response.URL.absoluteString containsString:KBannerURL]) { //启动广告
+                                                   
+                                                   if (failure) {
+                                                       failure(dataTask, error);
+                                                   }
+                                               }
+                                               
+                                               [JYProgressManager showBriefAlert:responseObject[@"msg"]] ;
+                                               
+                                           }
+                                       }
                                    
                                    
-                                   failure(dataTask, error);
                                }
-                           } else {
-                               if (success) {
-                                   
-                                   NSLog(@"成功  %@",responseObject) ;
-                                   success(dataTask, responseObject);
-                               }
-                           }
+                           
+                           
+                           
                        }];
     
     return dataTask;
@@ -107,10 +171,10 @@ const CGFloat kTimeoutIntervalForWWAN = 18;
 
 - (NSString *)dp_errorMessage {
     
-    if(![AFNetworkReachabilityManager sharedManager].reachable){
-        return @"网络不给力呀~";
-        
-    }
+    //    if(![AFNetworkReachabilityManager sharedManager].reachable){
+    //        return @"网络不给力呀~";
+    //
+    //    }
     switch (self.code) {
         case NSURLErrorCancelled:
             return nil;

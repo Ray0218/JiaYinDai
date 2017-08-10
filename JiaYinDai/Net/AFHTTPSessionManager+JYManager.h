@@ -10,8 +10,11 @@
 
 @interface AFHTTPSessionManager (JYManager)
 
+
+ 
 + (instancetype)jy_sharedManager  ;
 
+ 
 
 @end
 

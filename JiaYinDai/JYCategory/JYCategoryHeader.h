@@ -17,6 +17,11 @@
 #import "NSObject+Factory.h"
 #import "UIViewController+Transition.h"
 
+#import "UIAlertView+Extern.h"
+
+
+#import "UITextField+Limit.h"
+
 
 
 #endif /* JYCategoryHeader_h */

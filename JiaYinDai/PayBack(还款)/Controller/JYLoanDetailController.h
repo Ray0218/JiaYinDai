@@ -12,5 +12,7 @@
 
 -(instancetype)initWithOver:(BOOL) isOver ;
 
+@property (nonatomic ,strong) NSString *rApplyNo ;
+
 
 @end

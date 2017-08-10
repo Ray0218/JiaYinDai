@@ -12,8 +12,7 @@
 
 @property (nonatomic,strong) UIImageView* rLeftImg ;
 @property (nonatomic,strong) UILabel* rTitleLabel ;
-@property (nonatomic,strong) UIImageView* rRightImg ;
-
+@property (nonatomic ,strong) UILabel *rRightLabel ;
 
 @end
 
@@ -56,6 +55,8 @@
     [self.contentView addSubview:self.rTitleLabel];
     [self.contentView addSubview:self.rRightImg];
     
+    [self.contentView addSubview:self.rRightLabel];
+    
     [self.rLeftImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(15) ;
         make.centerY.equalTo(self.contentView) ;
@@ -70,6 +71,13 @@
     [self.rRightImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView) ;
         make.right.equalTo(self.contentView).offset(-15) ;
+//        make.width.height.mas_equalTo(25) ;
+    }] ;
+    
+    
+    [self.rRightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView) ;
+        make.right.equalTo(self.rRightImg.mas_left).offset(-5) ;
     }] ;
 
 }
@@ -91,10 +99,20 @@
 -(UILabel*)rTitleLabel {
 
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"" font:16 color:kTextBlackColor align:NSTextAlignmentLeft ] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"" font:16 color:kBlackColor align:NSTextAlignmentLeft ] ;
     }
     
     return _rTitleLabel ;
+}
+
+
+-(UILabel*)rRightLabel {
+    
+    if (_rRightLabel == nil) {
+        _rRightLabel = [self jyCreateLabelWithTitle:@"" font:16 color:kTextBlackColor align:NSTextAlignmentRight ] ;
+    }
+    
+    return _rRightLabel ;
 }
 
 

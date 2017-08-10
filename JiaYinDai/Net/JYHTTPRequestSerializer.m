@@ -40,19 +40,53 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
     
     [self.HTTPRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id field, id value, BOOL * __unused stop) {
         if (![request valueForHTTPHeaderField:field]) {
-            [mutableRequest setValue:value forHTTPHeaderField:field];
+            
+            
+            if ([field isEqualToString:@"User-Agent"]) {
+                
+                NSString *valueStr = (NSString*)value ;
+                valueStr = [valueStr stringByReplacingOccurrencesOfString:@"iPhone" withString:[JYSingtonCenter getDeviceName]] ;
+                [mutableRequest setValue:valueStr forHTTPHeaderField:field];
+                
+            }else
+                
+                [mutableRequest setValue:value forHTTPHeaderField:field];
         }
     }];
     
+    
+    NSMutableDictionary *oriDic = [NSMutableDictionary dictionaryWithDictionary:parameters] ;
+    
+    NSString *contentType = oriDic[kRequestJsonType] ;
+    
+    if (contentType && contentType.length) {
+        [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        [oriDic removeObjectForKey:kRequestJsonType] ;
+        
+    }else{
+        
+        [mutableRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        
+    }
+    
+    
+    if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
+        [mutableRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        
+    }
+    
+    
     NSString *query = nil ;
     
-    if (parameters) {
+    if (oriDic) {
         
-        parameters = [self getTargetStringWithDic:parameters];
+        
+        oriDic = [self getTargetStringWithDic:oriDic];
         //加密
-        parameters = [self sessionEncryDicWithDic:parameters];
+        oriDic = [self sessionEncryDicWithDic:oriDic];
         
-        query = AFQueryStringFromParameters(parameters);
+        query = AFQueryStringFromParameters(oriDic);
         
     }
     
@@ -60,30 +94,46 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
     if (!query) {
         query = @"";
     }
-    if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
-        [mutableRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    }
-    [mutableRequest setHTTPBody:[query dataUsingEncoding:self.stringEncoding]];
     
+    
+    
+    
+    NSString *contentString = [mutableRequest valueForHTTPHeaderField:@"Content-Type"] ;
+    
+    if ([contentString isEqualToString:@"application/json"]) {
+        
+        
+        NSData *data = [NSJSONSerialization dataWithJSONObject:oriDic options:NSJSONWritingPrettyPrinted error:nil] ;
+        
+        [mutableRequest setHTTPBody:data];
+        
+    }else{
+        
+        
+        [mutableRequest setHTTPBody:[query dataUsingEncoding:self.stringEncoding]];
+    }
     
     return mutableRequest ;
     
 }
 
 
-- (NSDictionary *)sessionEncryDicWithDic:(NSDictionary *)dict {
+- (NSMutableDictionary *)sessionEncryDicWithDic:(NSMutableDictionary *)dict {
     
     
     NSMutableDictionary *jsonDict = [NSMutableDictionary dictionaryWithDictionary:dict] ;
     
     NSString *signKey = jsonDict[@"key"] ;
     
-    [jsonDict removeObjectForKey:@"key"] ;
-    
-    NSString *preSignStr = [ JYSignHelper jygetPreSignStringWithDic:jsonDict signKey:signKey];
-
-     
-    [jsonDict setObject:preSignStr forKey:@"sign" ] ;
+    if (signKey) {
+        
+        [jsonDict removeObjectForKey:@"key"] ;
+        
+        NSString *preSignStr = [ JYSignHelper jygetPreSignStringWithDic:jsonDict signKey:signKey];
+        
+        
+        [jsonDict setObject:preSignStr forKey:@"sign" ] ;
+    }
     
     
     return [jsonDict copy] ;
@@ -94,52 +144,6 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
 
 
 
-///**
-// *  对字典进行拼接 然后MD5加密
-// *
-// *  @param jsonDict body
-// *
-// *  @return 排序后的sign
-// */
-//- (NSString *)getPreSignStringWithDic:(NSMutableDictionary *)jsonDict signKey:(NSString*) sig{
-//    
-//    NSArray *keyArray=[jsonDict allKeys];
-//    //参数按顺序按首字母升序排列,值为空的不参与签名,MD5的key值放在最后
-//    NSArray *resultArray=[keyArray sortedArrayUsingComparator:^NSComparisonResult(NSString *key1, NSString *key2) {
-//        return [key1 compare:key2];
-//    }];
-//    
-//    NSMutableString *paramString=[NSMutableString stringWithString:@""];
-//    
-//    //拼接成 A=B&X=Y
-//    for (NSString *key in resultArray) {
-//        if ([jsonDict[key] length]!=0) {
-//            [paramString appendFormat:@"&%@=%@",key,jsonDict[key]];
-//        }
-//    }
-//    
-//    //删除第一个&字符
-//    if ([paramString length]>1) {
-//        [paramString deleteCharactersInRange:NSMakeRange(0, 1)];
-//    }
-//    
-//    //如果需要签名key
-//    if (sig) {
-//        NSString *pay_md5_key=[NSString stringWithFormat:@"%@",sig];
-//        [paramString appendFormat:@"&key=%@",pay_md5_key];
-//    }
-//    NSLog(@"加密前===%@",paramString);
-//    
-//    
-//    //md5 加密
-//    NSString  *signString=[ paramString jy_MD5String] ;
-//    return signString;
-//    
-//    return nil ;
-//    
-//    
-//}
-//
 /**
  *  请求body
  *
@@ -151,7 +155,7 @@ typedef NS_ENUM(NSInteger, DPHTTPErrorCode) {
     NSMutableDictionary *tranDic = [NSMutableDictionary  dictionaryWithDictionary:jsonDict];
     
     
-     
+    
     return [tranDic copy];
 }
 

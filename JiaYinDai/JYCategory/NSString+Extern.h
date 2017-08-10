@@ -30,4 +30,12 @@
  */
 - (NSString *)jy_MD5String ;
 
+//密码校验
+-(BOOL)jy_checkPassWord ;
+
+
+-(NSString*)jy_Base64String  ;
+
+
+ 
 @end

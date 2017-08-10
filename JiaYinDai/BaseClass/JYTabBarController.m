@@ -7,12 +7,13 @@
 //
 
 #import "JYTabBarController.h"
-//#import "JYFinanceViewController.h"
-#import "JYLoanViewController.h"
+ #import "JYLoanViewController.h"
 #import "JYPersonViewController.h"
 
 #import "JYLoanRecordController.h"
 #import "JYLogInViewController.h"
+#import "JPUSHService.h"
+
 
  
 
@@ -31,13 +32,14 @@
     
     self.tabBar.backgroundColor = [UIColor whiteColor];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pvt_autoLogin) name:kLogInNotification object:nil];
     
     
     NSArray *childItemsArray = @[
                                  
                                  
                                  @{kClassVCKey  : @"JYLoanViewController",
-                                   kTitleKey    : @"借贷",
+                                    kTitleKey    : @"借贷",
                                    kImageKey    : @"tab_LoanGray",
                                    kSelImageKey : @"tab_loan"},
                                  
@@ -62,6 +64,7 @@
         
         item.title =  dict[kTitleKey];
         
+        
         item.image = [UIImage imageNamed:dict[kImageKey]];
         item.selectedImage = [[UIImage imageNamed:dict[kSelImageKey]] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)];
         [item setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlueColor} forState:(UIControlStateSelected)];
@@ -81,22 +84,36 @@
     
     return YES ;
 }
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+ 
+#pragma mark- 登录
 
-//    if ( ![JYSingtonCenter shareCenter].rUserModel && tabBarController.selectedIndex != 0) {
-//        
-//        JYLogInViewController *logVC =[[JYLogInViewController alloc]initWithLogType:JYLogFootViewTypeLogIn];
-//        UINavigationController *nvc =[[UINavigationController alloc]initWithRootViewController:logVC] ;
-//
-//        [self presentViewController:nvc animated:NO completion:^{
-//        }] ;
-//    }
+-(void)pvt_logIn {
+
+    JYLogInViewController *logVC =[[JYLogInViewController alloc]initWithLogType:JYLogFootViewTypeLogIn];
+    UINavigationController *nvc =[[UINavigationController alloc]initWithRootViewController:logVC] ;
     
-    
+    [self presentViewController:nvc animated:YES completion:^{
+    }] ;
+
 }
 
 
+-(void)pvt_autoLogin{
+    
+    
+    @weakify(self)
+    [[JYSingtonCenter shareCenter]pvt_autoLoginSuccess:^{
+        
+        
+    } failure:^{
+        @strongify(self)
 
+        [self pvt_logIn] ;
+        
+    }] ;
+    
+    
+}
 
 
 

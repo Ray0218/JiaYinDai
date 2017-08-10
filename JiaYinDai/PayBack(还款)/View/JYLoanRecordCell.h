@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JYOrderModel.h"
+
 @interface JYLoanRecordCell : UITableViewCell
+
+
+
+
+ @property (nonatomic,strong) JYOrderModel *rDataModel ;
+
 
 @end

@@ -62,7 +62,7 @@
         _rImageView.backgroundColor = [UIColor clearColor] ;
         _rImageView.userInteractionEnabled = YES ;
         _rImageView.image = [UIImage imageNamed:@""] ;
-        _rImageView.contentMode =  UIViewContentModeCenter;
+        _rImageView.contentMode =  UIViewContentModeScaleAspectFit;
     }
     return _rImageView ;
 }

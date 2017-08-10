@@ -30,8 +30,10 @@
     
     UILabel *lLabel = [self jyCreateLabelWithTitle:@"" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     UILabel *rLabel = [self jyCreateLabelWithTitle:@"" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
-    lLabel.attributedText = TTFormateNumString(@"额度(元)", 16, 14, 3) ;
-    rLabel.attributedText = TTFormateNumString(@"周期(元)", 16, 14, 3) ;
+    
+    lLabel.attributedText = TTFormateTitleString(@"额度(元)", 16, 12,3,kBlackColor,kTextBlackColor);
+                                                 
+     rLabel.attributedText = TTFormateTitleString(@"周期(月)", 16, 12, 3,kBlackColor,kTextBlackColor);
 
     UIView *rMiddleLine = ({
         UIView *view = [[UIView alloc]init] ;

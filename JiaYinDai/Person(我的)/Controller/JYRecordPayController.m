@@ -9,7 +9,7 @@
 #import "JYRecordPayController.h"
 #import "JYLoanDetailHeader.h"
 #import "JYPayBackCell.h"
-
+#import "JYPickerView.h"
 
 @interface JYRecordPayController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -22,6 +22,9 @@
 @property (nonatomic ,strong) UIView *rFootView ;
 
 
+@property (nonatomic ,strong) JYDatePicker *rPickerView ;
+
+
 @end
 
 @implementation JYRecordPayController
@@ -32,7 +35,18 @@
     
     self.title = @"预约还款" ;
     [self buildSubViewUI];
+    self.rHeaderView.rMoneyLabel.text = self.rTotalRepayment ;
     
+    
+    UILabel *firsLabel = self.rHeaderView.rTitlesArray[0] ;
+    UILabel *secondLabel = self.rHeaderView.rTitlesArray[1] ;
+    UILabel *thirdLabel = self.rHeaderView.rTitlesArray[2] ;
+    
+    
+    firsLabel.text = self.rThreeTitles[0] ;
+    secondLabel.text = self.rThreeTitles[1] ;
+    thirdLabel.text = self.rThreeTitles[2] ;
+
 }
 
 #pragma mark - builUI
@@ -44,6 +58,12 @@
         make.edges.insets(UIEdgeInsetsZero) ;
     }];
     
+    
+    [self.view addSubview:self.rPickerView];
+    [self.rPickerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view) ;
+        make.height.mas_equalTo(256) ;
+    }];
 }
 
 
@@ -71,7 +91,21 @@
          }
         
         if (indexPath.row == 0) {
-            cell.rRightLabel.text = @"已还期数1/3" ;
+            
+            cell.rTitleLabel.text = @"本期应还款（元）" ;
+            
+            cell.rMiddleLabel.text = self.rCurrentPayMoney ;
+            
+            cell.rRightLabel.text = self.rHaveRepayCount ;// @"已还款期数" ;
+
+//            cell.rRightLabel.text = [NSString stringWithFormat:@"%@",self.rHaveRepayCount]
+//            @"已还期数1/3" ;
+        }else{
+            cell.rTitleLabel.text = @"还款日" ;
+            cell.rMiddleLabel.text = self.rCreateTime ;
+
+
+        
         }
         
         return cell ;
@@ -120,8 +154,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 3) {
-        [self pvt_selectDate];
-    }
+        
+        self.rPickerView.hidden = NO ;
+        __block JYPayBackCell *cell = [self.rTableView cellForRowAtIndexPath:indexPath] ;
+        
+        self.rPickerView.rSelectBlock = ^(NSString *selectString) {
+            
+            cell.rRightLabel.text = selectString ;
+            
+        } ;
+        
+        
+     }
 }
 
 #pragma mark- action
@@ -214,6 +258,19 @@
     
     return _rFootView ;
 }
+
+
+-(JYDatePicker*)rPickerView {
+    
+    if (_rPickerView == nil) {
+        _rPickerView = [[JYDatePicker alloc]init];
+        _rPickerView.hidden = YES ;
+        
+     }
+    
+    return _rPickerView ;
+}
+
 
 
 - (void)didReceiveMemoryWarning {

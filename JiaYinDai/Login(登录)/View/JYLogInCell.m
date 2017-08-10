@@ -48,6 +48,32 @@
     [self.contentView addSubview:self.rTextField];
     [self.contentView addSubview:self.rLeftImgView];
     
+    if (rType != JYLogCellTypeNormal) {
+        [self.contentView addSubview:self.rRightBtn];
+        
+        
+        //        @weakify(self)
+        //        [[self.rRightBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+        //
+        //            @strongify(self)
+        //
+        //            if (rType == JYLogCellTypePassword) {
+        //                self.rRightBtn.selected = !self.rRightBtn.selected ;
+        //                self.rTextField.secureTextEntry = !self.rRightBtn.selected ;
+        //            }else{
+        //
+        //                //                [self startTimeGCD];
+        //
+        //            }
+        //
+        //        }] ;
+        
+        
+        
+        
+    }
+    
+    
     
     switch (rType) {
         case JYLogCellTypePassword:{
@@ -58,6 +84,17 @@
             [self.rRightBtn setImage:[UIImage imageNamed:@"eye_close"]  forState:UIControlStateNormal];
             self.rTextField.secureTextEntry = YES ;
             
+            
+            @weakify(self)
+            [[self.rRightBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+                
+                @strongify(self)
+                
+                self.rRightBtn.selected = !self.rRightBtn.selected ;
+                self.rTextField.secureTextEntry = !self.rRightBtn.selected ;
+            }] ;
+            
+            
         }
             break;
         case JYLogCellTypeMakesurePassword:{
@@ -66,7 +103,16 @@
             [self.rRightBtn setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateSelected];
             [self.rRightBtn setImage:[UIImage imageNamed:@"eye_close"]  forState:UIControlStateNormal];
             self.rTextField.secureTextEntry = YES ;
-           
+            
+            @weakify(self)
+            [[self.rRightBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+                
+                @strongify(self)
+                
+                self.rRightBtn.selected = !self.rRightBtn.selected ;
+                self.rTextField.secureTextEntry = !self.rRightBtn.selected ;
+            }] ;
+            
             
         }break ;
         case JYLogCellTypeCode:{
@@ -91,28 +137,6 @@
         self.rTextField.keyboardType = UIKeyboardTypeNumberPad ;
     }
     
-    if (rType != JYLogCellTypeNormal) {
-        [self.contentView addSubview:self.rRightBtn];
-        
-        
-        @weakify(self)
-        [[self.rRightBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
-            
-            @strongify(self)
-            
-            if (rType == JYLogCellTypePassword) {
-                     self.rRightBtn.selected = !self.rRightBtn.selected ;
-                    self.rTextField.secureTextEntry = !self.rRightBtn.selected ;
-             }else{
-                
-                [self startTimeGCD];
-                
-            }
-            
-        }] ;
-        
-        
-    }
     
     [self layoutSubviewsConstains];
     
@@ -138,6 +162,7 @@
             make.left.equalTo(self.rLeftImgView.mas_right).offset(15) ;
             make.centerY.equalTo(self.contentView) ;
             make.right.equalTo(self.contentView).offset(-15) ;
+            make.height.mas_equalTo(44) ;
             
             
         }] ;
@@ -148,6 +173,8 @@
             make.left.equalTo(self.rLeftImgView.mas_right).offset(15) ;
             make.centerY.equalTo(self.contentView) ;
             make.right.equalTo(self.rRightBtn.mas_left).offset(-5) ;
+            make.height.mas_equalTo(44) ;
+
         }] ;
         
         
@@ -186,7 +213,7 @@
     @weakify(self)
     //设置倒计时总时长
     
-    __block int timeout= 5;
+    __block int timeout= 59;
     
     //创建队列(全局并发队列)
     
@@ -262,7 +289,7 @@
     if (_rTextField == nil) {
         _rTextField = [[UITextField alloc]init];
         _rTextField.backgroundColor =[ UIColor clearColor] ;
-        _rTextField.font = [UIFont systemFontOfSize:14] ;
+        _rTextField.font = [UIFont systemFontOfSize:13] ;
     }
     return _rTextField ;
 }
@@ -308,7 +335,10 @@
 @property (nonatomic ,strong) UIButton *rForgetBtn ;
 @property (nonatomic ,strong) UIButton *rRegisterBtn;
 
-@property (nonatomic ,strong) UIButton *rAgreeBtn;
+@property (nonatomic ,strong) UILabel *rDescLabel;
+
+
+@property (nonatomic ,strong) JYAgreeView *rAgreeView ;
 
 
 
@@ -322,6 +352,8 @@
     if (self) {
         rLogType = type ;
         [self buildSubUIWithType:type];
+        
+        
     }
     return self;
 }
@@ -342,8 +374,17 @@
         
     }else if (type == JYLogFootViewTypeSetPassword) {
         
-        [self addSubview:self.rAgreeBtn] ;
+         
+        [self addSubview:self.rAgreeView];
         
+        
+        [self.rCommitBtn setTitle:@"完成" forState:UIControlStateNormal];
+        
+        
+        
+    }else if(type == JYLogFootViewTypeNormal){
+        
+        [self addSubview:self.rDescLabel];
         [self.rCommitBtn setTitle:@"完成" forState:UIControlStateNormal];
         
         
@@ -390,10 +431,15 @@
     }else if (rLogType == JYLogFootViewTypeSetPassword) {
         
         
-        [self.rAgreeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.rAgreeView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(15) ;
             make.top.equalTo(self).offset(15) ;
+            make.height.mas_equalTo(25) ;
+            make.right.equalTo(self).offset(-15) ;
+            
         }] ;
+        
+        
         
         
         [self.rCommitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -405,6 +451,23 @@
         }];
         
         
+    }else  if(rLogType == JYLogFootViewTypeNormal){
+        
+        [self.rDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(15) ;
+            make.top.equalTo(self).offset(15) ;
+            make.right.equalTo(self).offset(-15) ;
+        }] ;
+        
+        [self.rCommitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(15) ;
+            make.right.equalTo(self).offset(-15) ;
+            make.height.mas_equalTo(45) ;
+            make.bottom.equalTo(self).offset(-15) ;
+            
+        }];
+        
     }else{
         
         
@@ -412,7 +475,7 @@
             make.left.equalTo(self).offset(15) ;
             make.right.equalTo(self).offset(-15) ;
             make.height.mas_equalTo(45) ;
-//            make.top.equalTo(self).offset(40) ;
+            //            make.top.equalTo(self).offset(40) ;
             make.bottom.equalTo(self).offset(-15);
             
         }];
@@ -429,7 +492,7 @@
         [_rCommitBtn setBackgroundImage:[UIImage jy_imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled] ;
         [_rCommitBtn setBackgroundImage:[UIImage jy_imageWithColor: kBlueColor] forState:UIControlStateNormal] ;
         _rCommitBtn.enabled = NO ;
-
+        
     }
     
     return _rCommitBtn ;
@@ -470,22 +533,31 @@
     return _rRegisterBtn ;
 }
 
--(UIButton*)rAgreeBtn {
+
+-(UILabel*)rDescLabel {
     
-    if (_rAgreeBtn == nil) {
-        _rAgreeBtn =  ({
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom] ;
-            btn.titleLabel.font = [UIFont systemFontOfSize:14] ;
-            [btn setTitleColor:kBlueColor forState:UIControlStateNormal];
-            btn.backgroundColor = [UIColor clearColor] ;
-            [btn setTitle:@"阅读并同意嘉银贷《用户使用协议》" forState:UIControlStateNormal] ;
-            btn ;
-            
-        }) ;
+    if (_rDescLabel == nil) {
+        _rDescLabel = [self jyCreateLabelWithTitle:@"" font:12 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rDescLabel.numberOfLines = 0 ;
     }
     
-    return _rAgreeBtn ;
+    
+    return _rDescLabel ;
 }
+
+
+-(JYAgreeView*)rAgreeView {
+    
+    if (_rAgreeView == nil) {
+        _rAgreeView = [[JYAgreeView alloc]init];
+        
+        
+    }
+    
+    return _rAgreeView ;
+    
+}
+
 
 @end
 

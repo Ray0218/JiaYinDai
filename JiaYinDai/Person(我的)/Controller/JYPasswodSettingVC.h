@@ -6,7 +6,7 @@
 //  Copyright © 2017年 嘉远控股. All rights reserved.
 // 交易密码
 
-#import "JYFatherTableController.h"
+#import "JYFatherController.h"
 
 typedef NS_ENUM(NSUInteger, JYPassVCType) {
     JYPassVCTypeChangePass, //修改交易密码
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, JYPassVCType) {
     JYPassVCTypeSureChangeTelNum, //更换手机确认
 };
 
-@interface JYPasswodSettingVC : JYFatherTableController
+@interface JYPasswodSettingVC : JYFatherController
 
 - (instancetype)initWithVCType:(JYPassVCType)type ;
 

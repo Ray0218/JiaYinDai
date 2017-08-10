@@ -63,20 +63,28 @@
     }] ;
     
     
-    UILabel *rFirstTitle = [self jyCreateLabelWithTitle:@"借款利率" font:18 color:kBlueColor align:NSTextAlignmentLeft] ;
-    
-    UILabel *rFirstDesc = [self jyCreateLabelWithTitle:@"借款利率按日收取，日费率0.06%" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+    UILabel *rFirstTitle = [self jyCreateLabelWithTitle:@"借款利率" font:15 color:kBlueColor align:NSTextAlignmentLeft] ;
+    NSString *dayStr = [NSString stringWithFormat:@"借款利率按日收取，日费率%.2f%%",[self.rYearInterest doubleValue]/(365)] ;
+
+    UILabel *rFirstDesc = [self jyCreateLabelWithTitle:dayStr font: 14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     rFirstDesc.numberOfLines = 0 ;
     
     
-    UILabel *rSecondTitle = [self jyCreateLabelWithTitle:@"收费详情" font:18 color:kBlueColor align:NSTextAlignmentLeft] ;
+    UILabel *rSecondTitle = [self jyCreateLabelWithTitle:@"收费详情" font: 15 color:kBlueColor align:NSTextAlignmentLeft] ;
     
-    UILabel *rSecondDesc = [self jyCreateLabelWithTitle:@"1）借款服务费：按借款金额的5%收取；\n2）资金管理费：按借款本金的0.8%，按借款周期每月收取；\n3）逾期费用：按逾期金额中的借款本金的0.1%，每日收取。" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+    NSString *serverStr = [NSString stringWithFormat:@"%@%%",@([self.rServiceRate doubleValue]*100)] ;
+
+    NSString *manageStr = [NSString stringWithFormat:@"%@%%",@([self.rManageRate doubleValue]*100)] ;
+    
+    UILabel *rSecondDesc = [self jyCreateLabelWithTitle:[NSString stringWithFormat:@"1）借款服务费：按借款金额的%@收取；\n2）资金管理费：按借款本金的%@，按借款周期每月收取；\n3）逾期费用：按逾期金额中的借款本金的0.1%%，每日收取。",serverStr,manageStr] font: 14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     rSecondDesc.numberOfLines = 0 ;
     
-    UILabel *rThirdTitle = [self jyCreateLabelWithTitle:@"到账额度" font:18 color:kBlueColor align:NSTextAlignmentLeft] ;
+    UILabel *rThirdTitle = [self jyCreateLabelWithTitle:@"到账额度" font: 15 color:kBlueColor align:NSTextAlignmentLeft] ;
     
-    UILabel *rThirdDesc = [self jyCreateLabelWithTitle:@"a.贷款服务费在贷款成功之后收取，不成功不收取。\nb.收取方式为平台筹资完成打款到借款人账户前预先收取，一次性收取。如：借款10000元，实际到账9500元" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+    
+    NSString *money = [NSString stringWithFormat:@"%.2f",10000 - [self.rServiceRate doubleValue]*10000 ];
+    
+    UILabel *rThirdDesc = [self jyCreateLabelWithTitle:[NSString stringWithFormat:@"a.贷款服务费在贷款成功之后收取，不成功不收取。\nb.收取方式为平台筹资完成打款到借款人账户前预先收取，一次性收取。如：借款10000元，实际到账%@元",money] font: 14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
     rThirdDesc.numberOfLines = 0 ;
     
     

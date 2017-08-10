@@ -8,15 +8,15 @@
 
 #import "JYSuccessAlterController.h"
 #import "JYCircleView.h"
-
-
+#import "JYTabBarController.h"
+#import "JYBillViewController.h"
 
 
 
 @interface JYSuccessAlterController (){
     UIView *_backgroundView;
     UIView *_rBottomLine;
-
+    
 }
 
 @property (nonatomic,strong) UIButton *rCommitBtn ;
@@ -58,25 +58,23 @@
     [self.view addSubview:self.rCircleView];
     
     
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pvt_dissMiss)]] ;
-    
     
     
     [self.view addSubview:self.rCommitBtn];
     
     
     [self layoutSubViewsUI] ;
-
+    
 }
 
 -(void)layoutSubViewsUI {
     
     [_backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.width.mas_equalTo(SCREEN_WIDTH-60);
+        make.width.mas_equalTo(SCREEN_WIDTH-60);
         make.height.mas_equalTo(335);
         make.center.equalTo(self.view) ;
     }];
-
+    
     
     [_rBottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.bottom.equalTo(_backgroundView) ;
@@ -102,31 +100,36 @@
         make.bottom.equalTo(_backgroundView).offset(-30) ;
         make.height.mas_equalTo(45) ;
     }] ;
-
+    
 }
 
 -(UIButton*)rCommitBtn {
     
     if (_rCommitBtn == nil) {
         _rCommitBtn = [self jyCreateButtonWithTitle:@"查看投资记录"] ;
+        @weakify(self)
+        [[_rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self)
+            [self pvt_dissMiss:self.rControlName] ;
+        }] ;
     }
     
     return _rCommitBtn ;
 }
 
 
- 
+
 
 -(UILabel*)rTitleLabel {
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"您已成功购买XXX产品XXXX元，投资期限XX天。" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"您已成功购买XXX产品XXXX元，投资期限XX天。" font:14 color:kTextBlackColor align:NSTextAlignmentLeft] ;
         _rTitleLabel.numberOfLines = 0 ;
     }
     return _rTitleLabel ;
 }
 
 -(JYCircleView*)rCircleView {
-
+    
     if (_rCircleView == nil) {
         _rCircleView = [[JYCircleView alloc]init];
         
@@ -134,11 +137,11 @@
         _rCircleView.rReturnBlock = ^{
             @strongify(self)
             NSLog(@"倒计时结束") ;
-            
-            [self pvt_dissMiss] ;
+            [self pvt_dissMiss:@""] ;
             
         } ;
-    
+        
+        
     }
     
     return _rCircleView ;
@@ -146,9 +149,37 @@
 
 #pragma mark- action
 
--(void)pvt_dissMiss{
+-(void)pvt_dissMiss:(NSString*) controler{
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+    JYTabBarController *tabVC = (JYTabBarController*)[[UIApplication sharedApplication]keyWindow].rootViewController ;
+    
+    UINavigationController *nvc = tabVC.selectedViewController ;
+    
+    [nvc popToRootViewControllerAnimated:NO] ;
+    
+    
+    if (tabVC.selectedIndex != 0) {
+        tabVC.selectedIndex = 0 ;
+    }
+    
+    if (controler.length) {
+        
+        UINavigationController *firstNvc = tabVC.selectedViewController ;
+        
+        [self dismissViewControllerAnimated:NO completion:^{
+            
+            UIViewController *vc =   [NSClassFromString(controler) new];
+            [firstNvc pushViewController:vc animated:NO ];
+            
+        }];
+        
+        
+    }else{
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
     
 }
 
@@ -160,13 +191,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -36,9 +36,16 @@
 
 #define kOrangewColor UIColorFromRGB(0xd7991d)
 #define kBackGroundColor UIColorFromRGB(0xf2f2f2)
-#define kTextBlackColor UIColorFromRGB(0x333333)
-#define kGrayColor UIColorFromRGB(0x999999)
 
+
+#define kTextBlackColor UIColorFromRGB(0x999999) //153/153/153
+
+#define kBlackSecColor UIColorFromRGB(0x666666)
+
+
+#define kBlackColor UIColorFromRGB(0x333333)
+
+ 
 /************************ 数字格式化 ************************/
 
 #define kNumber @"0123456789"
@@ -46,7 +53,26 @@
 
 #define kHasLoadWelcom @"kHasLoadWelcom"
 
+#define kRequestJsonType  @"kRuquestJsonType"
 
+#define kLogInTimeCache @"kLogInTimeCache"
+ 
+
+#define kLogInNotification @"kLogInNotification"
+
+#define kZhimaNotification @"kZhimaNotification"
+
+#define kEndRefreshNotification @"kEndRefreshNotification"
+
+
+#define kAutoLogFinishNotification @"kAutoLogFinishNotification"
+
+
+#define kTelNumCache @"kTelNumCache"
+ 
+
+#define kSSKeyService @"JiaYinDaiAPP"
+ 
 
 
 static inline NSMutableAttributedString * TTFormateNumString( NSString*text,CGFloat bigFont ,CGFloat smallFont,NSInteger smallLength){
@@ -57,6 +83,83 @@ static inline NSMutableAttributedString * TTFormateNumString( NSString*text,CGFl
     return att ;
     
 } ;
+
+
+static inline NSMutableAttributedString * TTFormateTitleString( NSString*text,CGFloat bigFont ,CGFloat smallFont,NSInteger smallLength , UIColor *baseColor ,UIColor *smalColor){
+    
+    NSMutableAttributedString *att = [[NSMutableAttributedString  alloc]initWithString:text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:bigFont]}] ;
+    [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:smallFont] range:NSMakeRange( att.length-smallLength,smallLength)] ;
+    
+    [att addAttribute:NSForegroundColorAttributeName value:baseColor range:NSMakeRange(0, text.length)] ;
+    
+    [att addAttribute:NSForegroundColorAttributeName value:smalColor range:NSMakeRange( att.length-smallLength,smallLength)] ;
+
+    
+    return att ;
+    
+};
+
+
+
+static inline NSString * TTTimeString(NSString *timeInterval ){
+    
+    if (timeInterval.length <= 0) {
+        return @"" ;
+    }
+    
+    NSTimeInterval times = [timeInterval longLongValue]/1000.0 ;
+    
+    NSDate *dateS = [NSDate dateWithTimeIntervalSince1970:times] ;
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc]init];
+    format.dateFormat = @"yyyy-MM-dd" ;
+    
+    NSString* timString = [format stringFromDate:dateS] ;
+
+    
+    return timString ;
+    
+} ;
+
+
+static inline NSString * TTTimeHMString(NSString *timeInterval ){
+    
+    if (timeInterval.length <= 0) {
+        return @"" ;
+    }
+    
+    NSTimeInterval times = [timeInterval longLongValue]/1000.0 ;
+    
+    NSDate *dateS = [NSDate dateWithTimeIntervalSince1970:times] ;
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc]init];
+    format.dateFormat = @"yyyy-MM-dd HH:mm" ;
+    
+    NSString* timString = [format stringFromDate:dateS] ;
+    
+    
+    return timString ;
+    
+} ;
+
+
+static inline NSMutableAttributedString * TTThreeFormateString( NSString*baseText, NSInteger  firstLen ,NSInteger secondLen,CGFloat firstFont ,CGFloat secondFont, CGFloat thirdFont, UIColor *baseColor ,UIColor *firstColor,UIColor *secondColor){
+    
+    NSMutableAttributedString *att = [[NSMutableAttributedString  alloc]initWithString:baseText attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:thirdFont],NSForegroundColorAttributeName:baseColor}] ;
+    
+    [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:firstFont] range:NSMakeRange(0, firstLen)] ;
+    [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:secondFont] range:NSMakeRange(firstLen, secondLen)] ;
+    
+    [att addAttribute:NSForegroundColorAttributeName value:firstColor range:NSMakeRange(0, firstLen)] ;
+    [att addAttribute:NSForegroundColorAttributeName value:secondColor range:NSMakeRange(firstLen, secondLen)] ;
+    
+    
+    return att ;
+    
+    
+};
+
+
 
 
 #endif /* JYDefine_h */

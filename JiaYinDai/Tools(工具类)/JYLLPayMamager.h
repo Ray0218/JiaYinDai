@@ -10,6 +10,16 @@
 
 @interface JYLLPayMamager : NSObject
 
+
++ (NSDictionary *)jycreateJiaYuanRechargeOrderWithOrderNO:(NSString *)orderNO moneyNO:(NSString *)moneyNO userName:(NSString *)userName  userIdNO:(NSString *)userIdNO bankCardNO:(NSString *)bankCardNO bankNO:(NSString *)bankNO notifyURL:(NSString*) notifyStr ;
+
++ (NSDictionary *)jyBankServiceWithUserName:(NSString *)userName userIdNO:(NSString *)userIdNO bankCardNO:(NSString *)bankCardNO   sig:(NSString *)sig ;
+
+
+ 
+
+
+
 @end
 
 

@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JYBankModel.h"
+
 @interface JYBankCardCell : UITableViewCell
+
+@property (nonatomic ,strong) JYBankModel *rBankModel;
 
 @end
 

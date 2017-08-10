@@ -39,8 +39,10 @@
         [paramString deleteCharactersInRange:NSMakeRange(0, 1)];
     }
     
+    
+     
     //如果需要签名key
-    if (sig) {
+    if (sig.length) {
         NSString *pay_md5_key=[NSString stringWithFormat:@"%@",sig];
         [paramString appendFormat:@"&key=%@",pay_md5_key];
     }

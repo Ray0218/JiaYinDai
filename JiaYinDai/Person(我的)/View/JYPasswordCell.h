@@ -27,9 +27,16 @@ typedef NS_ENUM(NSUInteger, JYPassCellType) {
 @property (nonatomic, strong,readonly) UITextField*rTextField  ;
 @property (nonatomic, strong,readonly) UIButton *rRightArrow  ;
 
+@property (nonatomic, strong,readonly) UIButton *rCodeButon  ;
+
+
 @property (nonatomic, strong,readonly) UIButton *rManButton  ;
 @property (nonatomic, strong,readonly) UIButton *rWomenButton  ;
 
+@property (nonatomic, assign,readonly) JYPassCellType rCellType  ;
+
+
+- (void)startTimeGCD ;
 
 
 -(instancetype)initWithCellType:(JYPassCellType)type reuseIdentifier:(NSString *)reuseIdentifier maxWidth:(CGFloat)width ;

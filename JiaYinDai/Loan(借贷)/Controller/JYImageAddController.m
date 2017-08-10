@@ -8,14 +8,17 @@
 
 #import "JYImageAddController.h"
 #import "JYAddImgView.h"
+#import "JYActionSheet.h"
+#import "JYMediaPhotoHelper.h"
 
 @interface JYImageAddController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
     
     UIScrollView *_rScrollView ;
     
-    NSMutableArray *rImgDataArr ;
+    //    NSMutableArray *rImgDataArr ;
     
-    JYImageAddType rContolType ;
+    UIImage * rLastImage ;
+    
 }
 
 @property (nonatomic, strong)UIView *rContentView ;
@@ -23,13 +26,17 @@
 @property (nonatomic ,strong) UICollectionView *rCollectionView ;
 
 @property (nonatomic ,strong) UIButton *rCommitBtn ;
-@property (nonatomic ,strong) UILabel *rTipsLabel ;
+@property (nonatomic ,strong) UITextField *rTipsField ;
 @property (nonatomic ,strong) UILabel *rTitleLabel ;
 
 @property (nonatomic ,strong) UIImageView *rTipImage ;
 
 @property (nonatomic ,strong) JYAddImgView *rAddView ;
 @property (nonatomic ,strong) MASConstraint *rCollectionCons  ;
+
+
+
+@property (nonatomic ,strong) NSMutableArray *rSelectImageURL  ;
 
 
 
@@ -43,50 +50,24 @@ static NSString *kCellIdentify = @"cellIdentify" ;
 @implementation JYImageAddController
 
 
-- (instancetype)initWithType:(JYImageAddType) type
-{
-    self = [super init];
-    if (self) {
-        
-        rContolType = type ;
-        
-        
-        
-        NSString *labelText ;
-        
-        
-        if (type == JYImageAddTypeBank) {
-            self.title = @"银行收入流水" ;
-            labelText = @"注意:工资卡或其他银行卡近期连续6个月的流水" ;
-            
-        }else{
-            self.title = @"在职证明" ;
-            labelText = @"  注意:用工合同数量不限（必须含用工单位公章，收入薪资等页）" ;
-            
-        }
-        
-        
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText];
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        [paragraphStyle setLineSpacing:5];
-        paragraphStyle.firstLineHeadIndent = 20 ;
-        
-        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
-        
-        
-        self.rTipsLabel.attributedText = attributedString;
-        
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"银行收入流水" ;
+    
+    //    rImgDataArr = [[NSMutableArray alloc]init];
+    
+    self.rSelectImageURL = [[NSMutableArray alloc]init];
+    
+    
+    if (self.rLastImges.length) {
+        [self.rSelectImageURL addObjectsFromArray:[self.rLastImges componentsSeparatedByString:@","]] ;
+    }
+    
+    self.rAddView.hidden = self.rSelectImageURL.count ;
     
     [self buildSubViewsUI];
-    
-    rImgDataArr = [[NSMutableArray alloc]init];
     
     
     
@@ -102,17 +83,17 @@ static NSString *kCellIdentify = @"cellIdentify" ;
     
     [_rScrollView addSubview:self.rContentView];
     
-    if (rContolType == JYImageAddTypeJob) {
-        [self.rContentView addSubview:self.rTitleLabel];
-    }
     
     [self.rContentView addSubview:self.rCollectionView];
     [self.rContentView addSubview:self.rAddView];
     
     
     [self.rContentView addSubview:self.rCommitBtn];
-    [self.rContentView addSubview:self.rTipImage];
-    [self.rContentView addSubview:self.rTipsLabel];
+    [self.rContentView addSubview:self.rTipsField];
+    
+    
+    [self.view addSubview:self.rQuestButton];
+    [self.view addSubview:self.rTelButton];
     
     
     
@@ -127,6 +108,19 @@ static NSString *kCellIdentify = @"cellIdentify" ;
         make.edges.insets(UIEdgeInsetsZero) ;
     }] ;
     
+    
+    [self.rQuestButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-15) ;
+        make.right.equalTo(self.view.mas_centerX).offset(-15) ;
+    }] ;
+    
+    
+    [self.rTelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-15) ;
+        make.left.equalTo(self.view.mas_centerX).offset(15) ;
+    }] ;
+    
+    
     [self.rContentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_rScrollView);
         make.height.mas_greaterThanOrEqualTo(SCREEN_HEIGHT);
@@ -135,64 +129,32 @@ static NSString *kCellIdentify = @"cellIdentify" ;
     }];
     
     
-    if (rContolType == JYImageAddTypeJob) {
-        
-        [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.equalTo(self.rContentView).offset(15) ;
-            make.height.mas_equalTo(18) ;
-        }] ;
-        
-        
-        [self.rAddView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.rContentView) ;
-            make.width.and.height.mas_equalTo(kImageHeigh) ;
-            make.top.equalTo(self.rTitleLabel.mas_bottom).offset(5) ;
-        }] ;
-        
-        [self.rCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.rTitleLabel.mas_bottom).offset(5) ;
-            make.left.equalTo(self.rContentView).offset(15) ;
-            make.right.equalTo(self.rContentView).offset(-5) ;
-            self.rCollectionCons = make.height.mas_equalTo(kImageHeigh ) ;
-        }] ;
-        
-        
-        
-    }else{
-        
-        
-        [self.rAddView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.rContentView) ;
-            make.width.and.height.mas_equalTo(kImageHeigh) ;
-            make.top.equalTo(self.rContentView).offset(5) ;
-        }] ;
-        
-        [self.rCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.rContentView).offset(5) ;
-            make.left.equalTo(self.rContentView).offset(15) ;
-            make.right.equalTo(self.rContentView).offset(-5) ;
-            self.rCollectionCons = make.height.mas_equalTo(kImageHeigh ) ;
-        }] ;
-        
-        
-    }
     
+    [self.rAddView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.rContentView) ;
+        make.width.and.height.mas_equalTo(kImageHeigh) ;
+        make.top.equalTo(self.rContentView).offset(5) ;
+    }] ;
     
-    
-    [self.rTipImage mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.rCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.rContentView).offset(5) ;
         make.left.equalTo(self.rContentView).offset(15) ;
-        make.top.equalTo(self.rCollectionView.mas_bottom).offset(20);
-        make.height.width.mas_equalTo(20) ;
-        
-    }];
+        make.right.equalTo(self.rContentView).offset(-5) ;
+        if (self.rSelectImageURL.count >= 3) {
+            self.rCollectionCons= make.height.mas_equalTo(2*kImageHeigh+5) ;
+        }else{
+            self.rCollectionCons = make.height.mas_equalTo(kImageHeigh) ;
+            
+        }
+    }] ;
     
     
-    [self.rTipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.rContentView).offset(15) ;
-        make.top.equalTo(self.rCollectionView.mas_bottom).offset(20);
-        make.height.mas_equalTo(40) ;
-        make.right.equalTo(self.rContentView).offset(-15) ;
         
+    
+    [self.rTipsField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.rContentView)  ;
+        make.top.equalTo(self.rCollectionView.mas_bottom).offset(20);
+        make.height.mas_equalTo(20) ;
         
     }];
     
@@ -200,7 +162,7 @@ static NSString *kCellIdentify = @"cellIdentify" ;
         make.left.equalTo(self.rContentView).offset(15) ;
         make.right.equalTo(self.rContentView).offset(-15) ;
         make.height.mas_equalTo(45) ;
-        make.top.equalTo(self.rTipsLabel.mas_bottom).offset(30) ;
+        make.top.equalTo(self.rTipsField.mas_bottom).offset(30) ;
         make.bottom.equalTo(self.rContentView).offset(-20).priorityLow() ;
     }] ;
     
@@ -212,10 +174,13 @@ static NSString *kCellIdentify = @"cellIdentify" ;
 #pragma mark - UICollectionViewDelegate/UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if (rImgDataArr.count) {
-        return rImgDataArr.count+1 ;
-        
+    if (self.rSelectImageURL.count) {
+        self.rCommitBtn.enabled = YES ;
+        return self.rSelectImageURL.count+1 ;
     }
+    
+    self.rCommitBtn.enabled = NO  ;
+    
     return 0 ;
 }
 
@@ -223,8 +188,10 @@ static NSString *kCellIdentify = @"cellIdentify" ;
     
     JYAddImgCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentify forIndexPath:indexPath ] ;
     
-    if (indexPath.row == rImgDataArr.count) {
+    if (indexPath.row == self.rSelectImageURL.count) {
         cell.rCellView.rDeleteBtn.hidden = YES ;
+        
+        cell.rCellView.rImageView.image = [UIImage imageNamed:@"imp_imgDefult"] ;
     }else{
         cell.rCellView.rDeleteBtn.hidden= NO ;
     }
@@ -234,13 +201,13 @@ static NSString *kCellIdentify = @"cellIdentify" ;
         @strongify(self)
         NSIndexPath *path = [self.rCollectionView indexPathForCell:cell] ;
         
-        if (indexPath.row < rImgDataArr.count) {
-            [rImgDataArr removeObjectAtIndex:path.row] ;
+        if (indexPath.row < self.rSelectImageURL.count) {
+            [self.rSelectImageURL removeObjectAtIndex:path.row] ;
             [self.rCollectionView reloadData];
-            if (rImgDataArr.count <= 2) {
+            if (self.rSelectImageURL.count <= 2) {
                 self.rCollectionCons.mas_equalTo(kImageHeigh);
             }
-            if (rImgDataArr.count == 0) {
+            if (self.rSelectImageURL.count == 0) {
                 self.rAddView.hidden = NO ;
                 
             }else{
@@ -252,10 +219,14 @@ static NSString *kCellIdentify = @"cellIdentify" ;
         
     } ;
     
-    if (indexPath.row == rImgDataArr.count) {
+    if (indexPath.row == self.rSelectImageURL.count) {
         return cell ;
     }
     
+    [cell.rCellView.rImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.rSelectImageURL[indexPath.row]]] placeholderImage:[UIImage imageNamed:@"imp_imgDefult"]] ; ;
+    
+    
+    //    cell.rCellView.rImageView.image = self.rSelectImageURL[indexPath.row] ;
     
     return cell ;
     
@@ -264,15 +235,126 @@ static NSString *kCellIdentify = @"cellIdentify" ;
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"ddd") ;
     
-    if (indexPath.row == rImgDataArr.count) {
-        [rImgDataArr addObject:@"new"] ;
-        [self.rCollectionView reloadData];
+    if (indexPath.row == self.rSelectImageURL.count) {
+        
+        
+        
+        [self pvt_addNewImage] ;
     }
     
     
-    if (rImgDataArr.count >= 3) {
-        self.rCollectionCons.mas_equalTo(2*kImageHeigh+5) ;
-    }
+    //    if (self.rSelectImageURL.count >= 3) {
+    //        self.rCollectionCons.mas_equalTo(2*kImageHeigh+5) ;
+    //    }
+    
+}
+
+
+#pragma mark- action
+
+
+-(void)pvt_loadData {
+
+    [self pvt_uploadImage:rLastImage];
+
+}
+
+
+-(void)pvt_uploadImage:(UIImage*)image {
+    
+    rLastImage = image ;
+    
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.6) ;
+    
+    NSString *dataStr = [NSString stringWithFormat:@"base64,%@", [imageData base64EncodedStringWithOptions:0]];
+    
+    NSString *imageName = @"ddd.jpg" ;// [[JYDateFormatter shareFormatter]jy_getCurrentDateString] ;
+    
+    NSMutableDictionary *dic  =[ NSMutableDictionary dictionary];
+    
+    
+    [dic setValue:@"4" forKey:@"type"] ;
+    
+    [dic setValue:dataStr forKey:@"files"] ;
+    [dic setValue:imageName forKey:@"filename"] ;
+    
+    @weakify(self)
+    
+    [JYProgressManager showWaitingWithTitle:@"图片上传中..." inView:self.view] ;
+    
+    [[AFHTTPSessionManager jy_sharedManager]POST:kUploadPicURL parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        @strongify(self)
+        [JYProgressManager hideAlert] ;
+        NSString *imageUrl = responseObject[@"filename"] ;
+        if (imageUrl) {
+            [self.rSelectImageURL addObject:imageUrl] ;
+         }
+
+        if (self.rSelectImageURL.count >= 3) {
+            self.rCollectionCons.mas_equalTo(2*kImageHeigh+5) ;
+        }
+        
+        [self.rCollectionView reloadData] ;
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+    }] ;
+    
+}
+
+-(void)pvt_addNewImage {
+    
+    
+    // 照片选择
+    JYActionSheet *actionSheet = [[JYActionSheet alloc] initWithCancelStr:@"取消" otherButtonTitles:@[ @"拍照上传", @"本地上传" ] AttachTitle:@""];
+    [actionSheet ChangeTitleColor:kBlackColor AndIndex:1];
+    [actionSheet ButtonIndex:^(NSInteger Buttonindex) {
+        
+        switch (Buttonindex) {
+            case 1: {
+                [[JYMediaPhotoHelper shareInstance] getPhotoByICLibry:self SourcType:EIMediaPhotoType_Camera mediaphotoSuccessFn:^(UIImage *resultImage) {
+                    
+                     [self.rCollectionView  reloadData] ;
+                    
+                    self.rAddView.hidden = self.rSelectImageURL.count ;
+                    
+                    
+                    [self pvt_uploadImage:resultImage] ;
+                    
+                    
+                }  mediaphotoFailedFn:^(NSError *error){
+                    
+                }];
+            } break;
+                
+            case 2: {
+                [[JYMediaPhotoHelper shareInstance] getPhotoByICLibry:self SourcType:EIMediaPhotoType_Album mediaphotoSuccessFn:^(UIImage *resultImage) {
+                    
+                     [self.rCollectionView  reloadData] ;
+                    
+                    self.rAddView.hidden = self.rSelectImageURL.count ;
+                    
+                    [self pvt_uploadImage:resultImage] ;
+                } mediaphotoFailedFn:^(NSError *error){
+                    
+                }];
+                
+            } break;
+                
+            default:
+                break;
+        }
+        
+    }];
+    
+    
+    
+    return ;
+    
+    
+    
     
 }
 
@@ -321,10 +403,8 @@ static NSString *kCellIdentify = @"cellIdentify" ;
         [[_rAddView.rBgView rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
             @strongify(self)
             
-            self.rAddView.hidden = YES ;
             
-            [rImgDataArr addObject:@"new"] ;
-            [self.rCollectionView reloadData];
+            [self pvt_addNewImage] ;
             
             
         }] ;
@@ -337,21 +417,38 @@ static NSString *kCellIdentify = @"cellIdentify" ;
 -(UIButton*)rCommitBtn {
     if (_rCommitBtn == nil) {
         _rCommitBtn = [self jyCreateButtonWithTitle:@"提交"];
+        _rCommitBtn.enabled = NO ;
+        @weakify(self)
+        [[_rCommitBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
+            @strongify(self)
+            
+            if (self.rFinishBlock) {
+                self.rFinishBlock([self.rSelectImageURL componentsJoinedByString:@","]) ;
+            }
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }] ;
     }
     
     return _rCommitBtn ;
 }
 
--(UILabel*)rTipsLabel {
-    if (_rTipsLabel == nil) {
-        _rTipsLabel = [self jyCreateLabelWithTitle:@"" font:14 color:kTextBlackColor align:NSTextAlignmentLeft];
+-(UITextField*)rTipsField {
+    if (_rTipsField == nil) {
+        _rTipsField = [[UITextField alloc]init];
         
-        _rTipsLabel.text = @"  注意:工资卡或其他银行卡近期连续6个月的流水" ;
-        _rTipsLabel.numberOfLines = 0 ;
         
+        _rTipsField.enabled = NO ;
+        
+        _rTipsField.leftViewMode = UITextFieldViewModeAlways ;
+        _rTipsField.leftView = self.rTipImage ;
+        _rTipsField.font = [UIFont systemFontOfSize:12] ;
+        _rTipsField.textColor = kTextBlackColor ;
+        _rTipsField.text = @" 注意:工资卡或其他银行卡近期连续6个月的流水" ;
+        _rTipsField.textAlignment = NSTextAlignmentLeft ;
     }
     
-    return _rTipsLabel ;
+    return _rTipsField ;
 }
 
 -(UILabel*)rTitleLabel {
@@ -366,6 +463,9 @@ static NSString *kCellIdentify = @"cellIdentify" ;
     
     if (_rTipImage == nil) {
         _rTipImage = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@"imp_attention"] ] ;
+        _rTipImage.contentMode = UIViewContentModeCenter ;
+        _rTipImage.frame = CGRectMake(0, 0, 20, 20) ;
+        
     }
     
     return _rTipImage ;

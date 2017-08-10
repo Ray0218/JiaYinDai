@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DZNEmptyDataSet.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IQKeyboardManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -34,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>NJKWebViewProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>NullSafe.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -45,6 +55,11 @@
 			<false/>
 		</dict>
 		<key>OAStackView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PPGetAddressBook.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -74,15 +89,40 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TMCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>11EC7808E29E9D9C8A59115DA4E02767</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>175B076ED45EB1A3E40F58BA14036467</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4022C1F9FDE0E2904F12B8F53826F68F</key>
+		<key>3ACFC50E77B83F1B3799FB8DD4DD509D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>42C477F96A01F862B948F1ECBF7930EE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4515D2DC6FEB9083808CACFBB05D28B3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5437890023F30CA85DFCA260CA914D48</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +132,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5ADA9FFAC647580A294F70746FAEAE48</key>
+		<key>79C91BBD8A7C22BCA7F187B2D18E45C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>68811B06FB1FC6A8D70093CAC02AE307</key>
+		<key>89E9FA4E08356FD8DACA2726886E36E8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8B5B5136EB96221228357992AF579914</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,17 +177,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CCB7CB485E21C0801790635C83376BA2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D8C8449185017E0FC2C4D03B91B9D21D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DC86329E19E793F9D7C0CB0E9A349620</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EAC0FB5D3F662779237A405DB42D31B6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

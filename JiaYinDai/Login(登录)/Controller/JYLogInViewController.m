@@ -9,6 +9,7 @@
 #import "JYLogInViewController.h"
 #import "JYPasswordSetController.h"
 #import "JYTabBarController.h"
+#import "JPUSHService.h"
 
 
 
@@ -22,9 +23,11 @@
 
 @property(nonatomic ,strong) JYLogFootView *rTableFootView ;
 
-
 @property(nonatomic ,strong) UITextField *rFirstTextField ;
+
 @property(nonatomic ,strong) UITextField *rSecondTextField ;
+
+@property (nonatomic ,strong)JYLogInCell *rCodelCell ;
 
 
 @end
@@ -46,24 +49,83 @@
     if (self) {
         rLogFootType = type ;
         self.rFirstTextField = self.rSecondTextField = nil ;
+        
+        self.title = @"登录" ;
+        
     }
     return self;
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    self.rSecondTextField.text = @"" ;
 }
 
 -(void)viewDidAppear:(BOOL)animated  {
     [super viewDidAppear:animated];
     
-    [[RACSignal  combineLatest:@[
-                                 self.rFirstTextField.rac_textSignal,
-                                 self.rSecondTextField.rac_textSignal,
-                                 ]
-                        reduce:^(NSString *username,NSString *password) {
-                            return @([username length] == 11 && [password length] > 0 );
-                        }] subscribeNext:^(NSNumber* x) {
-                            
-                            self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
-                        }];
     
+    if (rLogFootType == JYLogFootViewTypeRegister) {
+        
+        [[self.rSecondTextField.rac_textSignal filter:^BOOL(NSString *value) { //验证码
+            
+            return value.length > 6 ;
+            
+        }]subscribeNext:^(NSString* x) {
+            self.rSecondTextField.text = [x substringToIndex:6] ;
+        }] ;
+        
+        [[RACSignal  combineLatest:@[
+                                     self.rFirstTextField.rac_textSignal,
+                                     self.rSecondTextField.rac_textSignal,
+                                     ]
+                            reduce:^(NSString *username,NSString *password) {
+                                return @([username length] == 11 && [password length]  == 6 );
+                            }] subscribeNext:^(NSNumber* x) {
+                                
+                                self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
+                            }];
+        
+    }else{
+        
+        
+        NSString *telNum = (NSString*)[[TMDiskCache sharedCache]objectForKey:kTelNumCache] ;
+
+        
+        NSArray *arr =  [SSKeychain accountsForService:kSSKeyService ] ;
+
+        if (arr.count) {
+            
+            telNum =  arr.lastObject[@"acct"] ;
+            
+        }
+        
+        
+        if (telNum.length) {
+            
+            self.rFirstTextField.text = telNum ;
+        }
+        
+        
+        [[RACSignal  combineLatest:@[
+                                     self.rFirstTextField.rac_textSignal,
+                                     self.rSecondTextField.rac_textSignal,
+                                     ]
+                            reduce:^(NSString *username,NSString *password) {
+                                return @([username length] == 11 && [password length] > 0 );
+                            }] subscribeNext:^(NSNumber* x) {
+                                
+                                self.rTableFootView.rCommitBtn.enabled = [x boolValue] ;
+                            }];
+        
+    }
     
     
 }
@@ -74,29 +136,56 @@
     // Do any additional setup after loading the view.
     [self buildSubViewUI];
     
-    
 }
 
 #pragma mark- action
 
 -(void)pvt_login {
     
+    
+    if (![self.rFirstTextField.text jy_stringCheckMobile]) {
+        [JYProgressManager showBriefAlert:@"手机号格式错误！"] ;
+        return ;
+        
+    }
+    
+    
+    [JYProgressManager showWaitingWithTitle:@"登录中..." inView:self.view] ;
+    
+    @weakify(self)
     [[AFHTTPSessionManager jy_sharedManager ] POST:kLogInURL parameters:@{@"cellphone":self.rFirstTextField.text,@"password":self.rSecondTextField.text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        @strongify(self)
+        [JYProgressManager hideAlert] ;
         
         NSDictionary *dataDic = responseObject[@"data"] ;
         
         
-        if ([responseObject[@"code"] integerValue] == 0) {
+        [JYSingtonCenter shareCenter].rUserModel =  [[JYUserModel alloc]initWithDictionary:dataDic error:nil];
+        
+         
+        NSArray *arr =  [SSKeychain accountsForService:kSSKeyService ] ;
+        
+        if (arr.count) {
             
-            [JYSingtonCenter shareCenter].rUserModel =  [[JYUserModel alloc]initWithDictionary:dataDic error:nil];
+            for (NSDictionary *dic in arr) {
+                
+                NSString *telStr = dic[@"acct"] ;
+
+                 [SSKeychain deletePasswordForService:kSSKeyService account:telStr] ;
+             }
             
-            [self dismissViewControllerAnimated:YES completion:nil];
-            
-        }  else{
-            
-            [JYProgressManager showBriefAlert:responseObject[@"msg"]] ;
-            
-        }
+         }
+        
+        [SSKeychain setPassword:self.rSecondTextField.text forService:kSSKeyService account:self.rFirstTextField.text] ;
+        
+        [[TMDiskCache sharedCache]setObject:self.rFirstTextField.text  forKey:kTelNumCache] ;
+
+        
+        [JPUSHService setTags:nil aliasInbackground:[JYSingtonCenter shareCenter].rUserModel.cellphone] ;
+        
+        [[TMDiskCache sharedCache]setObject:[NSDate date] forKey:kLogInTimeCache];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
         
         
         
@@ -106,6 +195,7 @@
 }
 
 -(void)pvt_register {
+    
     
     [[AFHTTPSessionManager jy_sharedManager ] POST:kCodeVerifyURL parameters:@{@"cellphone":self.rFirstTextField.text,@"smsCaptcha":self.rSecondTextField.text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -129,7 +219,7 @@
     
     NSDictionary *dic = @{@"cellphone":self.rFirstTextField.text,@"type":@"reg",@"timestamp":[NSString stringWithFormat:@"%lld",totalMilliseconds],@"key":kSignKey} ;
     
-    [[AFHTTPSessionManager jy_sharedManager]POST:@"/sms" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [[AFHTTPSessionManager jy_sharedManager]POST:kCodeURL parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSLog(@"%@",responseObject) ;
         
@@ -139,12 +229,34 @@
     
 }
 
+-(void)pvt_checkTelePhone{
+    
+    [[AFHTTPSessionManager jy_sharedManager]POST:kCellPhoneExistURL parameters:@{@"cellphone":self.rFirstTextField.text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [self.rCodelCell startTimeGCD];
+        [self pvt_getCode];
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }] ;
+    
+    
+}
+
 -(void)pvt_clickButtonNavLeft {
     if (rLogFootType == JYLogFootViewTypeLogIn) {
         
         
         JYTabBarController *tab= (JYTabBarController*)[[[UIApplication sharedApplication]keyWindow ]rootViewController] ;
+        
+        UINavigationController *navc = tab.selectedViewController ;
+        
+         
         [tab setSelectedIndex:0] ;
+        
+        [navc popToRootViewControllerAnimated:NO] ;
+
         
         [self dismissViewControllerAnimated:YES completion:^{
             
@@ -165,6 +277,18 @@
     [self.rTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.insets(UIEdgeInsetsZero) ;
     }];
+    
+    if (rLogFootType == JYLogFootViewTypeRegister) {
+        
+        [self.rTelButton setTitle:@"客服热线：400-138-6388" forState:UIControlStateNormal] ;
+        
+        [self.view addSubview:self.rTelButton];
+        
+         [self.rTelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.rTableView) ;
+            make.bottom.equalTo(self.rTableView).offset(-15) ;
+        }] ;
+    }
     
 }
 
@@ -188,23 +312,14 @@
             cellTime = [[JYLogInCell alloc]initWithCellType:JYLogCellTypeNormal reuseIdentifier:identifier];
             
             self.rFirstTextField = cellTime.rTextField ;
-            cellTime.rTextField.delegate = self ;
+            cellTime.rTextField.clearButtonMode = UITextFieldViewModeWhileEditing ;
             
-            [[[[cellTime.rTextField rac_signalForControlEvents:UIControlEventEditingChanged] map:^id(UITextField* value) {
-                return value.text ;
+            [[cellTime.rTextField.rac_textSignal filter:^BOOL(NSString *value) { //验证码
                 
-            }] filter:^BOOL(id value) {
+                return value.length > 11 ;
                 
-                NSLog(@"%@",value) ;
-                
-                
-                
-                return YES ;
-            }] subscribeNext:^(id x) {
-                
-                
-                NSLog(@"%@",x) ;
-                
+            }]subscribeNext:^(NSString* x) {
+                cellTime.rTextField.text = [x substringToIndex:11] ;
             }] ;
             
         }
@@ -226,12 +341,22 @@
             cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypeCode reuseIdentifier:identifier];
             
             self.rSecondTextField = cell.rTextField ;
+            self.rCodelCell = cell ;
             
             @weakify(self)
             [[cell.rRightBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
                 @strongify(self)
                 
-                [self pvt_getCode];
+                
+                if (![self.rFirstTextField.text jy_stringCheckMobile]) {
+                    
+                    [JYProgressManager showBriefAlert:@"手机号码有误！"] ;
+                    
+                }else{
+                    
+                    [self pvt_checkTelePhone] ;
+                    
+                }
                 
                 
             }] ;
@@ -251,11 +376,8 @@
         cell = [[JYLogInCell alloc]initWithCellType:JYLogCellTypePassword reuseIdentifier:identifier];
         self.rSecondTextField = cell.rTextField ;
         
-        [ cell.rTextField.rac_textSignal filter:^BOOL(id value) {
-            NSLog(@"%@",value) ;
-            
-            return YES ;
-        }] ;
+        
+        cell.rTextField.keyboardType = UIKeyboardTypeAlphabet ;
     }
     
     return cell ;
@@ -263,34 +385,6 @@
     
 }
 
-#pragma mark- UITextFieldDelegate
-
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    
-    if ([string isEqualToString:@""]) {
-        
-        return YES ;
-    }
-    
-    NSCharacterSet *cs  = [[NSCharacterSet characterSetWithCharactersInString:kNumber] invertedSet];
-    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""]; //按cs分离出数组,数组按@""分离出字符串
-    BOOL canChange = [string isEqualToString:filtered];
-    
-    NSString *fullString = [textField.text stringByReplacingCharactersInRange:range withString:string] ;
-    
-    if (canChange ) {
-        
-        if (fullString.length <= 11) {
-            return YES ;
-        }else{
-            return NO ;
-        }
-        return YES ;
-    }
-    
-    return NO ;
-}
 
 
 #pragma  mark- getter
@@ -329,6 +423,7 @@
     if (_rTableFootView == nil) {
         
         
+        
         @weakify(self)
         if (rLogFootType == JYLogFootViewTypeLogIn) { //登录
             _rTableFootView = [[JYLogFootView alloc]initWithType:JYLogFootViewTypeLogIn] ;
@@ -347,10 +442,8 @@
                 @strongify(self)
                 
                 
-                 
                 JYPasswordSetController *getPassVC = [[JYPasswordSetController alloc]initWithLogType:JYLogFootViewTypeGetBackPass] ;
                 getPassVC.title = @"找回密码" ;
-                
                 [self.navigationController pushViewController:getPassVC animated:YES];
             }] ;
             
@@ -375,7 +468,7 @@
                 NSLog(@"注册请求") ;
                 
                 [self pvt_register];
-              
+                
             }
             
         }] ;

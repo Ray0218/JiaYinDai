@@ -9,7 +9,6 @@
 #import "JYPasswordCell.h"
 
 @interface JYPasswordCell (){
-    JYPassCellType rCellType ;
     
     
     CGFloat rLabelWidth ;
@@ -26,6 +25,7 @@
 @property (nonatomic, strong) UIButton *rManButton  ;
 @property (nonatomic, strong) UIButton *rWomenButton  ;
 
+@property (nonatomic, assign) JYPassCellType rCellType  ;
 
 
 
@@ -44,12 +44,12 @@
     
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] ;
     if (self) {
-        rCellType = type ;
+        self.rCellType = type ;
         
         if (width > 0  ) {
             rLabelWidth = width ;
         }else{
-            rLabelWidth = 80 ;
+            rLabelWidth = 70 ;
         }
         
         self.selectionStyle = UITableViewCellSelectionStyleNone ;
@@ -68,7 +68,17 @@
 -(void)setDataModel:(JYPasswordSetModel*)model {
     
     self.rTitleLabel.text = model.rTitle ;
+    
+//    if (model.rTFTitle.length) {
+//        self.rTextField.text = model.rPickerArray[[model.rTFTitle integerValue] -1] ;
+//    }else{
+//        self.rTextField.text = @"" ;
+//
+//    }
+    
     self.rTextField.text = model.rTFTitle ;
+
+    
     self.rTextField.placeholder = model.rTFPlaceholder ;
 }
 
@@ -87,7 +97,7 @@
     [self.contentView addSubview:self.rTitleLabel];
     
     
-    if (rCellType == JYPassCellTypeTwoBtn) {
+    if (self.rCellType == JYPassCellTypeTwoBtn) {
         
         
         [self.contentView addSubview:self.rManButton];
@@ -98,7 +108,9 @@
         [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(15) ;
             make.centerY.equalTo(self.contentView) ;
+             
             make.width.mas_equalTo(rLabelWidth) ;
+
         }] ;
         
         [rLineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -127,11 +139,20 @@
     
     [self.contentView addSubview:self.rTextField];
     
-    if (rCellType == JYPassCellTypeEye){
-        [self.rRightArrow setImage:[UIImage imageNamed:@"eye_icon"] forState:UIControlStateNormal] ;
+    if (self.rCellType == JYPassCellTypeEye){
+        
+        self.rTextField.secureTextEntry = YES ;
+        [self.rRightArrow setImage:[UIImage imageNamed:@"eye_icon"]  forState:UIControlStateSelected];
+        [self.rRightArrow setImage:[UIImage imageNamed:@"eye_close"]  forState:UIControlStateNormal];
+        @weakify(self)
+        [[self.rRightArrow rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(UIButton *x) {
+            @strongify(self)
+            x.selected = !x.selected ;
+            self.rTextField.secureTextEntry = !x.selected ;
+        }] ;
     }
     
-    if (rCellType == JYPassCellTypeArrow) {
+    if (self.rCellType == JYPassCellTypeArrow) {
         self.rTextField.enabled = NO ;
         
     }
@@ -139,7 +160,10 @@
     [self.rTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(15) ;
         make.centerY.equalTo(self.contentView) ;
-        make.width.mas_lessThanOrEqualTo(rLabelWidth) ;
+//        make.width.mas_lessThanOrEqualTo(rLabelWidth) ;
+        
+        make.width.mas_equalTo(rLabelWidth) ;
+
     }] ;
     
     [rLineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -150,7 +174,7 @@
     }];
     
     
-    if (rCellType == JYPassCellTypeCode) {
+    if (self.rCellType == JYPassCellTypeCode) {
         
         [self.contentView addSubview:self.rCodeButon];
         
@@ -166,10 +190,12 @@
             make.left.equalTo(rLineView.mas_right).offset(15) ;
             make.centerY.equalTo(self.contentView) ;
             make.right.equalTo(self.rCodeButon.mas_left).offset(-5) ;
+            make.height.mas_equalTo(30) ;
+
         }] ;
         
         
-    }else if (rCellType == JYPassCellTypeArrow || rCellType == JYPassCellTypeEye) {
+    }else if (self.rCellType == JYPassCellTypeArrow || self.rCellType == JYPassCellTypeEye) {
         
         
         [self.contentView addSubview:self.rRightArrow];
@@ -186,6 +212,8 @@
             make.left.equalTo(rLineView.mas_right).offset(15) ;
             make.centerY.equalTo(self.contentView) ;
             make.right.equalTo(self.rRightArrow.mas_left).offset(-5) ;
+            make.height.mas_equalTo(30) ;
+
         }] ;
         
         
@@ -195,11 +223,15 @@
             make.left.equalTo(rLineView.mas_right).offset(15) ;
             make.right.equalTo(self.contentView).offset(-15) ;
             make.centerY.equalTo(self.contentView) ;
+            make.height.mas_equalTo(30) ;
+
         }] ;
     }
 }
 
 #pragma mark- action
+
+
 
 - (void)startTimeGCD
 
@@ -208,7 +240,7 @@
     @weakify(self)
     //设置倒计时总时长
     
-    __block int timeout= 5;
+    __block int timeout= 59;
     
     //创建队列(全局并发队列)
     
@@ -282,7 +314,7 @@
 -(UILabel*)rTitleLabel {
     
     if (_rTitleLabel == nil) {
-        _rTitleLabel = [self jyCreateLabelWithTitle:@"交易密码" font:16 color:kTextBlackColor align:NSTextAlignmentLeft] ;
+        _rTitleLabel = [self jyCreateLabelWithTitle:@"交易密码" font:16 color:kBlackColor align:NSTextAlignmentLeft] ;
     }
     
     return _rTitleLabel ;
@@ -292,7 +324,8 @@
     if (_rTextField == nil) {
         _rTextField = [[UITextField alloc]init];
         _rTextField.backgroundColor =[ UIColor clearColor] ;
-        _rTextField.font = [UIFont systemFontOfSize:16] ;
+        _rTextField.font = [UIFont systemFontOfSize:14] ;
+        _rTextField.autocapitalizationType = UITextAutocapitalizationTypeNone ;
     }
     return _rTextField ;
 }
@@ -302,7 +335,9 @@
         _rRightArrow = [UIButton buttonWithType:UIButtonTypeCustom] ;
         
         [_rRightArrow setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal] ;
-    }
+        [_rRightArrow setImage:[UIImage imageNamed:@"more"] forState:UIControlStateDisabled] ;
+
+     }
     
     return _rRightArrow ;
 }
@@ -316,17 +351,7 @@
         _rCodeButon.clipsToBounds = YES ;
         _rCodeButon.titleLabel.font = [UIFont systemFontOfSize:14] ;
         [_rCodeButon setTitle:@"获取验证码" forState:UIControlStateNormal] ;
-        
-        @weakify(self)
-        [[_rCodeButon rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
-            
-            @strongify(self)
-            
-            [self startTimeGCD];
-            
-        }] ;
-        
-        
+               
     }
     return _rCodeButon ;
 }
@@ -380,7 +405,7 @@
                 x.selected =  YES ;
                 self.rManButton.selected =  NO ;
             }] ;
-
+            
             btn ;
             
         }) ;

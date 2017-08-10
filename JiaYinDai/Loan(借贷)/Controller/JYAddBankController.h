@@ -6,14 +6,13 @@
 //  Copyright © 2017年 嘉远控股. All rights reserved.
 //
 
-#import "JYFatherTableController.h"
+#import "JYFatherController.h"
+#import "JYBankModel.h"
 
-@interface JYAddBankController : JYFatherTableController
-
-@end
-
-
-
-@interface JYAddBankCodeController : JYFatherTableController
+@interface JYAddBankController : JYFatherController
 
 @end
+
+
+
+ 

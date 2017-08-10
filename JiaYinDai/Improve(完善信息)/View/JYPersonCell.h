@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface JYPersonCell : UITableViewCell
+@property (nonatomic,strong) UIImageView* rRightImg ;
+@property (nonatomic ,strong,readonly) UILabel *rRightLabel ;
 
 -(void)rSetCellDtaWithDictionary:(NSDictionary*)dic ;
 

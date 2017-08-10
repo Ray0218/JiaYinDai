@@ -13,7 +13,12 @@ typedef NS_ENUM(NSUInteger, JYCodeAlterType) {
     JYCodeAlterTypeAgain,
  };
 
+
+typedef void(^JYCodeBlock)(NSString *codeString);
+
 @interface JYTelCodelAlterView : UIViewController
+
+@property (nonatomic ,copy) JYCodeBlock rCodeBlock ;
 
 - (instancetype)initWithAlterType:(JYCodeAlterType)type ;
 

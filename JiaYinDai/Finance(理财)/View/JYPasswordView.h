@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JYPasswordView : UIView 
+@interface JYPasswordView : UIView
+
+@property (nonatomic, strong,readonly) UITextField *textField;
+
 
 @end

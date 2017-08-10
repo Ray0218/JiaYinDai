@@ -8,8 +8,12 @@
 
 #import "JYPayRecordDetailController.h"
 
-@interface JYPayRecordDetailController ()
+@interface JYPayRecordDetailController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic ,strong) UITableView *rTableView ;
+
+ @property (nonatomic, strong) NSMutableArray *detailTextArray;
+@property (nonatomic, strong) NSDictionary *data;
 @end
 
 
@@ -20,18 +24,53 @@ static NSString *kTitles[] = {@"交易信息",@"交易流水号",@"金额",@"申
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"还款详情" ;
+     self.detailTextArray = [NSMutableArray array];
+    self.navigationItem.title = @"还款详情" ;
     [self initializeTableView] ;
+    [self pvt_loadData];
+}
+- (void)pvt_loadData
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary] ;
+    [dic setValue:self.billId forKey:@"billId"] ;
+    
+    [[AFHTTPSessionManager jy_sharedManager ] POST:kgetRepaybillDetailURL parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        self.data = responseObject[@"data"] ;
+        
+        [self.rTableView reloadData];
+        
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }] ;
 }
 
 -(void)initializeTableView {
     
-    self.tableView.rowHeight = 45 ;
-    self.tableView.sectionHeaderHeight = 15 ;
-    self.tableView.tableFooterView = [UIView new] ;
-    self.tableView.separatorInset = UIEdgeInsetsZero ;
-    
+    [self.view addSubview:self.rTableView];
+    [self.rTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.insets(UIEdgeInsetsZero) ;
+    }] ;
 }
+
+#pragma  mark- getter
+
+-(UITableView*)rTableView {
+    
+    if (_rTableView == nil) {
+        _rTableView = [[UITableView alloc]init];
+        _rTableView.backgroundColor = kBackGroundColor ;
+        _rTableView.delegate = self ;
+        _rTableView.dataSource = self ;
+        
+        _rTableView.rowHeight = 45 ;
+        
+        _rTableView.sectionHeaderHeight = 15 ;
+        
+        _rTableView.separatorInset = UIEdgeInsetsZero ;
+        _rTableView.tableFooterView = [UIView new];
+    }
+    return _rTableView ;
+}
+
 
 
 #pragma mark- UITableViewDataSource/UITableViewDelegate
@@ -53,14 +92,56 @@ static NSString *kTitles[] = {@"交易信息",@"交易流水号",@"金额",@"申
     if (cell  == nil) {
         
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone ;
+        
+        cell.textLabel.textColor = kBlackColor ;
+        cell.textLabel.font = [UIFont systemFontOfSize:14] ;
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:14] ;
+        cell.detailTextLabel.textColor = kTextBlackColor ;
+        
     }
-    
-    
     cell.textLabel.text = kTitles[indexPath.row] ;
     
-    cell.detailTextLabel.text = @"XXX" ;
     
+    if (!self.data) {
+        return cell ;
+    }
     
+    if (indexPath.row == 0) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",self.data[@"tradeInfo"]] ;
+        
+    }else if (indexPath.row == 1) {
+        
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",self.data[@"applyNo"]] ;
+        
+    } else if (indexPath.row == 2) {
+        
+        NSString *moneyStr = [NSString stringWithFormat:@"%@",self.data[@"amount"]] ;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f元", [moneyStr doubleValue]] ;
+        ;
+        
+    }else if (indexPath.row == 3) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@期",self.data[@"lendPeriod"]] ;
+
+    }else if (indexPath.row == 4) {
+        
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"第%@期",self.data[@"repayPeriod"]] ;
+
+        
+    }else if (indexPath.row == 5) {
+        
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",self.data[@"payer"]] ;
+        
+    }else if (indexPath.row == 6) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",TTTimeHMString([NSString stringWithFormat:@"%@",self.data[@"time"]])] ;
+        
+    }else if (indexPath.row == 7) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",self.data[@"status"]] ;
+        
+    }
+    
+     
     return cell ;
     
 }
@@ -85,7 +166,7 @@ static NSString *kTitles[] = {@"交易信息",@"交易流水号",@"金额",@"申
     return headerView;
 }
 
-    
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -93,13 +174,13 @@ static NSString *kTitles[] = {@"交易信息",@"交易流水号",@"金额",@"申
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

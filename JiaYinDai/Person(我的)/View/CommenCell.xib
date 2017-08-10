@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="nev-1g-bg8" customClass="ShareView">
+            <rect key="frame" x="0.0" y="0.0" width="386" height="203"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ch4-GN-Ozu">
+                    <rect key="frame" x="270" y="95" width="100" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="Gyk-Lw-Plv"/>
+                        <constraint firstAttribute="height" constant="80" id="Xy7-d1-Kft"/>
+                    </constraints>
+                    <state key="normal" image="weixinFriend">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="shareTo:" destination="nev-1g-bg8" eventType="touchUpInside" id="fcO-SC-zFw"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邀请好友" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81x-4E-lQN">
+                    <rect key="frame" x="158" y="28" width="70" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="kKi-dh-EJN"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uvK-Dk-Ew0">
+                    <rect key="frame" x="0.0" y="65" width="386" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="OT4-NT-noB"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0B3-vs-jD6">
+                    <rect key="frame" x="24" y="95" width="100" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="7O9-LE-nZA"/>
+                        <constraint firstAttribute="width" constant="100" id="CWZ-bx-ddy"/>
+                    </constraints>
+                    <state key="normal" image="sms">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="shareTo:" destination="nev-1g-bg8" eventType="touchUpInside" id="Y1U-u9-IuI"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jJ-1U-HnM">
+                    <rect key="frame" x="143" y="95" width="100" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="0ew-1w-E54"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="1SZ-Oj-izo"/>
+                        <constraint firstAttribute="height" constant="80" id="Jdc-Ly-cfc"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="eJT-nS-6Nn"/>
+                    </constraints>
+                    <state key="normal" image="weixin">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="shareTo:" destination="nev-1g-bg8" eventType="touchUpInside" id="Jad-ah-Wnd"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="81x-4E-lQN" firstAttribute="top" secondItem="nev-1g-bg8" secondAttribute="topMargin" constant="20" id="7DC-P2-hKa"/>
+                <constraint firstItem="uvK-Dk-Ew0" firstAttribute="top" secondItem="81x-4E-lQN" secondAttribute="bottom" constant="16" id="8gA-pf-Chq"/>
+                <constraint firstItem="4jJ-1U-HnM" firstAttribute="centerX" secondItem="nev-1g-bg8" secondAttribute="centerX" id="ORu-60-QeR"/>
+                <constraint firstAttribute="bottomMargin" secondItem="Ch4-GN-Ozu" secondAttribute="bottom" constant="20" id="QGb-46-fxp"/>
+                <constraint firstAttribute="trailing" secondItem="Ch4-GN-Ozu" secondAttribute="trailing" constant="16" id="ZsG-PX-RYk"/>
+                <constraint firstItem="uvK-Dk-Ew0" firstAttribute="leading" secondItem="nev-1g-bg8" secondAttribute="leading" id="cyT-Et-NxP"/>
+                <constraint firstItem="81x-4E-lQN" firstAttribute="centerX" secondItem="nev-1g-bg8" secondAttribute="centerX" id="ff9-5k-cty"/>
+                <constraint firstAttribute="bottomMargin" secondItem="4jJ-1U-HnM" secondAttribute="bottom" constant="20" id="h66-Mc-82j"/>
+                <constraint firstAttribute="bottomMargin" secondItem="0B3-vs-jD6" secondAttribute="bottom" constant="20" id="kJh-we-5io"/>
+                <constraint firstAttribute="trailing" secondItem="uvK-Dk-Ew0" secondAttribute="trailing" id="mIp-td-zGw"/>
+                <constraint firstItem="0B3-vs-jD6" firstAttribute="leading" secondItem="nev-1g-bg8" secondAttribute="leadingMargin" constant="16" id="mN0-kR-z4C"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-864" y="247.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="sms" width="60" height="80"/>
+        <image name="weixin" width="60" height="80"/>
+        <image name="weixinFriend" width="60" height="80"/>
+    </resources>
+</document>

@@ -7,7 +7,10 @@
 //
 
 #import "JYFatherController.h"
-typedef void(^JYBankSelectBlock)(NSString* bankName);
+
+#import "JYBankModel.h"
+
+typedef void(^JYBankSelectBlock)(JYBankModel* model);
 
 @interface JYSupportBankController : JYFatherController
 
@@ -19,6 +22,8 @@ typedef void(^JYBankSelectBlock)(NSString* bankName);
 
 
 @interface JYSupportBankCell : UITableViewCell
+
+@property (nonatomic ,strong) JYBankModel *rBankModel ;
 
 
 @end

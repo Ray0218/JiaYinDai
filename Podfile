@@ -1,4 +1,4 @@
-platform :ios, '8.4'
+platform :ios, '8.0'
 
 
 target 'JiaYinDai’ do
@@ -14,4 +14,14 @@ pod 'IQKeyboardManager', '~> 4.0.9'
 pod 'SDCycleScrollView', '~> 1.3'
 pod 'MBProgressHUD', '~> 0.9.2'
 pod 'NullSafe', '~> 1.2.2'
+pod 'TMCache', '~> 2.1.0'
+pod 'NJKWebViewProgress'
+
+pod 'PPGetAddressBook', '~> 0.2.8'
+
+pod 'DZNEmptyDataSet','~> 1.8.1'
+
+
+pod 'UMengAnalytics'
+
 end

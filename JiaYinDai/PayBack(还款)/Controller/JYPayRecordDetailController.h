@@ -6,8 +6,11 @@
 //  Copyright © 2017年 嘉远控股. All rights reserved.
 //
 
-#import "JYFatherTableController.h"
+#import "JYFatherController.h"
+@interface JYPayRecordDetailController : JYFatherController
 
-@interface JYPayRecordDetailController : JYFatherTableController
+
+@property (nonatomic, strong) NSString *billId;
+
 
 @end
